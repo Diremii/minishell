@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:10:48 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/20 13:10:24 by humontas         ###   ########.fr       */
+/*   Updated: 2025/03/20 17:19:41 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,15 @@
 # include <curses.h>
 # include "libft/libft.h"
 
+# define RESET	"\1\033[0m\2"
+# define RED		"\1\033[31m\2"
+# define GREEN	"\1\033[32m\2"
+# define YELLOW	"\1\033[33m\2"
+# define BLUE	"\1\033[34m\2"
+# define MAGENTA	"\1\033[35m\2"
+# define CYAN	"\1\033[36m\2"
+# define WHITE	"\1\033[37m\2"
+
 typedef struct s_history
 {
 	char	*path;
@@ -35,9 +44,11 @@ typedef struct s_history
 	int		fd;
 }	t_history;
 
+int		is_empty_string(char *str);
+int		init_parsing(char *str);
+int		quote_checker(char *str);
 void	init_history(t_history *history);
 void	exit_error(char *str, int exit_code);
 void	add_to_history(t_history *history, const char *command);
-
 
 #endif

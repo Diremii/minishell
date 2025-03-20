@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:17:38 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/20 14:15:22 by humontas         ###   ########.fr       */
+/*   Updated: 2025/03/20 17:23:41 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,34 @@
 
 static int	check_history_file(t_history *history)
 {
-	char	*home; 
-	
+	char	*home;
+
 	home = getenv("HOME");
 	if (!home)
-		exit_error("minishell:", 1);
+	{
+		ft_putstr_fd("minishell: Warning: HOME not set\n", 2);
+		return (1);
+	}
 	history->path = ft_strjoin(home, "/.minishell_history");
 	if (!history->path)
-		exit_error("minishell:", 1);
-	history->fd = open(history->path, O_APPEND, 0644);
+	{
+		ft_putstr_fd("minishell: Warning: History path allocation failed\n", 2);
+		return (1);
+	}
+	history->fd = open(history->path, O_CREAT | O_RDWR | O_APPEND, 0644);
 	if (history->fd == -1)
 	{
+		ft_putstr_fd("minishell: Warning: Failed to open history file\n", 2);
 		free(history->path);
-		return (0);
+		return (1);
 	}
-	return (1);
+	return (0);
 }
 
-static	void	load_history_file(t_history *history)
+static void	load_history_file(t_history *history)
 {
-	char *line;
-	
+	char	*line;
+
 	line = get_next_line(history->fd);
 	while (line)
 	{
@@ -46,9 +53,12 @@ static	void	load_history_file(t_history *history)
 	}
 }
 
-void add_to_history(t_history *history, const char *command)
+void	add_to_history(t_history *history, const char *command)
 {
-	if (history->last_command && ft_strcmp(history->last_command, (char *)command) == 0)
+	if (history->last_command \
+		&& ft_strcmp(history->last_command, (char *)command) == 0)
+		return ;
+	if (is_empty_string((char *)command))
 		return ;
 	add_history(command);
 	write(history->fd, command, ft_strlen(command));
@@ -59,6 +69,6 @@ void add_to_history(t_history *history, const char *command)
 
 void	init_history(t_history *history)
 {
-	if (check_history_file(history))
+	if (!check_history_file(history))
 		load_history_file(history);
 }
