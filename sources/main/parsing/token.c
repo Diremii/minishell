@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 11:55:00 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/24 16:40:31 by humontas         ###   ########.fr       */
+/*   Updated: 2025/03/24 19:15:45 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 t_token	*create_token(char *input, t_token_type type)
 {
@@ -50,7 +50,7 @@ t_token	*add_token_to_list(t_token **head, char *str, t_token_type type)
 	return (*head);
 }
 
-int	handle_operators(char *input, int i, t_token **tokens)
+int	handle_operators(char *input, size_t i, t_token **tokens)
 {
 	if (input[i] == '<' && input[i + 1] == '<')
 		add_token_to_list(tokens, "<<", HEREDOC);
@@ -69,22 +69,25 @@ int	handle_operators(char *input, int i, t_token **tokens)
 
 t_token	*init_token(char *input)
 {
-	int		i;
-	t_token	*tokens;
+	size_t		i;
+	t_token		*tokens;
 
 	i = 0;
 	tokens = NULL;
-	while (input && input[i] == ' ')
-		i++;
 	while (input && input[i])
 	{
+		while (input && input[i] == ' ')
+			i++;
 		if (handle_operators(input, i, &tokens))
 		{
 			if ((input[i] == '<' && input[i + 1] == '<') || (input[i] == '>' && input[i + 1] == '>'))
 				i += 2;
 		}
 		else
-			
+		{
+			if (handle_cmd(input, &i, &tokens))
+				continue ;
+		}
 		i++;
 	}
 	return (tokens);

@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 13:42:35 by ttremel           #+#    #+#             */
-/*   Updated: 2024/10/17 17:18:27 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/03/24 17:44:22 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,27 @@
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char	*extract;
+	char	*array;
 	size_t	i;
-	size_t	alloc;
+	size_t	s_len;
 
+	if (!s)
+		return (NULL);
+	if (start >= ft_strlen(s))
+		return (ft_strdup(""));
+	s_len = ft_strlen(s);
+	if (len > s_len - start)
+		len = s_len - start;
 	i = 0;
-	if (!s || (!len || ft_strlen(s) < start))
-	{
-		extract = (char *)malloc(1 * sizeof(char));
-		if (!extract)
-			return (0);
-		extract[0] = '\0';
-		return (extract);
-	}
-	alloc = ft_strlen(s) - start;
-	if ((!start && len <= ft_strlen(s)) || start + len < ft_strlen(s))
-		alloc = len;
-	if (!s[start + 1] || (start - len == 1 && len < ft_strlen(s)))
-		alloc = 1;
-	extract = (char *)malloc((alloc + 1) * sizeof(char));
-	if (!extract)
-		return (0);
+	array = malloc((len + 1) * sizeof (char));
+	if (!array)
+		return (NULL);
 	while (s[start] && i < len)
-		extract[i++] = s[start++];
-	extract[i] = '\0';
-	return (extract);
+	{
+		array[i] = s[start];
+		i++;
+		start++;
+	}
+	array[i] = '\0';
+	return (array);
 }

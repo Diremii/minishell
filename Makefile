@@ -5,22 +5,24 @@ MY_OBJECTS_PATH		=	./obj
 
 MY_SOURCES			= 
 
-MY_SOURCES			+=	sources/main/main.c \
-						sources/main/history.c \
-						sources/main/parsing.c \
-						sources/main/token.c \
+MY_SOURCES			+=	sources/main/main.c					\
+						sources/main/history.c				\
+						sources/main/parsing/parsing.c		\
+						sources/main/parsing/token.c		\
+						sources/main/parsing/token_cmd.c	\
+						sources/main/free.c					\
 
-MY_SOURCES+=utils/utils.c \
+MY_SOURCES			+=	utils/utils.c \
 			
 
-MY_OBJECTS=$(MY_SOURCES:.c=.o)
+MY_OBJECTS			=	$(MY_SOURCES:.c=.o)
 
 # ====================
 #      COMMANDS
 # ====================
 
 RM					=	rm -f
-CC					=	cc
+CC					=	cc -g
 export DEBUG		=	yes
 
 ifeq ($(DEBUG), yes)
@@ -89,7 +91,7 @@ $(LIBFT):
 	@make --directory $(LIBFT_DIR)
 
 $(NAME): $(LIBFT) $(MY_OBJECTS)
-	@$(CC) $(STANDARD_FLAGS) $(READLINE_FLAGS) $(MLX42_FLAGS) -o $(NAME) $(MY_OBJECTS) $(LIBFT)
+	@$(CC) $(STANDARD_FLAGS) $(READLINE_FLAGS) -o $(NAME) $(MY_OBJECTS) $(LIBFT)
 	@echo "\n$(GREEN)All files have been successfully compiled!$(RESET)"
 	@echo "$(CYAN)Compiled files:$(RESET)"
 	@echo " "$(COMPILED_FILES)
