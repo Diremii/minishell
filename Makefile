@@ -7,6 +7,7 @@ MY_SOURCES=
 MY_SOURCES+=sources/main/main.c \
 			sources/main/history.c \
 			sources/main/parsing.c \
+			sources/main/token.c \
 
 MY_SOURCES+=utils/utils.c \
 			

@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 11:55:00 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/24 16:14:36 by humontas         ###   ########.fr       */
+/*   Updated: 2025/03/24 16:34:17 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,25 +67,9 @@ int	handle_operators(char *input, int i, t_token **tokens)
 	return (1);
 }
 
-void	handle_args(char *input, int i, t_token **tokens)
-{
-	int		start;
-	char	*word;
-
-	start = i;
-	while (input[i] && input[i] != ' ' && input[i] != '<' && input[i] != '>' && input[i] != '|')
-		i++;
-	word = ft_substr(input, start, i - start);
-	if (!word)
-		return;
-	add_token_to_list(tokens, word, ARG);
-	free(word);
-}
-
 t_token	*init_token(char *input)
 {
 	int		i;
-	char	*word;
 	t_token	*tokens;
 
 	i = 0;
@@ -95,10 +79,10 @@ t_token	*init_token(char *input)
 	while (input && input[i])
 	{
 		if (handle_operators(input, i, &tokens))
+		{
 			if ((input[i] == '<' && input[i + 1] == '<') || (input[i] == '>' && input[i + 1] == '>'))
 				i += 2;
-		else
-			handle_args(input, i, &tokens);
+		}
 		i++;
 	}
 	return (tokens);
