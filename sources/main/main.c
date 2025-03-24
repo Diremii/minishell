@@ -6,20 +6,21 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:15:05 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/20 17:20:36 by humontas         ###   ########.fr       */
+/*   Updated: 2025/03/24 16:24:53 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	main(int ac, char **av, char **envp)
+int	main(void)
 {
 	t_history	*history;
+	t_minishell	*data;	
 	char		*input;
 
-	(void)ac;
-	(void)av;
-	(void)envp;
+	data = malloc(sizeof(t_minishell));
+	if (!data)
+		exit_error("minishell: Memory allocation failed\n", 1);
 	history = malloc(sizeof(t_history));
 	if (!history)
 		exit_error("minishell: Memory allocation failed\n", 1);
