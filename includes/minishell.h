@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:10:48 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/24 16:33:28 by humontas         ###   ########.fr       */
+/*   Updated: 2025/03/24 16:37:46 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@
 # include <curses.h>
 # include "libft/libft.h"
 
-# define RESET	"\1\033[0m\2"
+# define RESET		"\1\033[0m\2"
 # define RED		"\1\033[31m\2"
-# define GREEN	"\1\033[32m\2"
-# define YELLOW	"\1\033[33m\2"
-# define BLUE	"\1\033[34m\2"
+# define GREEN		"\1\033[32m\2"
+# define YELLOW		"\1\033[33m\2"
+# define BLUE		"\1\033[34m\2"
 # define MAGENTA	"\1\033[35m\2"
-# define CYAN	"\1\033[36m\2"
-# define WHITE	"\1\033[37m\2"
+# define CYAN		"\1\033[36m\2"
+# define WHITE		"\1\033[37m\2"
 
 typedef enum e_token_type
 {
