@@ -1,0 +1,19 @@
+# tmp
+*.o
+
+# lib
+*.a
+
+# tester
+42_pipex_tester
+
+# exec file
+*.out
+pipex
+
+# test
+*.txt
+bruh
+Hola
+infile
+outfile
