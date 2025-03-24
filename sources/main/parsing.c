@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 15:21:16 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/20 17:21:28 by humontas         ###   ########.fr       */
+/*   Updated: 2025/03/24 11:51:35 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,31 @@ int	quote_checker(char *str)
 	if (double_quote % 2 != 0 || single_quote % 2 != 0)
 	{
 		printf("Unclosed quote.\n");
+		return (1);
+	}
+	return (0);
+}
+
+int	parenthesis_checker(char *str)
+{
+	int	i;
+	int	first_parenthesis;
+	int	second_parenthesis;
+
+	i = 0;
+	first_parenthesis = 0;
+	second_parenthesis = 0;
+	while (str && str[i])
+	{
+		if (str[i] == '(')
+			first_parenthesis++;
+		else if (str[i] == ')')
+			second_parenthesis++;
+		i++;
+	}
+	if (first_parenthesis != second_parenthesis)
+	{
+		printf("Unclosed parenthesis.\n");
 		return (1);
 	}
 	return (0);

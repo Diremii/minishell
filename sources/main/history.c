@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:17:38 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/20 17:23:41 by humontas         ###   ########.fr       */
+/*   Updated: 2025/03/24 11:51:15 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,20 @@ static int	check_history_file(t_history *history)
 static void	load_history_file(t_history *history)
 {
 	char	*line;
+	char	*last;
 
+	last = NULL;
 	line = get_next_line(history->fd);
 	while (line)
 	{
 		if (line[ft_strlen(line) - 1] == '\n')
 			line[ft_strlen(line) - 1] = '\0';
 		add_history(line);
-		free(line);
+		free(last);
+		last = line;
 		line = get_next_line(history->fd);
 	}
+	history->last_command = last;
 }
 
 void	add_to_history(t_history *history, const char *command)
