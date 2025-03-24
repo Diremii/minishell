@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 15:21:16 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/24 11:52:34 by humontas         ###   ########.fr       */
+/*   Updated: 2025/03/24 16:27:52 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	is_empty_string(char *str)
 	return (1);
 }
 
-int	quote_checker(char *str)
+static int	quote_checker(char *str)
 {
 	int	i;
 	int	double_quote;
@@ -51,7 +51,7 @@ int	quote_checker(char *str)
 	return (0);
 }
 
-int	parenthesis_checker(char *str)
+static int	parenthesis_checker(char *str)
 {
 	int	i;
 	int	first_parenthesis;
