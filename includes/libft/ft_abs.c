@@ -1,25 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast_bonus.c                                 :+:      :+:    :+:   */
+/*   ft_abs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/14 13:54:16 by humontas          #+#    #+#             */
-/*   Updated: 2024/10/18 08:57:53 by humontas         ###   ########.fr       */
+/*   Created: 2025/01/30 14:43:53 by ttremel           #+#    #+#             */
+/*   Updated: 2025/03/03 14:00:28 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-t_list	*ft_lstlast(t_list *lst)
+int	ft_abs(int x)
 {
-	t_list	*nav;
-
-	if (!lst)
-		return (NULL);
-	nav = lst;
-	while (nav->next)
-		nav = nav->next;
-	return (nav);
+	return (((1 - (2 * (x < 0))) * x));
 }

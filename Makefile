@@ -1,40 +1,45 @@
-MAKEFLAGS+=--no-print-directory
+MAKEFLAGS			+=	--no-print-directory
+NAME				=	minishell
+MY_OBJECTS_PATH		=	./obj
 
-NAME=minishell
+MY_SOURCES			= 
 
-MY_SOURCES= 
+MY_SOURCES			+=	sources/main/main.c		\
+						sources/main/history.c	\
+						sources/main/parsing.c	\
 
-MY_SOURCES+=sources/main/main.c \
-			sources/main/history.c \
-			sources/main/parsing.c \
+MY_SOURCES			+=	utils/utils.c \
 
-MY_SOURCES+=utils/utils.c \
-			
-
-MY_OBJECTS=$(MY_SOURCES:.c=.o)
+MY_OBJECTS			=	$(MY_SOURCES:%.c=$(MY_OBJECTS_PATH)/%.o)
 
 # ====================
 #      COMMANDS
 # ====================
 
-RM=rm -f
-CC=cc
-STANDARD_FLAGS=-Wall -Werror -Wextra -g
+RM					=	rm -f
+CC					=	cc
+export DEBUG		=	yes
+
+ifeq ($(DEBUG), yes)
+	STANDARD_FLAGS	=	-Wall -Wextra -Werror -g
+else
+	STANDARD_FLAGS	=	-Wall -Wextra -Werror
+endif
 
 # ====================
 #    LIBFT SETTINGS
 # ====================
 
-LIBFT_DIR=includes/libft
-LIBFT=$(LIBFT_DIR)/libft.a
-LIBFT_INCLUDES=-I$(LIBFT_DIR)
+LIBFT_DIR			=	includes/libft
+LIBFT				=	$(LIBFT_DIR)/libft.a
+LIBFT_INCLUDES		=	-I$(LIBFT_DIR)
 
 # ====================
 #  READLINE SETTINGS
 # ====================
 
-READLINE_FLAGS=-lreadline -lhistory
-READLINE_INCLUDES=-I/usr/include/readline
+READLINE_FLAGS		=	-lreadline -lhistory
+READLINE_INCLUDES	=	-I/usr/include/readline
 
 # ====================
 #        HEADER
@@ -55,12 +60,12 @@ export HEADER
 #     AINSI COLORS
 # ====================
 
-RESET=\033[0m
-GREEN=\033[0;32m
-CYAN=\033[0;36m
-BLUE=\033[0;34m
-YELLOW=\033[0;33m
-RED=\033[0;31m
+RESET			=	\033[0m
+GREEN			=	\033[0;32m
+CYAN			=	\033[0;36m
+BLUE			=	\033[0;34m
+YELLOW			=	\033[0;33m
+RED				=	\033[0;31m
 
 # ====================
 #     COMPILATION
@@ -68,10 +73,11 @@ RED=\033[0;31m
 
 all: $(NAME)
 
-%.o: %.c
+$(MY_OBJECTS_PATH)/%.o: %.c
 	@clear
 	@echo "$(CYAN)Compiling $<...$(RESET)"
-	@$(CC) $(STANDARD_FLAGS) $(READLINE_INCLUDES) -c $< -o $(<:.c=.o)
+	@mkdir -p $(dir $@)
+	@$(CC) -o $@ -c $< $(STANDARD_FLAGS) $(READLINE_INCLUDES)
 	@$(eval COMPILED_FILES += "$< $(GREEN)🗹\n$(RESET)")
 	@clear
 	@echo "\n$$HEADER"
@@ -80,7 +86,7 @@ $(LIBFT):
 	@make --directory $(LIBFT_DIR)
 
 $(NAME): $(LIBFT) $(MY_OBJECTS)
-	@$(CC) $(STANDARD_FLAGS) $(MY_OBJECTS) $(LIBFT) $(READLINE_FLAGS) -o $(NAME) $(MLX42_FLAGS)
+	@$(CC) $(STANDARD_FLAGS) $(READLINE_FLAGS) $(MLX42_FLAGS) -o $(NAME) $(MY_OBJECTS) $(LIBFT)
 	@echo "\n$(GREEN)All files have been successfully compiled!$(RESET)"
 	@echo "$(CYAN)Compiled files:$(RESET)"
 	@echo " "$(COMPILED_FILES)

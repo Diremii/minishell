@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap_bonus.c                                  :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/15 10:29:55 by humontas          #+#    #+#             */
-/*   Updated: 2024/10/18 08:57:49 by humontas         ###   ########.fr       */
+/*   Created: 2024/10/16 11:58:55 by ttremel           #+#    #+#             */
+/*   Updated: 2025/03/24 13:27:10 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,26 @@
 
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	t_list	*list;
-	t_list	*obj;
+	t_list	*duplst;
+	t_list	*dup;
+	char	*str;
 
+	dup = NULL;
+	duplst = NULL;
 	if (!lst || !f || !del)
-		return (NULL);
-	list = NULL;
-	while (lst)
+		return (duplst);
+	while (lst != NULL)
 	{
-		obj = ft_lstnew(f(lst->content));
-		if (!obj)
+		str = (char *)f(lst->content);
+		dup = ft_lstnew(str);
+		if (!dup)
 		{
-			ft_lstclear(&list, del);
+			ft_lstclear(&duplst, del);
+			del(str);
 			return (NULL);
 		}
-		ft_lstadd_back(&list, obj);
+		ft_lstadd_back(&duplst, dup);
 		lst = lst->next;
 	}
-	return (list);
+	return (duplst);
 }

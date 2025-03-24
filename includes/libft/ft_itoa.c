@@ -3,60 +3,59 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/14 08:05:57 by humontas          #+#    #+#             */
-/*   Updated: 2024/10/18 09:46:28 by humontas         ###   ########.fr       */
+/*   Created: 2024/10/15 13:48:39 by ttremel           #+#    #+#             */
+/*   Updated: 2024/10/17 17:13:31 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_count_number(int n)
+static size_t	num_count(int n)
 {
-	int	i;
+	int	size;
 
-	i = 0;
-	if (n == 0)
-		return (1);
+	size = 0;
 	if (n < 0)
 	{
-		i++;
 		n = -n;
+		size++;
 	}
-	while (n > 0)
+	if (n == 0)
+		size++;
+	while (n != 0)
 	{
 		n /= 10;
-		i++;
+		size++;
 	}
-	return (i);
+	return (size);
 }
 
 char	*ft_itoa(int n)
 {
+	size_t	size_str;
+	size_t	issigned;
 	char	*str;
-	int		i;
 
 	if (n == -2147483648)
-		return (ft_strdup("-2147483648"));
-	i = ft_count_number(n);
-	str = malloc((i + 1) * sizeof(char));
+	{
+		str = ft_strdup("-2147483648");
+		return (str);
+	}
+	size_str = num_count(n);
+	issigned = (n < 0);
+	n = (n * -1 * (n < 0) + n * (n >= 0));
+	str = (char *)malloc((size_str + 1) * sizeof(char));
 	if (!str)
-		return (NULL);
-	str[i] = '\0';
-	if (n == 0)
-		str[0] = '0';
-	if (n < 0)
+		return (0);
+	ft_bzero(str, size_str + 1);
+	while (size_str--)
 	{
-		str[0] = '-';
-		n = -n;
-	}
-	i--;
-	while (n > 0)
-	{
-		str[i] = n % 10 + '0';
+		str[size_str] = '0' + (n % 10);
 		n /= 10;
-		i--;
 	}
+	if (issigned)
+		str[0] = '-';
 	return (str);
 }

@@ -1,19 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone_bonus.c                               :+:      :+:    :+:   */
+/*   ft_strlenf.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/14 14:09:53 by humontas          #+#    #+#             */
-/*   Updated: 2024/10/18 08:57:59 by humontas         ###   ########.fr       */
+/*   Created: 2024/10/15 13:38:11 by ttremel           #+#    #+#             */
+/*   Updated: 2024/11/01 13:52:17 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-void	ft_lstdelone(t_list *lst, void (*del)(void *))
+size_t	ft_strlenf(const char *str)
 {
-	del(lst->content);
-	free(lst);
+	const char	*tmp;
+
+	tmp = str;
+	if (!str)
+		return (6);
+	while (*str != '\0')
+		str++;
+	return (str - tmp);
 }

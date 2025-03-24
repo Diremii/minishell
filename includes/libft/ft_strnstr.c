@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/08 14:49:48 by humontas          #+#    #+#             */
-/*   Updated: 2024/10/18 09:07:19 by humontas         ###   ########.fr       */
+/*   Created: 2024/10/15 13:40:24 by ttremel           #+#    #+#             */
+/*   Updated: 2024/10/17 17:18:34 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,19 @@
 char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
 	size_t	i;
-	size_t	j;
+	size_t	len_little;
 
-	i = 0;
-	j = 0;
-	if (*little == '\0')
+	if (!big && len == 0)
+		return (0);
+	if (little[0] == '\0')
 		return ((char *)big);
-	while (big[i] != '\0' && i < len)
+	i = 0;
+	len_little = ft_strlen(little);
+	while (big[i] != '\0' && (i + len_little - 1) < len)
 	{
-		if (big[i] == little[j])
-		{
-			while (big[i + j] == little[j] && i + j < len)
-			{
-				if (little[j + 1] == '\0')
-					return ((char *)big + i);
-				j++;
-			}
-			j = 0;
-		}
+		if (ft_strncmp((char *)&big[i], little, len_little) == 0)
+			return ((char *)&big[i]);
 		i++;
 	}
-	return (NULL);
+	return (0);
 }

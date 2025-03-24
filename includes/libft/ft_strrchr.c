@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/08 12:30:16 by humontas          #+#    #+#             */
-/*   Updated: 2024/10/16 09:41:59 by humontas         ###   ########.fr       */
+/*   Created: 2024/10/15 13:41:08 by ttremel           #+#    #+#             */
+/*   Updated: 2024/10/17 17:18:33 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,23 @@
 
 char	*ft_strrchr(const char *s, int c)
 {
-	int	i;
+	int		i;
+	char	*l_occ;
+	char	*occ;
 
-	if (!s)
-		return (NULL);
-	if (c < 0 || c >= 127)
-		c = c % 128;
-	if (c == '\0')
+	i = 0;
+	l_occ = 0;
+	occ = (char *)s;
+	if ((char)c == 0)
 	{
-		i = ft_strlen(s);
-		return ((char *)(&s[i]));
+		occ = (char *)&s[ft_strlen(s)];
+		return (occ);
 	}
-	i = ft_strlen(s) - 1;
-	while (i != -1)
+	while (s[i] != '\0')
 	{
-		if (s[i] == c)
-			return ((char *)&s[i]);
-		i--;
+		if (s[i] == (char)c)
+			l_occ = &occ[i];
+		i++;
 	}
-	return (NULL);
+	return (l_occ);
 }

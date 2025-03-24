@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize_bonus.c                                 :+:      :+:    :+:   */
+/*   ft_sizeaddress.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/14 13:40:53 by humontas          #+#    #+#             */
-/*   Updated: 2024/10/18 08:57:40 by humontas         ###   ########.fr       */
+/*   Created: 2024/11/01 13:41:50 by ttremel           #+#    #+#             */
+/*   Updated: 2024/11/01 13:48:49 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-int	ft_lstsize(t_list *lst)
+size_t	ft_sizeaddress(size_t n)
 {
-	t_list	*nav;
-	int		count;
+	size_t	size;
 
-	nav = lst;
-	count = 0;
-	while (nav)
+	size = 2;
+	if (n == 0)
+		return (5);
+	while (n != 0)
 	{
-		nav = nav->next;
-		count++;
+		n /= 16;
+		size++;
 	}
-	return (count);
+	return (size);
 }
