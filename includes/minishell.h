@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:10:48 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/20 17:19:41 by humontas         ###   ########.fr       */
+/*   Updated: 2025/03/24 11:54:22 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,24 @@
 # define MAGENTA	"\1\033[35m\2"
 # define CYAN	"\1\033[36m\2"
 # define WHITE	"\1\033[37m\2"
+
+typedef enum e_token_type
+{
+	INPUT = 1,
+	HEREDOC = 2,
+	TRUNC = 3,
+	APPEND = 4,
+	PIPE = 5,
+	CMD = 6,
+	ARG = 7
+}	t_token_type;
+
+typedef struct s_token
+{
+	char			*str;
+	t_token_type	type;
+	struct s_token 	*next;
+}	t_token;
 
 typedef struct s_history
 {

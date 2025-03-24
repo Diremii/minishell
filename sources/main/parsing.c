@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 15:21:16 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/24 11:51:35 by humontas         ###   ########.fr       */
+/*   Updated: 2025/03/24 11:52:34 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ int	parenthesis_checker(char *str)
 int	init_parsing(char *str)
 {
 	if (quote_checker(str))
+		return (1);
+	if (parenthesis_checker(str))
 		return (1);
 	return (0);
 }
