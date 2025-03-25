@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:02:57 by ttremel           #+#    #+#             */
-/*   Updated: 2025/03/24 15:33:03 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/03/25 14:54:08 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ int		ft_pipe(int ac, char **av, char *env);
 int		pipex(int argc, t_cmd **cmds, int fd[2], int here_doc);
 int		check_all_access(t_cmd **cmds, int here_doc);
 int		here_doc(char **av);
-void	wait_all_pid(pid_t pid, int ac);
+int		wait_all_pid(pid_t pid, int ac);
+int		error_handler(int err, char *error);
 void	free_all(char **list);
 void	free_for_all(t_cmd **list);
-void	error_handler(int err, char *error);
 void	error_msg(int err, char *error);
 void	close_n_exit(int fd[2], t_cmd **cmds);
 void	close_all(int p_fd[2], int fd[2], t_cmd **cmds);
@@ -49,6 +49,7 @@ void	close_fd(int fd[2]);
 void	ft_exec(int p_fd[2], int fd[2], t_cmd **cmds, int i);
 void	child_process(int p_fd[2], int fd[2], t_cmd ***cmds, int i);
 void	parent_process(int p_fd[2], int fd[2], t_cmd ***cmds);
+char	*get_path(char *cmd, char *env);
 pid_t	last_process(int p_fd[2], int fd[2], int argc, t_cmd ***cmds);
 t_cmd	**parser(char **argv, int argc, char *env);
 

@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:11:41 by ttremel           #+#    #+#             */
-/*   Updated: 2025/03/24 16:43:10 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/03/25 14:53:54 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int	here_doc(char **av)
 {
 	int		fd[2];
 	char	*file;
-	int		rand_num;
 
 	file = "./.nfs0000000000";
 	fd[0] = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0777);
@@ -94,7 +93,7 @@ int	ft_pipe(int ac, char **av, char *env)
 
 	here_doc = (ft_strcmp(av[1], "here_doc") == 0);
 	if (ac < 4 || (ac < 5 && here_doc))
-		error_handler(0, NULL);
+		return (error_handler(0, NULL));
 	cmds = parser(&av[2 + here_doc], (ac - (3 + here_doc)), env);
 	if (!cmds)
 		return (1);
@@ -109,5 +108,5 @@ int	ft_pipe(int ac, char **av, char *env)
 	pid = pipex((ac - (2 + here_doc)), cmds, fd, here_doc);
 	close_fd(fd);
 	free_for_all(cmds);
-	wait_all_pid(pid, ac - (2 + here_doc));
+	return (wait_all_pid(pid, ac - (2 + here_doc)));
 }

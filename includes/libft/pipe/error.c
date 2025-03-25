@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 01:07:00 by ttremel           #+#    #+#             */
-/*   Updated: 2025/03/13 13:57:24 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/03/25 14:54:35 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,10 @@ int	check_all_access(t_cmd **cmds, int here_doc)
 	return (0);
 }
 
-void	error_handler(int err, char *error)
+int	error_handler(int err, char *error)
 {
 	error_msg(err, error);
-	exit(EXIT_FAILURE);
+	return (EXIT_FAILURE);
 }
 
 void	error_msg(int err, char *error)

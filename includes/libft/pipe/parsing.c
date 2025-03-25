@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:02:09 by ttremel           #+#    #+#             */
-/*   Updated: 2025/03/24 15:25:49 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/03/25 14:44:08 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,13 @@ static char	*create_path(char *cmd, char **paths)
 	return (no_env(cmd));
 }
 
-char	*get_path(char *all_path, char *cmd)
+char	*get_path(char *cmd, char *env)
 {
 	char	**paths;
+	char	*all_path;
 	char	*path;
 
+	all_path = env;
 	if (ft_strchr(cmd, '/'))
 		return (no_env(cmd));
 	paths = ft_split(all_path, ':');
@@ -60,30 +62,6 @@ char	*get_path(char *all_path, char *cmd)
 		return (NULL);
 	path = create_path(cmd, paths);
 	free_all(paths);
-	return (path);
-}
-
-char	*path_of(char *cmd, char **env)
-{
-	size_t	i;
-	char	*all_path;
-	char	*path;
-
-	i = 0;
-	path = "PATH=\0";
-	all_path = NULL;
-	while (env[i] && ft_strncmp(path, env[i], 5))
-		i++;
-	if (env[i])
-	{
-		all_path = ft_strdup(&env[i][5]);
-		if (!all_path)
-			return (NULL);
-		path = get_path(all_path, cmd);
-		free(all_path);
-	}
-	else
-		path = no_env(cmd);
 	return (path);
 }
 
@@ -104,7 +82,7 @@ t_cmd	**parser(char **argv, int argc, char *env)
 		list_command[i]->out_file = NULL;
 		list_command[i]->env = env;
 		list_command[i]->flags = ft_split(argv[i], ' ');
-		list_command[i]->path = path_of(list_command[i]->flags[0], env);
+		list_command[i]->path = get_path(list_command[i]->flags[0], env);
 		if (!list_command[i]->flags)
 		{
 			free_for_all(list_command);

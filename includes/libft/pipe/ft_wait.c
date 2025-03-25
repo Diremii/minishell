@@ -6,13 +6,13 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 14:45:26 by ttremel           #+#    #+#             */
-/*   Updated: 2025/03/06 14:12:29 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/03/25 14:53:18 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/pipex.h"
 
-void	wait_all_pid(pid_t pid, int ac)
+int	wait_all_pid(pid_t pid, int ac)
 {
 	size_t			i;
 	int				status;
@@ -30,5 +30,5 @@ void	wait_all_pid(pid_t pid, int ac)
 		}
 		i++;
 	}
-	exit(exit_status);
+	return (exit_status);
 }
