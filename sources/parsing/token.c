@@ -6,11 +6,11 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 11:55:00 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/25 10:53:52 by humontas         ###   ########.fr       */
+/*   Updated: 2025/03/25 11:21:33 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 t_token	*create_token(char *input, t_token_type type)
 {
@@ -19,13 +19,13 @@ t_token	*create_token(char *input, t_token_type type)
 	new_token = malloc(sizeof(t_token));
 	if (!new_token)
 		return (NULL);
-		new_token->str = ft_strdup(input);
-		if (!new_token->str)
+	new_token->str = ft_strdup(input);
+	if (!new_token->str)
 		{
 			free(new_token);
 			return (NULL);
 		}
-		new_token->type = type;
+	new_token->type = type;
 	new_token->next = NULL;
 	return (new_token);
 }

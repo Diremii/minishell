@@ -6,11 +6,11 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 17:05:29 by ttremel           #+#    #+#             */
-/*   Updated: 2025/03/25 11:05:20 by humontas         ###   ########.fr       */
+/*   Updated: 2025/03/25 11:26:31 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 char	*no_env(char *cmd)
 {
@@ -89,6 +89,7 @@ int	handle_cmd(char *input, size_t *i, t_token **token)
 		return (1);
 	}
 	add_token_to_list(token, sub, ARG);
+	free(cmd);
 	free(sub);
 	return (0);
 }
