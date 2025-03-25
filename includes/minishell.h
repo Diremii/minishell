@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:10:48 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/25 11:02:20 by humontas         ###   ########.fr       */
+/*   Updated: 2025/03/25 13:48:46 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,6 @@ typedef struct s_history
 	int		fd;
 }	t_history;
 
-typedef struct s_minishell
-{
-	char	*str;
-}				t_minishell;
-
-
 typedef struct s_data
 {
 	char	*envp;
@@ -88,6 +82,7 @@ char	*get_path(char *cmd);
 int		handle_cmd(char *input, size_t *i, t_token **token);
 int		is_empty_string(char *str);
 int		init_parsing(char *str);
+char	*get_user_and_pwd(void);
 
 
 #endif
