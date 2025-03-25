@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 17:05:29 by ttremel           #+#    #+#             */
-/*   Updated: 2025/03/25 11:55:38 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/03/25 12:37:44 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	handle_cmd(char *input, size_t *i, t_token **token)
 	char	*sub;
 
 	j = *i;
-	if (!input)
+	if (!input || !input[j])
 		return (0);
 	while (input[*i] && input[*i] != '\n' && input[*i] != ' ')
 		*i += 1;

@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:15:05 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/24 16:31:33 by humontas         ###   ########.fr       */
+/*   Updated: 2025/03/25 12:44:28 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,16 +74,13 @@ int main(void)
         if (!input)
             break ;
         
-        init_parsing(input);  // Tu pourrais l'utiliser plus tard si nécessaire
-
+        init_parsing(input);  // Tu pourrais l'utiliser plus tard si nécessaire 
         // Créer les tokens et afficher
         tokens = init_token(input);
-        print_tokens(tokens);  // Affiche les tokens pour vérifier
-
+        print_tokens(tokens);  // Affiche les tokens pour vérifier  
         add_to_history(history, input);
         free(input);
-    }
-
+    }   
     close(history->fd);
     clear_history();
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 11:55:00 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/25 11:55:33 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/03/25 12:50:50 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,13 @@ int	handle_operators(char *input, size_t i, t_token **tokens)
 t_token	*init_token(char *input)
 {
 	size_t		i;
+	size_t		len_input;
 	t_token		*tokens;
 
 	i = 0;
 	tokens = NULL;
-	while (input && input[i])
+	len_input = ft_strlen(input);
+	while (input && i < len_input)
 	{
 		while (input[i] == ' ')
 			i++;
