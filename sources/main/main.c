@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:15:05 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/25 16:03:53 by humontas         ###   ########.fr       */
+/*   Updated: 2025/03/25 16:35:54 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int main(int ac, char **av, char **envp)
 		input = readline("minishell > ");
 		if (!input)
 			break ;
-		tokens = init_token(input);
+		tokens = init_token(input, &data);
 		add_to_history(history, input);
 
 		// Debugging : Afficher les tokens

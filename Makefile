@@ -8,8 +8,11 @@ MY_SOURCES= sources/main/main.c \
 
 MY_SOURCES+=sources/tokenization/operator_handling.c \
 			sources/tokenization/token.c \
+			sources/tokenization/get_path.c \
+			sources/tokenization/command_handling.c \
 
 MY_SOURCES+=utils/utils.c \
+			utils/free.c \
 			
 
 MY_OBJECTS_PATH	= ./obj

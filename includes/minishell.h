@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:10:48 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/25 16:18:09 by humontas         ###   ########.fr       */
+/*   Updated: 2025/03/25 18:04:18 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct s_data
 {
 	char	**envp;
 	char	**paths;
+	t_cmd	*cmds;
 }	t_data;
 
 /* HISTORY */
@@ -73,8 +74,10 @@ void	init_history(t_history *history);
 void	add_to_history(t_history *history, const char *command);
 
 /* TOKENS */
-t_token	*init_token(char *input);
+t_token	*init_token(char *input, t_data *data);
 t_token	*add_token_to_list(t_token **head, char *str, t_token_type type);
+char	*path_of(char *cmd, char **env);
+void	handle_command(char *input, size_t *i, t_token **tokens, t_data **data);
 void	handle_operator(char *input, size_t *i, t_token **tokens);
 
 /* PARSING */
@@ -83,6 +86,9 @@ int		init_parsing(char *str);
 
 /* UTILS */
 void	exit_error(char *str, int exit_code);
+
+/* FREE */
+void	free_all(char **list);
 
 
 #endif
