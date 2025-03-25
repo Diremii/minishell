@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 17:05:29 by ttremel           #+#    #+#             */
-/*   Updated: 2025/03/25 12:37:44 by humontas         ###   ########.fr       */
+/*   Updated: 2025/03/25 14:19:55 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,21 +65,41 @@ char	*get_path(char *cmd)
 	return (path);
 }
 
+int	check_string(char *input, size_t **i, size_t *j)
+{
+	char	quote;
+
+	if (input[**i] != '\"' && input[**i] != '\'')
+		return (0);
+	(**i)++;
+	quote = '\'';
+	if (input[**i - 1] == '\"')
+		quote = '\"';
+	while (input[**i] && input[**i] != quote)
+		(**i)++;
+	(*j)++;
+	return (1);
+}
+
 int	handle_cmd(char *input, size_t *i, t_token **token)
 {
 	size_t	j;
 	char	*cmd;
 	char	*sub;
+	int		is_string;
 
 	j = *i;
 	if (!input || !input[j])
 		return (0);
-	while (input[*i] && input[*i] != '\n' && input[*i] != ' ')
+	is_string = check_string(input, &i, &j);
+	while (!is_string && input[*i] && input[*i] != ' ')
 		*i += 1;
 	sub = ft_substr(input, j, *i - j);
 	if (!sub)
 		return (0);
 	cmd = get_path(sub);
+	if (input[*i] && (input[(*i) + 1] == '\"' || input[(*i) + 1] == '\''))
+		*i += 2;	
 	if (cmd)
 	{
 		add_token_to_list(token, cmd, CMD);

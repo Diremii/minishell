@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:02:09 by ttremel           #+#    #+#             */
-/*   Updated: 2025/03/24 15:25:49 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/03/25 14:29:34 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ t_cmd	**parser(char **argv, int argc, char *env)
 		list_command[i]->in_file = NULL;
 		list_command[i]->out_file = NULL;
 		list_command[i]->env = env;
-		list_command[i]->flags = ft_split(argv[i], ' ');
+		list_command[i]->flags = ft_sdlit(argv[i], ' ');
 		list_command[i]->path = path_of(list_command[i]->flags[0], env);
 		if (!list_command[i]->flags)
 		{
