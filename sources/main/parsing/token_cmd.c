@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 17:05:29 by ttremel           #+#    #+#             */
-/*   Updated: 2025/03/24 19:13:50 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/03/25 11:05:20 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static char	*create_path(char *cmd, char **paths)
 			return (path);
 		free(path);
 	}
-	return (no_env(cmd));
+	return (NULL);
 }
 
 char	*get_path(char *cmd)
@@ -88,7 +88,7 @@ int	handle_cmd(char *input, size_t *i, t_token **token)
 		free(sub);
 		return (1);
 	}
+	add_token_to_list(token, sub, ARG);
 	free(sub);
-	free(cmd);
 	return (0);
 }

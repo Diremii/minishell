@@ -1,11 +1,8 @@
 MAKEFLAGS			+=	--no-print-directory
 
 NAME				=	minishell
-MY_OBJECTS_PATH		=	./obj
 
-MY_SOURCES			= 
-
-MY_SOURCES			+=	sources/main/main.c					\
+MY_SOURCES			=	sources/main/main.c					\
 						sources/main/history.c				\
 						sources/main/parsing/parsing.c		\
 						sources/main/parsing/token.c		\
@@ -16,6 +13,7 @@ MY_SOURCES			+=	utils/utils.c \
 			
 
 MY_OBJECTS			=	$(MY_SOURCES:.c=.o)
+MY_OBJECTS_PATH		=	./obj
 
 # ====================
 #      COMMANDS
