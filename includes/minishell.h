@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:10:48 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/25 13:48:46 by humontas         ###   ########.fr       */
+/*   Updated: 2025/03/25 16:18:09 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,6 @@
 # include <curses.h>
 # include "libft/libft.h"
 
-# define RESET		"\1\033[0m\2"
-# define RED		"\1\033[31m\2"
-# define GREEN		"\1\033[32m\2"
-# define YELLOW		"\1\033[33m\2"
-# define BLUE		"\1\033[34m\2"
-# define MAGENTA	"\1\033[35m\2"
-# define CYAN		"\1\033[36m\2"
-# define WHITE		"\1\033[37m\2"
-
 typedef enum e_token_type
 {
 	INPUT = 1,
@@ -47,6 +38,15 @@ typedef enum e_token_type
 	CMD = 6,
 	ARG = 7
 }	t_token_type;
+
+typedef struct s_cmd
+{
+	int				infile;
+	int				outfile;
+	char			**cmd_param;
+	struct s_cmd	*prev;
+	struct s_cmd	*next;
+}	t_cmd;
 
 typedef struct s_token
 {
@@ -64,25 +64,25 @@ typedef struct s_history
 
 typedef struct s_data
 {
-	char	*envp;
-	char	*path;
+	char	**envp;
+	char	**paths;
 }	t_data;
-
 
 /* HISTORY */
 void	init_history(t_history *history);
 void	add_to_history(t_history *history, const char *command);
 
-/* PARSING */
+/* TOKENS */
 t_token	*init_token(char *input);
 t_token	*add_token_to_list(t_token **head, char *str, t_token_type type);
-void	free_all(char **list);
-void	exit_error(char *str, int exit_code);
-char	*get_path(char *cmd);
-int		handle_cmd(char *input, size_t *i, t_token **token);
+void	handle_operator(char *input, size_t *i, t_token **tokens);
+
+/* PARSING */
 int		is_empty_string(char *str);
 int		init_parsing(char *str);
-char	*get_user_and_pwd(void);
+
+/* UTILS */
+void	exit_error(char *str, int exit_code);
 
 
 #endif

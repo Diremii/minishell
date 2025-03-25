@@ -1,23 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   command_handling.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/24 18:19:28 by ttremel           #+#    #+#             */
-/*   Updated: 2025/03/25 11:18:16 by humontas         ###   ########.fr       */
+/*   Created: 2025/03/25 16:10:39 by humontas          #+#    #+#             */
+/*   Updated: 2025/03/25 16:11:08 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-void	free_all(char **list)
-{
-	int	i;
-
-	i = 0;
-	while (list[i])
-		free(list[i++]);
-	free(list);
-}

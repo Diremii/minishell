@@ -4,13 +4,12 @@ NAME= minishell
 
 MY_SOURCES= sources/main/main.c \
 			sources/main/history.c \
+			sources/main/parsing.c \
 
-MY_SOURCES+=sources/parsing/parsing.c \
-			sources/parsing/token.c \
-			sources/parsing/token_cmd.c \
+MY_SOURCES+=sources/tokenization/operator_handling.c \
+			sources/tokenization/token.c \
 
 MY_SOURCES+=utils/utils.c \
-			utils/free.c \
 			
 
 MY_OBJECTS_PATH	= ./obj

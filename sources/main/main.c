@@ -6,32 +6,33 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:15:05 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/25 14:13:53 by humontas         ###   ########.fr       */
+/*   Updated: 2025/03/25 16:03:53 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-// int	main(void)
+// int main(int ac, char **av, char **envp)
 // {
 // 	t_history	*history;
-// 	t_minishell	*data;	
+// 	t_token		*tokens;
+// 	t_data		data;
 // 	char		*input;
 
-// 	data = malloc(sizeof(t_minishell));
-// 	if (!data)
-// 		exit_error("minishell: Memory allocation failed\n", 1);
+// 	(void)ac;
+// 	(void)av;
 // 	history = malloc(sizeof(t_history));
-// 	if (!history)
-// 		exit_error("minishell: Memory allocation failed\n", 1);
+// 	tokens = malloc(sizeof(t_token));
+// 	data.envp = envp;
+// 	if (!envp[0])
+// 		data.envp = NULL;
 // 	init_history(history);
 // 	while (1)
 // 	{
 // 		input = readline("minishell > ");
 // 		if (!input)
 // 			break ;
-// 		init_parsing(input);
-// 		init_token(input);
+// 		tokens = init_token(input);
 // 		add_to_history(history, input);
 // 		free(input);
 // 	}
@@ -39,42 +40,39 @@
 // 	clear_history();
 // }
 
-void print_tokens(t_token *tokens)
-{
-	t_token *current = tokens;
-	while (current)
-	{
-		printf("Token: %s, Type: %d\n", current->str, current->type);
-		current = current->next;
-	}
-}
-
-int main(void)
+int main(int ac, char **av, char **envp)
 {
 	t_history	*history;
 	t_token		*tokens;
+	t_data		data;
 	char		*input;
-	char		*prompt;
 
-	prompt = ft_strjoin(getcwd(NULL, 0), "$ ");
-	if (!prompt)
-		exit_error("minishell: Memory allocation failed\n", 1);
+	(void)ac;
+	(void)av;
 	history = malloc(sizeof(t_history));
-	if (!history)
-		exit_error("minishell: Memory allocation failed\n", 1);
+	tokens = malloc(sizeof(t_token));
+	data.envp = envp;
+	if (!envp[0])
+		data.envp = NULL;
 	init_history(history);
 	while (1)
 	{
-		input = readline(prompt);
+		input = readline("minishell > ");
 		if (!input)
 			break ;
-		init_parsing(input);
 		tokens = init_token(input);
-		print_tokens(tokens);  
 		add_to_history(history, input);
+
+		// Debugging : Afficher les tokens
+		t_token *current = tokens;
+		while (current)
+		{
+			printf("Token: %s, Type: %d\n", current->str, current->type); // Affiche le contenu du token
+			current = current->next;
+		}
+
 		free(input);
 	}
-	free(prompt);
 	close(history->fd);
 	clear_history();
 }

@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 11:55:00 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/25 14:24:44 by humontas         ###   ########.fr       */
+/*   Updated: 2025/03/25 16:09:28 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ t_token	*create_token(char *input, t_token_type type)
 		return (NULL);
 	new_token->str = ft_strdup(input);
 	if (!new_token->str)
-		{
-			free(new_token);
-			return (NULL);
-		}
+	{
+		free(new_token);
+		return (NULL);
+	}
 	new_token->type = type;
 	new_token->next = NULL;
 	return (new_token);
@@ -35,6 +35,8 @@ t_token	*add_token_to_list(t_token **head, char *str, t_token_type type)
 	t_token	*new_token;
 	t_token	*current;
 
+	if (!str || *str == '\0')
+		return (*head);
 	new_token = create_token(str, type);
 	if (!new_token)
 		return (NULL);
@@ -50,54 +52,18 @@ t_token	*add_token_to_list(t_token **head, char *str, t_token_type type)
 	return (*head);
 }
 
-int	handle_operators(char *input, size_t i, t_token **tokens)
-{
-	if (!input)
-		return (0);
-	if (input[i] == '<' && input[i + 1] == '<')
-	{
-		add_token_to_list(tokens, "<<", HEREDOC);
-		return (2);
-	}
-	else if (input[i] == '>' && input[i + 1] == '>')
-	{
-		add_token_to_list(tokens, ">>", APPEND);
-		return (2);
-	}
-	else if (input[i] == '<')
-	{
-		add_token_to_list(tokens, "<", INPUT);
-		return (1);
-	}
-	else if (input[i] == '>')
-	{
-		add_token_to_list(tokens, ">", TRUNC);
-		return (1);
-	}
-	else if (input[i] == '|')
-	{
-		add_token_to_list(tokens, "|", PIPE);
-		return (1);
-	}
-	return (0);
-}
-
 t_token	*init_token(char *input)
 {
-	size_t		i;
-	size_t		len_input;
-	t_token		*tokens;
+	size_t	i;
+	t_token	*tokens;
 
 	i = 0;
 	tokens = NULL;
-	len_input = ft_strlen(input);
-	while (input && i < len_input)
+	while (input && input[i])
 	{
 		while (input[i] == ' ' || input[i] == '\t')
 			i++;
-		i += handle_operators(input, i, &tokens);
-		if (handle_cmd(input, &i, &tokens))
-			continue;
+		handle_operator(input, &i, &tokens);
 	}
 	return(tokens);
 }
