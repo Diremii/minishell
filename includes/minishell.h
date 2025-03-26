@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:10:48 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/25 18:04:18 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/03/26 18:36:54 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ int		init_parsing(char *str);
 
 /* UTILS */
 void	exit_error(char *str, int exit_code);
+int		is_opperator(char c);
 
 /* FREE */
 void	free_all(char **list);

@@ -6,70 +6,96 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 16:10:39 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/25 18:32:35 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/03/26 19:03:01 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	is_opperator(char c)
+void	skip_quote(char *input, size_t *i)
 {
-	if (c == '|' || c == '<' || c == '>' || c == '\'' || c == '\"')
-		return (1);
-	return (0);
+	if (*i > 0 && input[*i - 1] == '\\')
+		return ;
+	if (input[*i] == '\"')
+	{
+		(*i)++;
+		while (input[*i] && input[*i] != '\"')
+		{
+			(*i)++;
+			if (input[*i] && input[*i] == '\\' && input[*i + 1] != '\"')
+				(*i) += 2;
+		}
+	}
+	else if (input[*i] == '\'')
+	{
+		(*i)++;
+		while (input[*i] && input[*i] != '\'')
+		{
+			(*i)++;
+			if (input[*i] && input[*i] == '\\' && input[*i + 1] != '\'')
+				(*i) += 2;
+		}
+	}
 }
 
-char	*get_flag(char *input, size_t **i)
+char	**cut_quote_n_backslash(char *str) //TODO: parsing backslash
+{
+	size_t	i;
+	size_t	j;
+	char	**strs;
+
+	i = 0;
+	j = 0;
+	while (str[i])
+	{
+		
+		i++;
+	}
+}
+
+char	*get_flag(char *input, size_t *i)
 {
 	size_t	j;
-	char	*cmd;
 	char	*tmp;
-	char	quote;
+	char	*str;
+	char	**strs;
 
-	j = **i;
-	if (input[**i] == '\'' || input[**i] == '\"')
+	j = *i;
+	while (input[*i] && input[*i] != ' ')
 	{
-		quote = '\'';
-		if (input[**i] == '\"')
-			quote = '\"';
-		(**i)++;
-		while (input[**i] && input[**i] != quote)
-			(**i)++;
-		cmd = ft_substr(input, j + 1, **i - j - 1);
-		if (input[**i] && (input[**i] == '\"' || input[**i] == '\'')) //TODO : fix appending string
-		{
-			tmp = cmd;
-			cmd = ft_strjoin(cmd, get_flag(input, i));
-			free(tmp);
-		}
-		return (cmd);
+		skip_quote(input, i);
+		(*i)++;
 	}
-	while (input[**i] && input[**i] != ' ' && !is_opperator(input[**i]))
-		(**i)++;
-	cmd = ft_substr(input, j, **i - j);
-	if (input[**i] && (input[**i] == '\"' || input[**i] == '\''))
-	{
-		tmp = cmd;
-		cmd = ft_strjoin(cmd, get_flag(input, i));
-		free(tmp);
-	}
-	return (cmd);
+	str = ft_substr(input, j, *i - j);
+	strs = ft_split(str, '\"');
+	j = 0;
+	while (strs[j])
+		j++;
+	tmp = str;
+	str = ft_join(strs, "", j);
+	free_all(strs);
+	free(tmp);
+	return (str);
 }
 
 void	handle_command(char *input, size_t *i, t_token **tokens, t_data **data)
 {
 	char	*flag;
 	
-	flag = get_flag(input, &i);
+	if (!input[*i])
+		return ;
+	flag = get_flag(input, i);
 	add_token_to_list(tokens, path_of(flag, (**data).envp), CMD);
 	free(flag);
+	if (!input[*i - 1])
+		return ;
 	while (input[*i] || !is_opperator(input[*i]))
 	{
 		while (input[*i] && input[*i] == ' ' && !is_opperator(input[*i]))
 			(*i)++;
 		if (!input[*i] || is_opperator(input[*i]))
 			return ;
-		flag = get_flag(input, &i);
+		flag = get_flag(input, i);
 		add_token_to_list(tokens, flag, ARG);
 	}
 }
