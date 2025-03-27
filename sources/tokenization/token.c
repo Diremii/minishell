@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 11:55:00 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/25 16:09:28 by humontas         ###   ########.fr       */
+/*   Updated: 2025/03/27 13:00:13 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ t_token	*create_token(char *input, t_token_type type)
 {
 	t_token	*new_token;
 
+	if (!input)
+		return (NULL);
 	new_token = malloc(sizeof(t_token));
 	if (!new_token)
 		return (NULL);
@@ -64,6 +66,7 @@ t_token	*init_token(char *input)
 		while (input[i] == ' ' || input[i] == '\t')
 			i++;
 		handle_operator(input, &i, &tokens);
+		break;
 	}
 	return(tokens);
 }

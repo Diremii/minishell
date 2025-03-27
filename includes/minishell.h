@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:10:48 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/25 16:18:09 by humontas         ###   ########.fr       */
+/*   Updated: 2025/03/27 13:11:35 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,14 @@
 
 typedef enum e_token_type
 {
-	INPUT = 1,
+	IN = 1,
 	HEREDOC = 2,
-	TRUNC = 3,
+	OUT = 3,
 	APPEND = 4,
 	PIPE = 5,
 	CMD = 6,
-	ARG = 7
+	ARG = 7,
+	REDIR = 8
 }	t_token_type;
 
 typedef struct s_cmd
@@ -53,6 +54,7 @@ typedef struct s_token
 	char			*str;
 	t_token_type	type;
 	struct s_token 	*next;
+	struct s_token	*prev;
 }	t_token;
 
 typedef struct s_history
@@ -66,6 +68,8 @@ typedef struct s_data
 {
 	char	**envp;
 	char	**paths;
+	t_token	*tokens;
+	t_cmd	*cmd;
 }	t_data;
 
 /* HISTORY */
@@ -76,6 +80,7 @@ void	add_to_history(t_history *history, const char *command);
 t_token	*init_token(char *input);
 t_token	*add_token_to_list(t_token **head, char *str, t_token_type type);
 void	handle_operator(char *input, size_t *i, t_token **tokens);
+void	redirection_file_handling(char *input , t_token *tokens, size_t *i);
 
 /* PARSING */
 int		is_empty_string(char *str);
