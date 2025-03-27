@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:10:48 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/26 18:36:54 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/03/27 13:24:17 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	add_to_history(t_history *history, const char *command);
 t_token	*init_token(char *input, t_data *data);
 t_token	*add_token_to_list(t_token **head, char *str, t_token_type type);
 char	*path_of(char *cmd, char **env);
+char	*cut_quote(char *str);
 void	handle_command(char *input, size_t *i, t_token **tokens, t_data **data);
 void	handle_operator(char *input, size_t *i, t_token **tokens);
 

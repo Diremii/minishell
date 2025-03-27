@@ -10,6 +10,7 @@ MY_SOURCES+=sources/tokenization/operator_handling.c \
 			sources/tokenization/token.c \
 			sources/tokenization/get_path.c \
 			sources/tokenization/command_handling.c \
+			sources/tokenization/string_parsing.c \
 
 MY_SOURCES+=utils/utils.c \
 			utils/free.c \
