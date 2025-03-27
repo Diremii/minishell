@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 11:55:00 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/27 14:31:12 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/03/27 15:08:41 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ t_token	*init_token(char *input, t_data *data)
 			i++;
 		handle_operator(input, &i, &tokens);
 		handle_command(input, &i, &tokens, &data);
-		//break ;
 	}
 	return (tokens);
 }

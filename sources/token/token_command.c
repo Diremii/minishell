@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 16:10:39 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/27 14:58:56 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/03/27 15:47:32 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	skip_opperator(char *str, size_t *i, bool skip)
 	size_t	size;
 	
 	size = ft_strlen(str);
-	if (is_opperator(str[size - 1]) && skip)
+	if (size > 0 && is_opperator(str[size - 1]) && skip)
 	{
 		str[size - 1] = '\0';
 		(*i)--;
@@ -71,13 +71,15 @@ char	*get_flag(char *input, size_t *i)
 void	handle_command(char *input, size_t *i, t_token **tokens, t_data **data)
 {
 	char	*flag;
+	char	*path;
 	
-	if (!input[*i])
-		return ;
 	flag = get_flag(input, i);
 	if (!flag)
 		return ;
-	add_token_to_list(tokens, path_of(flag, (**data).envp), CMD);
+	path = path_of(flag, (**data).envp);
+	if (!path)
+		return ;
+	add_token_to_list(tokens, path, CMD);
 	free(flag);
 	if (!input[*i - 1])
 		return ;

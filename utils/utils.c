@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:51:04 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/26 18:36:39 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/03/27 17:44:23 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,19 @@ int	is_opperator(char c)
 	if (c == '|' || c == '<' || c == '>')
 		return (1);
 	return (0);
+}
+
+char	**expand_alloc(char **list, size_t old_size, size_t new_size)
+{
+	char	**new_list;
+
+	if (!list)
+		return (NULL);
+	new_list = (char **)ft_calloc(new_size, sizeof(char *));
+	if (!new_list)
+		return (NULL);
+	while (old_size--)
+		new_list[old_size] = list[old_size];
+	free(list);
+	return (new_list);
 }

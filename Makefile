@@ -13,6 +13,9 @@ MY_SOURCES+=sources/token/token.c \
 			sources/token/token_operator.c \
 			sources/token/token_redirection.c \
 
+MY_SOURCES+=sources/command_handling/create_command.c \
+			sources/command_handling/get_command.c \
+
 MY_SOURCES+=utils/utils.c \
 			utils/free.c \
 			

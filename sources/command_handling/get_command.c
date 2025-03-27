@@ -1,0 +1,79 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_command.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/27 15:15:53 by ttremel           #+#    #+#             */
+/*   Updated: 2025/03/27 18:07:22 by ttremel          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/minishell.h"
+
+char	**get_list_of_args(t_token **tokens)
+{
+	char	**args;
+	size_t	i;
+	
+	args = (char **)ft_calloc(2, sizeof(char *));
+	if (!args)
+		return (NULL);
+	i = 0;
+	while ((*tokens) && (*tokens)->type != PIPE && (*tokens)->type != OUT
+		&& (*tokens)->type != APPEND && (*tokens)->type != HEREDOC
+		&& (*tokens)->type != IN)
+	{
+		args[i] = ft_strdup((*tokens)->str);
+		if (!args[i])
+		{
+			free_all(args);
+			return (NULL);
+		}
+		args = expand_alloc(args, i + 1, i + 2);
+		if (!args)
+			return (NULL);
+		*tokens = (*tokens)->next;
+	}
+	return (args);
+}
+
+int	get_command(t_token *tokens, t_data *data)
+{
+	t_cmd	*cmd;
+	t_token	*current;
+
+	current = tokens;
+	data->cmd = NULL;
+	while (current)
+	{
+		cmd = new_cmd(NULL);
+		if (!cmd)
+			return (1);
+		while (current && current->type != PIPE)
+		{
+			if (current->type == HEREDOC)
+			{
+				cmd->here_doc = 1;
+				cmd->infile = ft_strdup(current->next->str);
+			}
+			if (current->type == IN)
+			{
+				if (current->next)
+					cmd->infile = ft_strdup(current->next->str);
+			}
+			if (current->type == OUT)
+			{
+				if (current->next)
+					cmd->outfile = ft_strdup(current->next->str);
+			}
+			if (current->type == CMD)
+				cmd->cmd_param = get_list_of_args(&current);
+			if (current)
+				current = current->next;
+		}
+		cmd_add_back(&data->cmd, cmd);
+	}
+	return (0);
+}
