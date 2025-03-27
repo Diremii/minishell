@@ -6,9 +6,9 @@ MY_SOURCES= sources/main/main.c \
 			sources/main/history.c \
 			sources/main/parsing.c \
 
-MY_SOURCES+=sources/tokenization/operator_handling.c \
-			sources/tokenization/token.c \
-			sources/tokenization/redirection_handling.c \
+MY_SOURCES+=sources/token/token.c \
+			sources/token/token_operator.c
+			sources/token/token_redirection.c \
 
 MY_SOURCES+=utils/utils.c \
 			
