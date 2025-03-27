@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 16:10:39 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/27 13:52:29 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/03/27 14:35:31 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,8 @@ void	redirection_file_handling(char *input, t_token *tokens, size_t *i)
 		(*i)++;
 	while (input[size] && is_valid(input[(*i)]))
 		size++;
-	word = ft_calloc(sizeof(char), (size - (*i)) + 1);
+	word = get_flag(input, i);
 	if (!word)
 		return ;
-	while ((*i) <= size)
-	{
-		word[index] = input[(*i)];
-		index++;
-		(*i)++;
-	}
 	add_token_to_list(&tokens, word, REDIR);
 }

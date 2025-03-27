@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 13:22:56 by ttremel           #+#    #+#             */
-/*   Updated: 2025/03/27 13:48:10 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/03/27 14:30:42 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,8 @@ char	*cut_quote(char *str)
 	char	*new_str;
 
 	list = NULL;
+	if (!str)
+		return (NULL);
 	list = split_str(str);
 	if (!list)
 	{
