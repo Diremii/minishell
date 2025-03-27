@@ -6,11 +6,12 @@ MY_SOURCES= sources/main/main.c \
 			sources/main/history.c \
 			sources/main/parsing.c \
 
-MY_SOURCES+=sources/tokenization/operator_handling.c \
-			sources/tokenization/token.c \
-			sources/tokenization/get_path.c \
-			sources/tokenization/command_handling.c \
-			sources/tokenization/string_parsing.c \
+MY_SOURCES+=sources/token/token.c \
+			sources/token/get_path.c \
+			sources/token/token_command.c \
+			sources/token/string_parsing.c \
+			sources/token/token_operator.c \
+			sources/token/token_redirection.c \
 
 MY_SOURCES+=utils/utils.c \
 			utils/free.c \

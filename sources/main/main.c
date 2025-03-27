@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:15:05 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/25 16:35:54 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/03/27 14:00:23 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ int main(int ac, char **av, char **envp)
 			printf("Token: %s, Type: %d\n", current->str, current->type); // Affiche le contenu du token
 			current = current->next;
 		}
-
 		free(input);
 	}
 	close(history->fd);

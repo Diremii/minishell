@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:10:48 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/27 13:24:17 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/03/27 14:00:55 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,14 @@
 
 typedef enum e_token_type
 {
-	INPUT = 1,
+	IN = 1,
 	HEREDOC = 2,
-	TRUNC = 3,
+	OUT = 3,
 	APPEND = 4,
 	PIPE = 5,
 	CMD = 6,
-	ARG = 7
+	ARG = 7,
+	REDIR = 8
 }	t_token_type;
 
 typedef struct s_cmd
@@ -53,6 +54,7 @@ typedef struct s_token
 	char			*str;
 	t_token_type	type;
 	struct s_token 	*next;
+	struct s_token	*prev;
 }	t_token;
 
 typedef struct s_history
@@ -66,7 +68,8 @@ typedef struct s_data
 {
 	char	**envp;
 	char	**paths;
-	t_cmd	*cmds;
+	t_token	*tokens;
+	t_cmd	*cmd;
 }	t_data;
 
 /* HISTORY */
@@ -80,6 +83,7 @@ char	*path_of(char *cmd, char **env);
 char	*cut_quote(char *str);
 void	handle_command(char *input, size_t *i, t_token **tokens, t_data **data);
 void	handle_operator(char *input, size_t *i, t_token **tokens);
+void	redirection_file_handling(char *input , t_token *tokens, size_t *i);
 
 /* PARSING */
 int		is_empty_string(char *str);

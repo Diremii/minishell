@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   operator_handling.c                                :+:      :+:    :+:   */
+/*   token_operator.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 15:39:49 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/25 16:07:36 by humontas         ###   ########.fr       */
+/*   Updated: 2025/03/27 13:43:49 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,26 +19,24 @@ static void	handle_redirection(char *input, size_t *i, t_token **tokens)
 		if (input[*i + 1] == '<')
 		{
 			add_token_to_list(tokens, "<<", HEREDOC);
-			(*i) += 2;
-		}
-		else
-		{
-			add_token_to_list(tokens, "<", INPUT);
 			(*i)++;
 		}
+		else
+			add_token_to_list(tokens, "<", IN);
+		(*i)++;
+		redirection_file_handling(input, *tokens, i);
 	}
 	else if (input[*i] == '>')
 	{
 		if (input[*i + 1] == '>')
 		{
-			add_token_to_list(tokens, "<<", APPEND);
-			(*i += 2);
-		}
-		else
-		{
-			add_token_to_list(tokens, "<", INPUT);
+			add_token_to_list(tokens, ">>", APPEND);
 			(*i)++;
 		}
+		else
+			add_token_to_list(tokens, ">", OUT);
+		(*i)++;
+		redirection_file_handling(input, *tokens, i);
 	}
 }
 
