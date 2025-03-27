@@ -7,7 +7,7 @@ MY_SOURCES= sources/main/main.c \
 			sources/main/parsing.c \
 
 MY_SOURCES+=sources/token/token.c \
-			sources/token/token_operator.c
+			sources/token/token_operator.c \
 			sources/token/token_redirection.c \
 
 MY_SOURCES+=utils/utils.c \
