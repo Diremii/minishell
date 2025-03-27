@@ -6,11 +6,11 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:17:38 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/27 11:13:04 by humontas         ###   ########.fr       */
+/*   Updated: 2025/03/27 13:44:25 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 static int	check_history_file(t_history *history)
 {

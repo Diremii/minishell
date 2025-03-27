@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirection_handling.c                             :+:      :+:    :+:   */
+/*   token_redirection.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 16:10:39 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/27 13:20:25 by humontas         ###   ########.fr       */
+/*   Updated: 2025/03/27 13:45:30 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static bool	is_valid(char c)
 	return (true);
 }
 
-void	redirection_file_handling(char *input , t_token *tokens, size_t *i)
+void	redirection_file_handling(char *input, t_token *tokens, size_t *i)
 {
 	size_t	size;
 	size_t	index;
