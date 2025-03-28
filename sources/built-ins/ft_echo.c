@@ -6,8 +6,10 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 15:38:47 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/28 13:58:18 by humontas         ###   ########.fr       */
+/*   Updated: 2025/03/28 14:14:33 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+eg_sig

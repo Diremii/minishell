@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 15:21:16 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/28 12:26:50 by humontas         ###   ########.fr       */
+/*   Updated: 2025/03/28 15:03:42 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,12 @@ int	check_syntax_error(t_token *tokens)
 		if ((curr->type == PIPE && (!curr->next || curr->next->type == PIPE)))
 		{
 			printf("minishell: syntax error near unexpected token `|'\n");
+			return (1);
+		}
+		if ((curr->type == IN && !curr->next) || (curr->type == OUT && !curr->next) || 
+			(curr->type == APPEND && !curr->next) || (curr->type == HEREDOC && !curr->next))
+		{
+			printf("minishell: syntax error near unexpected token `newline'\n");
 			return (1);
 		}
 		curr = curr->next;
