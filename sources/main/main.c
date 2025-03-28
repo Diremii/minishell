@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:15:05 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/28 13:27:48 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/03/28 16:09:34 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int main(int ac, char **av, char **envp)
 	(void)ac;
 	(void)av;
 	history = malloc(sizeof(t_history));
-	tokens = malloc(sizeof(t_token));
+	tokens = NULL;
 	data.envp = envp;
 	if (!envp[0])
 		data.envp = NULL;
@@ -59,10 +59,7 @@ int main(int ac, char **av, char **envp)
 	{
 		input = readline("minishell > ");
 		if (!input)
-		{
-			free(tokens);
 			break ;
-		}
 		tokens = init_token(input, &data);
 		get_command(tokens, &data);
 		add_to_history(history, input);
@@ -94,6 +91,7 @@ int main(int ac, char **av, char **envp)
 		cmd_clear(&data.cmd);
 		free(input);
 	}
+	free(tokens);
 	close(history->fd);
 	free(history->last_command);
 	free(history->path);

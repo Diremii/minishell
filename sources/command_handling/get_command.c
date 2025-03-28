@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 15:15:53 by ttremel           #+#    #+#             */
-/*   Updated: 2025/03/28 12:37:26 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/03/28 16:08:40 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	**get_list_of_args(t_token **tokens)
 {
 	char	**args;
 	size_t	i;
-	
+
 	args = (char **)ft_calloc(2, sizeof(char *));
 	if (!args)
 		return (NULL);
@@ -40,6 +40,30 @@ char	**get_list_of_args(t_token **tokens)
 	return (args);
 }
 
+void	typing(t_token **current, t_cmd **cmd)
+{
+	if ((*current)->type == HEREDOC)
+	{
+		(*cmd)->here_doc = 1;
+		if ((*current)->next)
+			(*cmd)->limiter = ft_strdup((*current)->next->str);
+	}
+	if ((*current)->type == IN)
+	{
+		if ((*current)->next)
+			(*cmd)->infile = ft_strdup((*current)->next->str);
+	}
+	if ((*current)->type == CMD)
+		(*cmd)->cmd_param = get_list_of_args(current);
+	if (*current && ((*current)->type == OUT || (*current)->type == APPEND))
+	{
+		if ((*current)->type == APPEND)
+			(*cmd)->append = 1;
+		if ((*current)->next)
+			(*cmd)->outfile = ft_strdup((*current)->next->str);
+	}
+}
+
 int	get_command(t_token *tokens, t_data *data)
 {
 	t_cmd	*cmd;
@@ -54,25 +78,7 @@ int	get_command(t_token *tokens, t_data *data)
 			return (1);
 		while (current && current->type != PIPE)
 		{
-			if (current->type == HEREDOC)
-			{
-				cmd->here_doc = 1;
-				cmd->limiter = ft_strdup(current->next->str);
-			}
-			if (current->type == IN)
-			{
-				if (current->next)
-					cmd->infile = ft_strdup(current->next->str);
-			}
-			if (current->type == CMD)
-				cmd->cmd_param = get_list_of_args(&current);
-			if (current && (current->type == OUT || current->type == APPEND))
-			{
-				if (current->type == APPEND)
-					cmd->append = 1;
-				if (current->next)
-					cmd->outfile = ft_strdup(current->next->str);
-			}
+			typing(&current, &cmd);
 			if (current && current->type != PIPE)
 				current = current->next;
 		}
