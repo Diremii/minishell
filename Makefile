@@ -2,18 +2,18 @@ MAKEFLAGS+=	--no-print-directory
 
 NAME= minishell
 
-MY_SOURCES= sources/main/main.c \
-			sources/main/history.c \
-			sources/main/parsing.c \
+MY_SOURCES= sources/main.c \
 
-MY_SOURCES+=sources/token/token.c \
-			sources/token/get_path.c \
-			sources/token/token_command.c \
-			sources/token/string_parsing.c \
-			sources/token/token_operator.c \
-			sources/token/token_redirection.c \
+MY_SOURCES+=sources/parsing/parsing.c \
+			sources/parsing/token.c \
+			sources/parsing/get_path.c \
+			sources/parsing/token_command.c \
+			sources/parsing/string_parsing.c \
+			sources/parsing/token_operator.c \
+			sources/parsing/token_redirection.c \
 
 MY_SOURCES+=utils/utils.c \
+			utils/history.c \
 			utils/free.c \
 			
 

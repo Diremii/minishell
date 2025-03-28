@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 11:55:00 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/27 14:31:12 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/03/28 09:44:28 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_token	*create_token(char *input, t_token_type type)
+static t_token	*create_token(char *input, t_token_type type)
 {
 	t_token	*new_token;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:10:48 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/27 14:13:46 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/03/28 10:06:21 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include <readline/history.h>
 # include <curses.h>
 # include "libft/libft.h"
+# include "libft/printf/ft_printf.h"
 
 typedef enum e_token_type
 {
@@ -88,7 +89,7 @@ void	redirection_file_handling(char *input , t_token *tokens, size_t *i);
 
 /* PARSING */
 int		is_empty_string(char *str);
-int		init_parsing(char *str);
+int		init_parsing(char *str, t_token *tokens);
 
 /* UTILS */
 void	exit_error(char *str, int exit_code);

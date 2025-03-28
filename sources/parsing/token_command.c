@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   token_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 16:10:39 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/27 14:58:56 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/03/28 09:42:01 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	skip_quote(char *input, size_t *i)
+static void	skip_quote(char *input, size_t *i)
 {
 	if (input[*i] == '\"')
 	{
@@ -28,12 +28,12 @@ void	skip_quote(char *input, size_t *i)
 	}
 }
 
-void	skip_opperator(char *str, size_t *i, bool skip)
+static void	skip_opperator(char *str, size_t *i, bool skip)
 {
-	size_t	size;
-	
+	size_t    size;
+
 	size = ft_strlen(str);
-	if (is_opperator(str[size - 1]) && skip)
+	if (size > 0 && is_opperator(str[size - 1]) && skip)
 	{
 		str[size - 1] = '\0';
 		(*i)--;

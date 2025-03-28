@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:15:05 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/27 14:00:23 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/03/28 10:13:19 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../includes/minishell.h"
 
 // int main(int ac, char **av, char **envp)
 // {
@@ -62,16 +62,15 @@ int main(int ac, char **av, char **envp)
 			break ;
 		tokens = init_token(input, &data);
 		add_to_history(history, input);
-
-		// Debugging : Afficher les tokens
-		t_token *current = tokens;
-		while (current)
-		{
-			printf("Token: %s, Type: %d\n", current->str, current->type); // Affiche le contenu du token
-			current = current->next;
-		}
 		free(input);
 	}
 	close(history->fd);
 	clear_history();
 }
+
+// t_token *current = tokens;
+// while (current)
+// {
+// 	printf("Token: %s, Type: %d\n", current->str, current->type);
+// 	current = current->next;
+// }
