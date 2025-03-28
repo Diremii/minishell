@@ -6,13 +6,9 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 15:38:47 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/27 15:44:51 by humontas         ###   ########.fr       */
+/*   Updated: 2025/03/28 10:53:18 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_echo(char **args)
-{
-	
-}

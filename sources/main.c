@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:15:05 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/28 10:14:29 by humontas         ###   ########.fr       */
+/*   Updated: 2025/03/28 12:21:42 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ int main(int ac, char **av, char **envp)
 		if (!input)
 			break ;
 		tokens = init_token(input, &data);
+		init_parsing(input);
+		check_syntax_error(tokens);
 		add_to_history(history, input);
 		t_token *current = tokens;
 		while (current)

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 17:47:12 by ttremel           #+#    #+#             */
-/*   Updated: 2025/03/25 17:50:31 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/03/28 11:53:36 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*no_env(char *cmd)
+static char	*no_env(char *cmd)
 {
 	char	*path;
 	char	*dup;
