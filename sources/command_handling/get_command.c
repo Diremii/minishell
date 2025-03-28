@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 15:15:53 by ttremel           #+#    #+#             */
-/*   Updated: 2025/03/27 18:07:22 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/03/28 12:37:26 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ char	**get_list_of_args(t_token **tokens)
 		if (!args)
 			return (NULL);
 		*tokens = (*tokens)->next;
+		i++;
 	}
 	return (args);
 }
@@ -56,23 +57,27 @@ int	get_command(t_token *tokens, t_data *data)
 			if (current->type == HEREDOC)
 			{
 				cmd->here_doc = 1;
-				cmd->infile = ft_strdup(current->next->str);
+				cmd->limiter = ft_strdup(current->next->str);
 			}
 			if (current->type == IN)
 			{
 				if (current->next)
 					cmd->infile = ft_strdup(current->next->str);
 			}
-			if (current->type == OUT)
+			if (current->type == CMD)
+				cmd->cmd_param = get_list_of_args(&current);
+			if (current && (current->type == OUT || current->type == APPEND))
 			{
+				if (current->type == APPEND)
+					cmd->append = 1;
 				if (current->next)
 					cmd->outfile = ft_strdup(current->next->str);
 			}
-			if (current->type == CMD)
-				cmd->cmd_param = get_list_of_args(&current);
-			if (current)
+			if (current && current->type != PIPE)
 				current = current->next;
 		}
+		if (current && current->type == PIPE)
+			current = current->next;
 		cmd_add_back(&data->cmd, cmd);
 	}
 	return (0);

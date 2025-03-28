@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 16:10:39 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/27 15:47:32 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/03/28 13:02:39 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,25 @@ char	*get_flag(char *input, size_t *i)
 	return (str);
 }
 
+void	handle_args(char *input, size_t *i, t_token **tokens)
+{
+	char	*flag;
+	
+	flag = NULL;
+	while (input[*i] || !is_opperator(input[*i]))
+	{
+		free(flag);
+		while (input[*i] && input[*i] == ' ' && !is_opperator(input[*i]))
+			(*i)++;
+		if (!input[*i] || is_opperator(input[*i]))
+			return ;
+		flag = get_flag(input, i);
+		if (!flag)
+			return ;
+		add_token_to_list(tokens, flag, ARG);
+	}
+}
+
 void	handle_command(char *input, size_t *i, t_token **tokens, t_data **data)
 {
 	char	*flag;
@@ -78,20 +97,14 @@ void	handle_command(char *input, size_t *i, t_token **tokens, t_data **data)
 		return ;
 	path = path_of(flag, (**data).envp);
 	if (!path)
+	{
+		free(flag);
 		return ;
+	}
 	add_token_to_list(tokens, path, CMD);
+	free(path);
 	free(flag);
 	if (!input[*i - 1])
 		return ;
-	while (input[*i] || !is_opperator(input[*i]))
-	{
-		while (input[*i] && input[*i] == ' ' && !is_opperator(input[*i]))
-			(*i)++;
-		if (!input[*i] || is_opperator(input[*i]))
-			return ;
-		flag = get_flag(input, i);
-		if (!flag)
-			return ;
-		add_token_to_list(tokens, flag, ARG);
-	}
+	handle_args(input, i, tokens);
 }

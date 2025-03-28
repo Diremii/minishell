@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 15:29:10 by ttremel           #+#    #+#             */
-/*   Updated: 2025/03/27 18:02:17 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/03/28 12:19:11 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ t_cmd	*new_cmd(char **args)
 		return (NULL);
 	cmd->cmd_param = args;
 	cmd->here_doc = 0;
+	cmd->append = 0;
+	cmd->limiter = NULL;
 	cmd->infile = NULL;
 	cmd->outfile = NULL;
 	cmd->prev = NULL;
