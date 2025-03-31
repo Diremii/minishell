@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 16:10:39 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/31 11:53:32 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/03/31 15:25:14 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,14 @@ static void	skip_quote(char *input, size_t *i)
 
 static void	skip_opperator(char *str, size_t *i, bool skip)
 {
-	size_t    size;
+	ssize_t    size;
 
-	size = ft_strlen(str);
-	if (size > 0 && is_opperator(str[size - 1]) && skip)
+	size = ft_strlen(str) - 1;
+	while (size > 0 && is_opperator(str[size]) && skip)
 	{
-		str[size - 1] = '\0';
+		str[size] = '\0';
 		(*i)--;
+		size--;
 	}
 }
 
@@ -54,7 +55,7 @@ char	*get_flag(char *input, size_t *i)
 		skip_quote(input, i);
 		(*i)++;
 	}
-	str = ft_substr(input, j, *i - j);
+	str = ft_strndup(input + j, *i - j);
 	if (!str)
 		return (NULL);
 	size = ft_strlen(str);
