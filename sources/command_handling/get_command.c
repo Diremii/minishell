@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 15:15:53 by ttremel           #+#    #+#             */
-/*   Updated: 2025/03/31 14:08:48 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/03/31 15:58:12 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	typing(t_token **current, t_cmd **cmd)
 void	set_inout(t_data *data)
 {
 	t_cmd	*current;
+	t_cmd	*rev;
 	char	*in;
 	char	*out;
 
@@ -79,13 +80,15 @@ void	set_inout(t_data *data)
 			in = current->infile;
 		current->infile = in;
 		current = current->next;
+		if (current && !current->next)
+			rev = current;
 	}
-	while (current)
+	while (rev)
 	{
-		if (current->outfile)
-			out = current->outfile;
-		current->outfile = out;
-		current = current->prev;
+		if (rev->outfile)
+			out = rev->outfile;
+		rev->outfile = out;
+		rev = rev->prev;
 	}
 	
 }
@@ -112,6 +115,6 @@ int	get_command(t_token *tokens, t_data *data)
 			current = current->next;
 		cmd_add_back(&data->cmd, cmd);
 	}
-	set_inout(data);
+	//set_inout(data);
 	return (0);
 }
