@@ -22,10 +22,8 @@ static bool	is_valid(char c)
 void	redirection_file_handling(char *input, t_token *tokens, size_t *i)
 {
 	size_t	size;
-	size_t	index;
 	char	*word;
 
-	index = 0;
 	size = (*i);
 	while (input[(*i)] == ' ' || input[(*i)] == '\t')
 		(*i)++;
