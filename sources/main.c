@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:15:05 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/31 12:02:46 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/03/31 12:07:27 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int main(int ac, char **av, char **envp)
 			break ;
 		tokens = init_token(input, &data);
 		init_parsing(input);
-		get_command(tokens, &data);
+		//get_command(tokens, &data);
 		add_to_history(history, input);
 		clear_tokens(&tokens);
 		
