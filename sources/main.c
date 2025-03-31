@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:15:05 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/31 12:10:47 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/03/31 12:11:25 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int main(int ac, char **av, char **envp)
 		init_parsing(input);
 		//get_command(tokens, &data);
 		add_to_history(history, input);
-		clear_tokens(&tokens);
 		
 		// Debugging : Afficher les tokens
 		t_token *current = tokens;
@@ -45,6 +44,7 @@ int main(int ac, char **av, char **envp)
 			printf("Token: %s, Type: %d\n", current->str, current->type); // Affiche le contenu du token
 			current = current->next;
 		}
+		clear_tokens(&tokens);
 		free(input);
 	}
 	free(tokens);
