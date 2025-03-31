@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 10:13:38 by ttremel           #+#    #+#             */
-/*   Updated: 2025/02/14 17:38:10 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/03/31 14:33:16 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 void	ft_putuint_fd(unsigned int n, int fd);
 void	ft_putbaseuint_fd(unsigned int n, const char *base, int fd);
 void	ft_putaddress_fd(size_t n, int fd);
+void	print_putstr_fd(char *s, int fd);
 void	put_arg(char format, void *value, int fd);
 size_t	size_arg(char format, void *value);
 size_t	count_arg(const char *format);

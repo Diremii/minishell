@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 18:02:41 by ttremel           #+#    #+#             */
-/*   Updated: 2025/03/28 13:14:38 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/03/31 14:07:38 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,9 @@ void	cmd_clear(t_cmd **lst)
 		*lst = lst[0]->next;
 		free_all(to_free->cmd_param);
 		free(to_free->infile);
+		to_free->infile = NULL;
 		free(to_free->outfile);
+		to_free->outfile = NULL;
 		free(to_free->limiter);
 		free(to_free);
 	}

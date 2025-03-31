@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 16:10:39 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/31 11:53:32 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/03/31 14:39:39 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,11 @@ static void	skip_opperator(char *str, size_t *i, bool skip)
 	size = ft_strlen(str);
 	if (size > 0 && is_opperator(str[size - 1]) && skip)
 	{
+		if (size > 1 && is_opperator(str[size - 2]))
+		{
+			str[size - 2] = '\0';
+			(*i)--;
+		}
 		str[size - 1] = '\0';
 		(*i)--;
 	}

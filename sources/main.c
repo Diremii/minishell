@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:15:05 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/31 12:02:46 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/03/31 14:19:52 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,28 @@ int main(int ac, char **av, char **envp)
 		tokens = init_token(input, &data);
 		init_parsing(input);
 		get_command(tokens, &data);
+		
+		// debug : show cmd content
+		t_cmd	*current = data.cmd;
+		size_t	i;
+		while (current)
+		{
+			ft_printf("Infile : %s\nOutfile : %s\nLimiter : %s\nhere_doc : %d\nappend : %d\n", current->infile, current->outfile, current->limiter, current->here_doc, current->append);
+			i = 1;
+			ft_printf("Command : ");
+			if (current->cmd_param[0])
+				ft_printf("%s\n", current->cmd_param[0]);
+			ft_printf("Flags : ");
+			while (current->cmd_param[i])
+			{
+				ft_printf("%s, ", current->cmd_param[i]);
+				i++;
+			}
+			ft_printf("\n");
+			current = current->next;
+		}
 		add_to_history(history, input);
 		clear_tokens(&tokens);
-		
 		free(input);
 	}
 	free(tokens);
