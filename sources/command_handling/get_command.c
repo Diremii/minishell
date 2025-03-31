@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 15:15:53 by ttremel           #+#    #+#             */
-/*   Updated: 2025/03/31 15:58:12 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/03/31 18:32:47 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,6 @@ int	get_command(t_token *tokens, t_data *data)
 			current = current->next;
 		cmd_add_back(&data->cmd, cmd);
 	}
-	//set_inout(data);
+	set_inout(data);
 	return (0);
 }

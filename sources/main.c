@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:15:05 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/31 16:44:27 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/03/31 18:27:57 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,11 @@ int main(int ac, char **av, char **envp)
 		if (!input)
 			break ;
 		tokens = init_token(input, &data);
+		if (!tokens)
+		{
+			free(input);
+			continue ;
+		}
 		init_parsing(input);
 		get_command(tokens, &data);
 		
