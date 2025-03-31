@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:10:48 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/28 12:01:30 by humontas         ###   ########.fr       */
+/*   Updated: 2025/03/31 12:04:18 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@
 
 typedef enum e_token_type
 {
-	IN = 1,
-	HEREDOC = 2,
-	OUT = 3,
-	APPEND = 4,
-	PIPE = 5,
+	IN = 1, // <
+	HEREDOC = 2, // <<
+	OUT = 3, // >
+	APPEND = 4, // >>
+	PIPE = 5, // |
 	CMD = 6,
 	ARG = 7,
 	REDIR = 8
@@ -43,8 +43,11 @@ typedef enum e_token_type
 
 typedef struct s_cmd
 {
-	int				infile;
-	int				outfile;
+	int				here_doc;
+	int				append;
+	char			*infile;
+	char			*outfile;
+	char			*limiter;
 	char			**cmd_param;
 	struct s_cmd	*prev;
 	struct s_cmd	*next;
@@ -87,17 +90,32 @@ void	handle_command(char *input, size_t *i, t_token **tokens, t_data **data);
 void	handle_operator(char *input, size_t *i, t_token **tokens);
 void	redirection_file_handling(char *input , t_token *tokens, size_t *i);
 
+/* COMMAND */
+t_cmd	*new_cmd(char **args);
+void	cmd_add_back(t_cmd **lst, t_cmd *new);
+void	cmd_add_front(t_cmd **lst, t_cmd *new);
+int		get_command(t_token *tokens, t_data *data);
+int		get_command(t_token *tokens, t_data *data);
+
+/* EXEC */
+pid_t	last_process(int p_fd[2], int fd[2], int argc, t_cmd ***cmds);
+void	child_process(int p_fd[2], int fd[2], t_cmd ***cmds, int i);
+void	parent_process(int p_fd[2], int fd[2], t_cmd ***cmds);
+
 /* PARSING */
 int		is_empty_string(char *str);
 int		init_parsing(char *str);
 int		check_syntax_error(t_token *tokens);
 
 /* UTILS */
+char	**expand_alloc(char **list, size_t old_size, size_t new_size);
 void	exit_error(char *str, int exit_code);
 int		is_opperator(char c);
 
 /* FREE */
 void	free_all(char **list);
+void	cmd_clear(t_cmd **lst);
+void	clear_tokens(t_token **tokens);
 
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 11:55:00 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/28 14:04:12 by humontas         ###   ########.fr       */
+/*   Updated: 2025/03/31 11:52:35 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,5 @@ t_token	*init_token(char *input, t_data *data)
 		handle_operator(input, &i, &tokens);
 		handle_command(input, &i, &tokens, &data);
 	}
-	check_syntax_error(tokens);
 	return (tokens);
 }
