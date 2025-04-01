@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 13:51:29 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/01 14:26:45 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/01 14:30:07 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ void	ft_unset(t_data *data, char **args)
 	if (!args)
 		return ;
 	i = 0;
-	j = 0;
 	while (args[i])
 	{
+		j = 0;
 		while (data->envp[j])
 		{
 			if (!ft_strcmp(args[i], data->envp[j]))
