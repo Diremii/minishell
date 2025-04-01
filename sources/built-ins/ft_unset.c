@@ -1,24 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/31 15:57:07 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/01 13:56:55 by humontas         ###   ########.fr       */
+/*   Created: 2025/04/01 13:51:29 by humontas          #+#    #+#             */
+/*   Updated: 2025/04/01 13:56:51 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_pwd(void)
+void	ft_unset(t_data *data, char **args)
 {
-	char	*cwd;
+	int	i;
+	int	j;
 
-	cwd = getcwd(NULL, 0);
-	if (!cwd)
+	if (!args)
 		return ;
-	printf("%s\n", cwd);
-	free(cwd);
+	i = 0;
+	j = 0;
+	while (args[i])
+	{
+		while (data->envp[j])
+		{
+			if (!ft_strcmp(args[i], data->envp[j]))
+				free(data->envp[j]);
+			j++;
+		}
+		i++;
+	}
 }
