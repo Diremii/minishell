@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:15:05 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/31 15:17:48 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/01 11:27:02 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int main(int ac, char **av, char **envp)
 	data.envp = envp;
 	if (!envp[0])
 		data.envp = NULL;
-	init_history(history);
+;	init_history(history);
 	while (1)
 	{
 		input = readline("minishell$ ");
@@ -37,7 +37,6 @@ int main(int ac, char **av, char **envp)
 		//get_command(tokens, &data);
 		add_to_history(history, input);
 		clear_tokens(&tokens);
-		
 		free(input);
 	}
 	free(tokens);
