@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 15:29:10 by ttremel           #+#    #+#             */
-/*   Updated: 2025/03/28 12:19:11 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/01 12:36:03 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,14 @@ void	cmd_add_back(t_cmd **lst, t_cmd *new)
 		new->prev = *lst;
 		(*lst)->next = new;
 	}
+}
+
+t_cmd	*cmdlast(t_cmd *lst)
+{
+	if (lst == NULL)
+		return (lst);
+	if (lst->next != NULL)
+		return (cmdlast(lst->next));
+	else
+		return (lst);
 }

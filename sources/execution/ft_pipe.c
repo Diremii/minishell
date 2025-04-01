@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 13:28:42 by ttremel           #+#    #+#             */
-/*   Updated: 2025/03/28 15:18:42 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/01 18:38:19 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,18 @@ static int	create_here_doc(int fd, char *lim)
 	return (0);
 }
 
-int	here_doc(t_data *data)
+int	here_doc(char *lim)
 {
 	int		fd[2];
 	char	*file;
-	int		rand_num;
 
 	file = "./.nfs0000000000";
+	if (access(file, F_OK) != -1)
+		unlink(file);
 	fd[0] = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (fd[0] == -1)
 		return (-1);
-	if (create_here_doc(fd[0], data->cmd->limiter) == -1)
+	if (create_here_doc(fd[0], lim) == -1)
 		return (-1);
 	close(fd[0]);
 	fd[1] = open(file, O_RDONLY, 0777);
@@ -58,32 +59,60 @@ int	here_doc(t_data *data)
 	return (fd[1]);
 }
 
-static int	open_fd(int fd[2], t_data *data)
+int	open_fd(int fd[2], t_cmd *cmd)
 {
 	int		ret;
 
-	if (data->cmd->here_doc)
-		ret = here_doc(data);
+	if (cmd->here_doc)
+		ret = here_doc(cmd->limiter);
 	else
-		ret = open(data->cmd->infile, O_RDONLY, 0777);
+	{
+		if (cmd->infile)
+			ret = open(cmd->infile, O_RDONLY, 0777);
+		else
+			ret = 0;
+	}
 	fd[0] = ret;
-	if (data->cmd->append)
-		ret = open(data->cmd->outfile, O_WRONLY | O_CREAT | O_APPEND, 0777);
+	if (cmd->outfile)
+	{
+		if (cmd->append)
+			ret = open(cmd->outfile, O_WRONLY | O_CREAT | O_APPEND, 0777);
+		else
+			ret = open(cmd->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	}
 	else
-		ret = open(data->cmd->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0777);
-	fd[1] = ret;
+	{
+		ret = 1;
+		fd[1] = ret;
+	}
 	return (0);
 }
 
-
-int	exec_pipe(t_data *data)
+int	pipe_in_pipe(t_data *data, t_cmd **cmd)
 {
 	pid_t	pid;
+	size_t	size;
 	int		fd[2];
 
-	if (open_fd(fd, data) == -1)
-		return (-1);
-	pid = pipex(data, fd);
+	if (open_fd(fd, *cmd) == -1)
+		return (1);
+	pid = pipex(fd, data, cmd);
 	close_fd(fd);
-	wait_all_pid(pid);
+	size = cmdsize(*cmd);
+	return (0);
+}
+
+int	ft_pipe(t_data *data)
+{
+	pid_t	pid;
+	size_t	size;
+	int		fd[2];
+
+	if (open_fd(fd, data->cmd) == -1)
+		return (1);
+	pid = pipex(fd, data, &data->cmd);
+	close_fd(fd);
+	size = cmdsize(data->cmd);
+	wait_all_pid(pid, size);
+	return (0);
 }

@@ -6,21 +6,21 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 01:07:00 by ttremel           #+#    #+#             */
-/*   Updated: 2025/03/13 13:57:24 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/01 18:49:40 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/pipex.h"
+#include "../../includes/minishell.h"
 
 static int	access_to_cmd(t_cmd *cmd)
 {
 	char	*dup;
 
-	dup = ft_strdup(cmd->path);
+	dup = ft_strdup(cmd->cmd_param[0]);
 	if (!dup)
 		return (-1);
 	if (access(dup, F_OK | X_OK) == -1)
-		error_msg(2, cmd->flags[0]);
+		error_msg(2, ft_strrchr(cmd->cmd_param[0], '/') + 1);
 	free(dup);
 	return (0);
 }
@@ -50,28 +50,30 @@ static int	access_to_file(char *in_file, char *out_file, int here_doc)
 	return (0);
 }
 
-int	check_all_access(t_cmd **cmds, int here_doc)
+int	check_all_access(t_cmd **cmd, t_data *data, int here_doc)
 {
-	size_t	i;
+	t_cmd	*current;
 
-	i = 0;
-	if (access_to_file(cmds[0]->in_file, NULL, here_doc) == -1)
+	current = *cmd;
+	if (access_to_file(current->infile, NULL, here_doc) == -1)
 	{
-		free_for_all(cmds);
+		cmd_clear(&data->cmd);
 		return (-1);
 	}
-	while (cmds[i])
+	while (1)
 	{
-		if (access_to_cmd(cmds[i]))
+		if (access_to_cmd(current))
 		{
-			free_for_all(cmds);
+			cmd_clear(&data->cmd);
 			return (-1);
 		}
-		i++;
+		if (!current->next)
+			break ;
+		current = current->next;
 	}
-	if (access_to_file(NULL, cmds[0]->out_file, 0) == -1)
+	if (access_to_file(NULL, current->outfile, 0) == -1)
 	{
-		free_for_all(cmds);
+		cmd_clear(&data->cmd);
 		return (-1);
 	}
 	return (0);

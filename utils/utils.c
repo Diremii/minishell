@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:51:04 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/28 11:16:50 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/01 15:07:27 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,19 @@ char	**expand_alloc(char **list, size_t old_size, size_t new_size)
 		new_list[old_size] = list[old_size];
 	free(list);
 	return (new_list);
+}
+
+size_t	cmdsize(t_cmd *cmds)
+{
+	size_t	size;
+
+	size = 0;
+	if (!cmds)
+		return (0);
+	while (cmds != NULL)
+	{
+		cmds = cmds->next;
+		size++;
+	}
+	return (size);
 }

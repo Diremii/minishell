@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:10:48 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/31 12:04:18 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/01 18:45:41 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,15 +92,32 @@ void	redirection_file_handling(char *input , t_token *tokens, size_t *i);
 
 /* COMMAND */
 t_cmd	*new_cmd(char **args);
+t_cmd	*cmdlast(t_cmd *lst);
 void	cmd_add_back(t_cmd **lst, t_cmd *new);
 void	cmd_add_front(t_cmd **lst, t_cmd *new);
+char	**get_list_of_args(t_token **tokens);
+int		typing_heredoc(t_token **current, t_cmd **cmd);
+int		typing_cmd(t_token **current, t_cmd **cmd);
 int		get_command(t_token *tokens, t_data *data);
-int		get_command(t_token *tokens, t_data *data);
+int		set_out(t_data *data);
+int		set_in(t_data *data);
 
 /* EXEC */
-pid_t	last_process(int p_fd[2], int fd[2], int argc, t_cmd ***cmds);
-void	child_process(int p_fd[2], int fd[2], t_cmd ***cmds, int i);
-void	parent_process(int p_fd[2], int fd[2], t_cmd ***cmds);
+pid_t	pipex(int fd[2], t_data *data, t_cmd **cmd);
+pid_t	last_process(int p_fd[2], int fd[2], t_data *data, t_cmd **cmd);
+void	child_process(int p_fd[2], int fd[2], t_data *data, t_cmd **cmd);
+void	parent_process(int p_fd[2], int fd[2], t_data *data);
+void	ft_exec(int p_fd[2], int fd[2], t_data *data, t_cmd **cmd);
+void	close_fd(int fd[2]);
+void	close_n_exit(int fd[2], t_cmd **cmds);
+void	close_all(int p_fd[2], int fd[2], t_cmd **cmds);
+void	error_msg(int err, char *error);
+int		check_all_access(t_cmd **cmd, t_data *data, int here_doc);
+int		open_fd(int fd[2], t_cmd *cmd);
+int		ft_pipe(t_data *data);
+int		pipe_in_pipe(t_data *data, t_cmd **cmd);
+int		here_doc(char *lim);
+int		wait_all_pid(pid_t pid, size_t size);
 
 /* PARSING */
 int		is_empty_string(char *str);
@@ -108,6 +125,7 @@ int		init_parsing(char *str);
 int		check_syntax_error(t_token *tokens);
 
 /* UTILS */
+size_t	cmdsize(t_cmd *cmds);
 char	**expand_alloc(char **list, size_t old_size, size_t new_size);
 void	exit_error(char *str, int exit_code);
 int		is_opperator(char c);
