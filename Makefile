@@ -18,6 +18,7 @@ MY_SOURCES+=sources/command_handling/create_command.c \
 MY_SOURCES+=utils/utils.c \
 			utils/history.c \
 			utils/free.c \
+			utils/signals.c \
 			
 
 MY_OBJECTS_PATH	= ./obj

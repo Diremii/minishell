@@ -6,11 +6,13 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:15:05 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/03 10:25:07 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/03 11:45:02 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+pid_t	g_signal_pid;
 
 int main(int ac, char **av, char **envp)
 {
@@ -22,7 +24,8 @@ int main(int ac, char **av, char **envp)
 	data.envp = envp;
 	if (!envp[0])
 		data.envp = NULL;
-;	init_history(&data.history);
+	setup_signals();
+	init_history(&data.history);
 	while (1)
 	{
 		input = readline("minishell$ ");
@@ -30,6 +33,7 @@ int main(int ac, char **av, char **envp)
 			break ;
 		data.tokens = init_token(input, &data);
 		init_parsing(input);
+		check_syntax_error(data.tokens);
 		//get_command(tokens, &data);
 		add_to_history(&data.history, input);
 		clear_tokens(&data);

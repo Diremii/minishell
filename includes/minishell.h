@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:10:48 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/03 10:26:15 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/03 12:30:15 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,17 @@
 
 typedef enum e_token_type
 {
-	IN = 1, // <
-	HEREDOC = 2, // <<
-	OUT = 3, // >
-	APPEND = 4, // >>
-	PIPE = 5, // |
+	IN = 1,
+	HEREDOC = 2,
+	OUT = 3,
+	APPEND = 4,
+	PIPE = 5,
 	CMD = 6,
 	ARG = 7,
 	REDIR = 8
 }	t_token_type;
+
+extern pid_t	g_signal_pid;
 
 typedef struct s_cmd
 {
@@ -112,6 +114,7 @@ int		check_syntax_error(t_token *tokens);
 char	**expand_alloc(char **list, size_t old_size, size_t new_size);
 void	exit_error(char *str, int exit_code);
 int		is_opperator(char c);
+void	setup_signals(void);
 
 /* FREE */
 void	free_all(char **list);
