@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 15:21:16 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/03 14:56:38 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/03 16:13:18 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,15 @@ static int	parenthesis_checker(char *str)
 	return (0);
 }
 
+int	print_syntax_error(int error, char *type)
+{
+	if (error == 1)
+		ft_printf_fd("minishell: syntax error near unexpected token `%s'\n", 2, type);
+	else if (error == 2)
+		ft_printf_fd("minishell: syntax error near unexpected token `newline'\n", 2);
+	return (1);
+}
+
 int	check_syntax_error(t_token *tokens)
 {
 	t_token	*curr;
@@ -83,21 +92,20 @@ int	check_syntax_error(t_token *tokens)
 	curr = tokens;
 	while (curr)
 	{
-		if ((curr->type == PIPE && (!curr->next || curr->next->type == PIPE)))
+		if (curr->type == PIPE && (!curr->next || curr->next->type == PIPE))
+			return (print_syntax_error(1, "|"));
+		if (curr->type == IN || curr->type == OUT || curr->type == APPEND || curr->type == HEREDOC)
 		{
-			printf("minishell: syntax error near unexpected token `|'\n");
-			return (1);
-		}
-		if ((curr->type == IN && !curr->next) || (curr->type == OUT && !curr->next) || \
-			(curr->type == APPEND && !curr->next) || (curr->type == HEREDOC && !curr->next))
-		{
-			printf("minishell: syntax error near unexpected token `newline'\n");
-			return (1);
+			if (!curr->next)
+				return (print_syntax_error(2, NULL));
+			if (curr->next->type != REDIR)
+				return (print_syntax_error(1, curr->next->str));
 		}
 		curr = curr->next;
 	}
 	return (0);
 }
+
 
 int	init_parsing(char *str)
 {

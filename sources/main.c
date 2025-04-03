@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:15:05 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/03 14:54:31 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/03 16:11:38 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,12 @@ int	main(int ac, char **av, char **envp)
 		data.tokens = init_token(input, &data);
 		init_parsing(input);
 		check_syntax_error(data.tokens);
+		// t_token *tmp = data.tokens;
+		// while (tmp)
+		// {
+		// 	printf("Type: %d, Str: %s\n", tmp->type, tmp->str);
+		// 	tmp = tmp->next;
+		// }
 		//get_command(tokens, &data);
 		add_to_history(&data.history, input);
 		clear_tokens(&data);
