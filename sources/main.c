@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:15:05 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/01 11:27:02 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/03 10:25:07 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,35 +14,26 @@
 
 int main(int ac, char **av, char **envp)
 {
-	t_history	*history;
-	t_token		*tokens;
 	t_data		data;
 	char		*input;
 
 	(void)ac;
 	(void)av;
-	history = malloc(sizeof(t_history));
-	tokens = NULL;
 	data.envp = envp;
 	if (!envp[0])
 		data.envp = NULL;
-;	init_history(history);
+;	init_history(&data.history);
 	while (1)
 	{
 		input = readline("minishell$ ");
 		if (!input)
 			break ;
-		tokens = init_token(input, &data);
+		data.tokens = init_token(input, &data);
 		init_parsing(input);
 		//get_command(tokens, &data);
-		add_to_history(history, input);
-		clear_tokens(&tokens);
+		add_to_history(&data.history, input);
+		clear_tokens(&data);
 		free(input);
 	}
-	free(tokens);
-	close(history->fd);
-	free(history->last_command);
-	free(history->path);
-	free(history);
-	clear_history();
+	clear_history_data(&data);
 }

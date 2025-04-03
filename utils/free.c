@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 18:02:41 by ttremel           #+#    #+#             */
-/*   Updated: 2025/03/28 13:14:38 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/03 10:24:46 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,26 @@ void	cmd_clear(t_cmd **lst)
 	*lst = NULL;
 }
 
-void	clear_tokens(t_token **tokens)
+void	clear_tokens(t_data *data)
 {
 	t_token	*to_free;
 
-	if (!tokens)
+	if (!data->tokens)
 		return ;
-	while (*tokens != NULL)
+	while (data->tokens != NULL)
 	{
-		to_free = *tokens;
-		*tokens = (*tokens)->next;
+		to_free = data->tokens;
+		data->tokens = data->tokens->next;
 		free(to_free->str);
 		free(to_free);
 	}
-	*tokens = NULL;
+	data->tokens = NULL;
+}
+
+void	clear_history_data(t_data *data)
+{
+	close(data->history.fd);
+	free(data->history.last_command);
+	free(data->history.path);
+	clear_history();
 }

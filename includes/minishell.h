@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:10:48 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/31 12:04:18 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/03 10:26:15 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,11 @@ typedef struct s_history
 
 typedef struct s_data
 {
-	char	**envp;
-	char	**paths;
-	t_token	*tokens;
-	t_cmd	*cmd;
+	char		**envp;
+	char		**paths;
+	t_token		*tokens;
+	t_cmd		*cmd;
+	t_history	history;
 }	t_data;
 
 /* HISTORY */
@@ -115,7 +116,7 @@ int		is_opperator(char c);
 /* FREE */
 void	free_all(char **list);
 void	cmd_clear(t_cmd **lst);
-void	clear_tokens(t_token **tokens);
-
+void	clear_tokens(t_data *data);
+void	clear_history_data(t_data *data);
 
 #endif
