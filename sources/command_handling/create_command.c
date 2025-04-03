@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_command.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 15:29:10 by ttremel           #+#    #+#             */
-/*   Updated: 2025/03/28 12:19:11 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/03 14:59:39 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_cmd	*new_cmd(char **args)
 {
 	t_cmd	*cmd;
-	
+
 	cmd = (t_cmd *)malloc(sizeof(t_cmd));
 	if (!cmd)
 		return (NULL);

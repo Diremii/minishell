@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 15:21:16 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/28 15:03:42 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/03 14:56:38 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static int	parenthesis_checker(char *str)
 
 int	check_syntax_error(t_token *tokens)
 {
-	t_token *curr;
+	t_token	*curr;
 
 	curr = tokens;
 	while (curr)
@@ -88,7 +88,7 @@ int	check_syntax_error(t_token *tokens)
 			printf("minishell: syntax error near unexpected token `|'\n");
 			return (1);
 		}
-		if ((curr->type == IN && !curr->next) || (curr->type == OUT && !curr->next) || 
+		if ((curr->type == IN && !curr->next) || (curr->type == OUT && !curr->next) || \
 			(curr->type == APPEND && !curr->next) || (curr->type == HEREDOC && !curr->next))
 		{
 			printf("minishell: syntax error near unexpected token `newline'\n");

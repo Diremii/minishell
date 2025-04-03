@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:15:05 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/03 11:45:02 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/03 14:54:31 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 pid_t	g_signal_pid;
 
-int main(int ac, char **av, char **envp)
+int	main(int ac, char **av, char **envp)
 {
 	t_data		data;
 	char		*input;

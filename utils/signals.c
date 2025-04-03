@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 11:17:07 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/03 12:20:29 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/03 14:57:25 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	handle_signal(int sig)
 	}
 }
 
-void setup_signals(void)
+void	setup_signals(void)
 {
 	signal(SIGINT, handle_signal);
 }

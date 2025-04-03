@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 10:58:17 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/01 15:06:03 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/03 14:58:28 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	update_oldpwd(t_data *data)
 	i = 0;
 	oldpwd = getcwd(NULL, 0);
 	if (!oldpwd)
-		return;
+		return ;
 	while (data->envp[i])
 	{
 		if (ft_strncmp(data->envp[i], "OLDPWD=", 7) == 0)
@@ -48,7 +48,7 @@ void	update_pwd(t_data *data)
 	i = 0;
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
-		return;
+		return ;
 	while (data->envp[i])
 	{
 		if (ft_strncmp(data->envp[i], "PWD=", 4) == 0)

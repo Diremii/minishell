@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 13:54:17 by ttremel           #+#    #+#             */
-/*   Updated: 2025/03/24 16:19:57 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/03 14:53:30 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 # include <stdarg.h>
 # include "./get_next_line/get_next_line.h"
 
-typedef	long int		t_lint;
-typedef	long long int	t_llint;
+typedef long int		t_lint;
+typedef long long int	t_llint;
 
 typedef struct s_list
 {

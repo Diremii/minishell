@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:51:04 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/03 11:16:10 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/03 14:57:50 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,3 @@ char	**expand_alloc(char **list, size_t old_size, size_t new_size)
 	free(list);
 	return (new_list);
 }
-
-

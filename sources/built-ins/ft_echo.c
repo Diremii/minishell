@@ -6,13 +6,13 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 15:38:47 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/01 13:56:59 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/03 14:58:37 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int newline_flag(char *str)
+static int	newline_flag(char *str)
 {
 	int	i;
 

@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:10:48 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/03 12:30:15 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/03 14:53:07 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ typedef struct s_token
 {
 	char			*str;
 	t_token_type	type;
-	struct s_token 	*next;
+	struct s_token	*next;
 	struct s_token	*prev;
 }	t_token;
 
@@ -91,7 +91,7 @@ char	*cut_quote(char *str);
 char	*get_flag(char *input, size_t *i);
 void	handle_command(char *input, size_t *i, t_token **tokens, t_data **data);
 void	handle_operator(char *input, size_t *i, t_token **tokens);
-void	redirection_file_handling(char *input , t_token *tokens, size_t *i);
+void	redirection_file_handling(char *input, t_token *tokens, size_t *i);
 
 /* COMMAND */
 t_cmd	*new_cmd(char **args);

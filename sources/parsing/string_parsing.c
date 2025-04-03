@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   string_parsing.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 13:22:56 by ttremel           #+#    #+#             */
-/*   Updated: 2025/03/27 14:30:42 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/03 14:55:11 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	no_quote_str(t_list **list, size_t *i, size_t *j, char *str)
 {
 	t_list	*tmp;
 	char	*sub;
-	
+
 	*j = *i;
 	while (str[*i] && str[*i] != '\'' && str[*i] != '\"')
 		(*i)++;
@@ -68,7 +68,7 @@ t_list	*split_str(char *str)
 	size_t	i;
 	size_t	j;
 	t_list	*list;
-	
+
 	i = 0;
 	j = 0;
 	list = NULL;
