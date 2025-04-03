@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 14:45:26 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/01 17:33:03 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/03 14:46:08 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	wait_all_pid(pid_t pid, size_t size)
 	int		exit_status;
 
 	i = 0;
-	while (i < size - 1)
+	while (i < size)
 	{
 		if (pid == waitpid(-1, &status, 0))
 		{
@@ -30,5 +30,5 @@ int	wait_all_pid(pid_t pid, size_t size)
 		}
 		i++;
 	}
-	return (exit_status);
+	exit(exit_status);
 }

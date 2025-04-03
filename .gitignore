@@ -1,5 +1,6 @@
 # tmp
 *.o
+.nfs*
 
 # lib
 *.a

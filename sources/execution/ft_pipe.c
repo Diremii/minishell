@@ -6,113 +6,58 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 13:28:42 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/01 18:38:19 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/03 18:05:29 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	create_here_doc(int fd, char *lim)
-{
-	size_t	lim_size;
-	char	*line;
-
-	line = NULL;
-	lim_size = ft_strlen(lim);
-	while (1)
-	{
-		ft_printf_fd("here_doc> ", 2);
-		line = get_next_line(0);
-		if (!line)
-		{
-			close(fd);
-			return (-1);
-		}
-		line[ft_strlen(line) - 1] = 0;
-		if (ft_strncmp(lim, line, lim_size + 1) == 0)
-			break ;
-		ft_printf_fd("%s\n", fd, line);
-		free(line);
-	}
-	free(line);
-	return (0);
-}
-
-int	here_doc(char *lim)
-{
-	int		fd[2];
-	char	*file;
-
-	file = "./.nfs0000000000";
-	if (access(file, F_OK) != -1)
-		unlink(file);
-	fd[0] = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0777);
-	if (fd[0] == -1)
-		return (-1);
-	if (create_here_doc(fd[0], lim) == -1)
-		return (-1);
-	close(fd[0]);
-	fd[1] = open(file, O_RDONLY, 0777);
-	if (fd[1] == -1)
-		return (-1);
-	unlink(file);
-	return (fd[1]);
-}
-
-int	open_fd(int fd[2], t_cmd *cmd)
-{
-	int		ret;
-
-	if (cmd->here_doc)
-		ret = here_doc(cmd->limiter);
-	else
-	{
-		if (cmd->infile)
-			ret = open(cmd->infile, O_RDONLY, 0777);
-		else
-			ret = 0;
-	}
-	fd[0] = ret;
-	if (cmd->outfile)
-	{
-		if (cmd->append)
-			ret = open(cmd->outfile, O_WRONLY | O_CREAT | O_APPEND, 0777);
-		else
-			ret = open(cmd->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0777);
-	}
-	else
-	{
-		ret = 1;
-		fd[1] = ret;
-	}
-	return (0);
-}
-
-int	pipe_in_pipe(t_data *data, t_cmd **cmd)
+int	ft_exec(int fd[2], t_data *data)
 {
 	pid_t	pid;
-	size_t	size;
-	int		fd[2];
+	int		p_fd[2];
 
-	if (open_fd(fd, *cmd) == -1)
+	if (pipe(p_fd) == -1)
 		return (1);
-	pid = pipex(fd, data, cmd);
-	close_fd(fd);
-	size = cmdsize(*cmd);
+	pid = fork();
+	if (pid < 0)
+		return (1);
+	if (pid == 0)
+	{
+		if (fd[0] != 0)
+		{
+			dup2(p_fd[0], 0);
+			close(p_fd[0]);
+		}
+		if (fd[1] != 1)
+			close(fd[1]);
+		execve(data->cmd->cmd_param[0], data->cmd->cmd_param, NULL);
+	}
+	else
+	{
+		if (fd[1] != 1)
+		{
+			dup2(p_fd[1], 1);
+			close(p_fd[1]);
+		}
+		waitpid(pid, NULL, 0);
+	}
 	return (0);
 }
 
 int	ft_pipe(t_data *data)
 {
 	pid_t	pid;
-	size_t	size;
 	int		fd[2];
 
-	if (open_fd(fd, data->cmd) == -1)
+	if (open_fd(fd, data->cmd))
 		return (1);
-	pid = pipex(fd, data, &data->cmd);
-	close_fd(fd);
-	size = cmdsize(data->cmd);
-	wait_all_pid(pid, size);
+	pid = fork();
+	if (pid < 0)
+		return (1);
+	if (pid == 0)
+		ft_exec(fd, data);
+	else
+		waitpid(pid, NULL, 0);
 	return (0);
 }

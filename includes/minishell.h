@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:10:48 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/01 18:45:41 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/03 15:15:25 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,14 +104,11 @@ int		set_in(t_data *data);
 
 /* EXEC */
 pid_t	pipex(int fd[2], t_data *data, t_cmd **cmd);
-pid_t	last_process(int p_fd[2], int fd[2], t_data *data, t_cmd **cmd);
-void	child_process(int p_fd[2], int fd[2], t_data *data, t_cmd **cmd);
-void	parent_process(int p_fd[2], int fd[2], t_data *data);
-void	ft_exec(int p_fd[2], int fd[2], t_data *data, t_cmd **cmd);
 void	close_fd(int fd[2]);
 void	close_n_exit(int fd[2], t_cmd **cmds);
 void	close_all(int p_fd[2], int fd[2], t_cmd **cmds);
 void	error_msg(int err, char *error);
+int		ft_exec(int fd[2], t_data *data);
 int		check_all_access(t_cmd **cmd, t_data *data, int here_doc);
 int		open_fd(int fd[2], t_cmd *cmd);
 int		ft_pipe(t_data *data);
