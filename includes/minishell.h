@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:10:48 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/03 14:53:07 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/04 12:19:35 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	parent_process(int p_fd[2], int fd[2], t_cmd ***cmds);
 
 /* PARSING */
 int		is_empty_string(char *str);
-int		init_parsing(char *str);
+int	init_parsing(char *str, t_token *tokens);
 int		check_syntax_error(t_token *tokens);
 
 /* UTILS */
@@ -115,11 +115,12 @@ char	**expand_alloc(char **list, size_t old_size, size_t new_size);
 void	exit_error(char *str, int exit_code);
 int		is_opperator(char c);
 void	setup_signals(void);
+int		print_syntax_error(int error, char *type);
 
 /* FREE */
 void	free_all(char **list);
 void	cmd_clear(t_cmd **lst);
-void	clear_tokens(t_data *data);
+void	clear_tokens(t_token **tokens);
 void	clear_history_data(t_data *data);
 
 #endif

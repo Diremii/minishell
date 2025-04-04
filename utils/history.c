@@ -3,14 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   history.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:17:38 by humontas          #+#    #+#             */
-/*   Updated: 2025/03/31 12:04:36 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/04 12:14:26 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int	is_empty_string(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] != ' ' && str[i] != '\t' && str[i] != '!' && str[i] != ':')
+			return (0);
+		i++;
+	}
+	return (1);
+}
 
 static int	check_history_file(t_history *history)
 {

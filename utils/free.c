@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 18:02:41 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/03 14:57:30 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/04 12:19:05 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,20 +43,20 @@ void	cmd_clear(t_cmd **lst)
 	*lst = NULL;
 }
 
-void	clear_tokens(t_data *data)
+void	clear_tokens(t_token **tokens)
 {
 	t_token	*to_free;
 
-	if (!data->tokens)
+	if (!*tokens)
 		return ;
-	while (data->tokens != NULL)
+	while (*tokens)
 	{
-		to_free = data->tokens;
-		data->tokens = data->tokens->next;
+		to_free = *tokens;
+		*tokens = (*tokens)->next;
 		free(to_free->str);
 		free(to_free);
 	}
-	data->tokens = NULL;
+	*tokens = NULL;
 }
 
 void	clear_history_data(t_data *data)
