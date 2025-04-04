@@ -6,11 +6,34 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 15:15:53 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/01 14:01:07 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/04 18:51:08 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+t_redir	*create_redir(t_token **tokens)
+{
+	t_redir	*redir;
+	t_redir	*new;
+
+	new = NULL;
+	redir = NULL;
+	while ((*tokens) && (*tokens)->next && (*tokens)->type != ARG && (*tokens)->type != CMD
+		&& (*tokens)->type != PIPE)
+	{
+		new = new_redir((*tokens)->next->str, (*tokens)->type);
+		if (!new)
+		{
+			redir_clear(&redir);
+			return (NULL);
+		}
+		redir_add_back(&redir, new);
+		if ((*tokens)->next)
+			*tokens = (*tokens)->next->next;
+	}
+	return (redir);
+}
 
 char	**get_list_of_args(t_token **tokens)
 {
@@ -21,9 +44,7 @@ char	**get_list_of_args(t_token **tokens)
 	if (!args)
 		return (NULL);
 	i = 0;
-	while ((*tokens) && (*tokens)->type != PIPE && (*tokens)->type != OUT
-		&& (*tokens)->type != APPEND && (*tokens)->type != HEREDOC
-		&& (*tokens)->type != IN)
+	while ((*tokens) && ((*tokens)->type == ARG || (*tokens)->type == CMD))
 	{
 		args[i] = ft_strdup((*tokens)->str);
 		if (!args[i])
@@ -42,17 +63,28 @@ char	**get_list_of_args(t_token **tokens)
 
 int	sort_cmd(t_token **current, t_cmd **cmd)
 {
+	t_redir	*redir;
+	
 	while (*current && (*current)->type != PIPE)
+	{
+		if (get_in(cmd, current))
+			return (1);
+		(*cmd)->cmd = ft_strdup((*current)->str);
+		(*cmd)->flags = get_list_of_args(current);
+		if (!(*cmd)->flags || !(*cmd)->cmd)
 		{
-			if (typing_heredoc(current, cmd))
-				return (1);
-			if (typing_cmd(current, cmd))
-				return (1);
-			if (*current && (*current)->type != PIPE)
-				*current = (*current)->next;
+			free_all((*cmd)->flags);
+			free((*cmd)->cmd);
+			redir_clear(&redir);
+			return (1);
 		}
-		if (*current && (*current)->type == PIPE)
-			*current = (*current)->next;
+		if (get_out(cmd, current))
+			return (1);
+		if (arg_after_redir(cmd, current))
+			return (1);
+	}
+	if (*current && (*current)->type == PIPE)
+		*current = (*current)->next;
 	return (0);
 }
 
@@ -72,9 +104,5 @@ int	get_command(t_token *tokens, t_data *data)
 			return (1);
 		cmd_add_back(&data->cmd, cmd);
 	}
-	if (set_in(data))
-		return (1);
-	if (set_out(data))
-		return (1);
 	return (0);
 }

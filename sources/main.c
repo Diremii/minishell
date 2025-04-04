@@ -6,11 +6,13 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:15:05 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/03 16:09:42 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/04 18:29:15 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+pid_t	g_signal_pid;
 
 int main(int ac, char **av, char **envp)
 {
@@ -42,26 +44,24 @@ int main(int ac, char **av, char **envp)
 		get_command(tokens, &data);
 		
 		// debug : show cmd content
-		// t_cmd	*current = data.cmd;
-		// size_t	i;
-		// while (current)
-		// {
-		// 	ft_printf("Infile : %s\nOutfile : %s\nLimiter : %s\nhere_doc : %d\nappend : %d\n", current->infile, current->outfile, current->limiter, current->here_doc, current->append);
-		// 	i = 1;
-		// 	ft_printf("Command : ");
-		// 	if (current->cmd_param && current->cmd_param[0])
-		// 		ft_printf("%s\n", current->cmd_param[0]);
-		// 	ft_printf("Flags : ");
-		// 	while (current->cmd_param && current->cmd_param[i])
-		// 	{
-		// 		ft_printf("%s, ", current->cmd_param[i]);
-		// 		i++;
-		// 	}
-		// 	ft_printf("\n\n");
-		// 	current = current->next;
-		// }
+		t_cmd	*current = data.cmd;
+		size_t	i;
+		while (current)
+		{
+			i = 0;
+			ft_printf("Command : ");
+			ft_printf("%s\n", current->cmd);
+			ft_printf("Flags : ");
+			while (current->flags && current->flags[i])
+			{
+				ft_printf("%s, ", current->flags[i]);
+				i++;
+			}
+			ft_printf("\n\n");
+			current = current->next;
+		}
 		// ------------------------------------------------------------
-		ft_pipe(&data);
+		//ft_pipe(&data);
 		add_to_history(history, input);
 		cmd_clear(&data.cmd);
 		clear_tokens(&tokens);

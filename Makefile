@@ -13,6 +13,7 @@ MY_SOURCES+=sources/parsing/parsing.c \
 			sources/parsing/token_redirection.c \
 
 MY_SOURCES+=sources/command_handling/create_command.c \
+			sources/command_handling/create_redirection.c \
 			sources/command_handling/get_command.c \
 			sources/command_handling/typing.c \
 

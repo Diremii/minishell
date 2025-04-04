@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 15:29:10 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/01 12:36:03 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/04 17:13:55 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,10 @@ t_cmd	*new_cmd(char **args)
 	cmd = (t_cmd *)malloc(sizeof(t_cmd));
 	if (!cmd)
 		return (NULL);
-	cmd->cmd_param = args;
-	cmd->here_doc = 0;
-	cmd->append = 0;
-	cmd->limiter = NULL;
-	cmd->infile = NULL;
-	cmd->outfile = NULL;
+	cmd->cmd = NULL;
+	cmd->flags = args;
+	cmd->redir_in = NULL;
+	cmd->redir_out = NULL;
 	cmd->prev = NULL;
 	cmd->next = NULL;
 	return (cmd);

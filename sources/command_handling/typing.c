@@ -5,92 +5,99 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/01 13:49:16 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/01 13:54:39 by ttremel          ###   ########.fr       */
+/*   Created: 2025/04/04 17:18:29 by ttremel           #+#    #+#             */
+/*   Updated: 2025/04/04 18:47:03 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	typing_heredoc(t_token **current, t_cmd **cmd)
+int	get_in(t_cmd **cmd, t_token **current)
 {
-	if ((*current)->type == HEREDOC)
+	t_redir	*redir;
+
+	redir = NULL;
+	if (*current && (*current)->type != CMD && (*current)->type != ARG
+		&& (*current)->type != PIPE)
 	{
-		(*cmd)->here_doc = 1;
-		if ((*current)->next)
+		redir = create_redir(current);
+		if (!redir)
 		{
-			(*cmd)->limiter = ft_strdup((*current)->next->str);
-			if (!(*cmd)->limiter)
-				return (1);
+			cmd_clear(cmd);
+			return (1);
 		}
-	}
-	if ((*current)->type == IN)
-	{
-		if ((*current)->next)
-		{
-			(*cmd)->infile = ft_strdup((*current)->next->str);
-			if (!(*cmd)->infile)
-				return (1);
-		}
+		(*cmd)->redir_in = redir;
 	}
 	return (0);
 }
 
-int	typing_cmd(t_token **current, t_cmd **cmd)
+int	get_out(t_cmd **cmd, t_token **current)
 {
-	if ((*current)->type == CMD)
+	t_redir	*redir;
+
+	redir = NULL;
+	if (current && *current && (*current)->type != CMD && (*current)->type != ARG
+		&& (*current)->type != PIPE)
 	{
-		(*cmd)->cmd_param = get_list_of_args(current);
-		if (!(*cmd)->cmd_param)
-			return (1);
-	}
-	if (*current && ((*current)->type == OUT || (*current)->type == APPEND))
-	{
-		if ((*current)->type == APPEND)
-			(*cmd)->append = 1;
-		if ((*current)->next)
+		redir = create_redir(current);
+		if (!redir)
 		{
-			(*cmd)->outfile = ft_strdup((*current)->next->str);
-			if (!(*cmd)->outfile)
-				return (1);
+			cmd_clear(cmd);
+			return (1);
 		}
-	}
-	return (0);
-}
-int	set_in(t_data *data)
-{
-	t_cmd	*current;
-	char	*in;
-
-	in = NULL;
-	current = data->cmd;
-	while (current)
-	{
-		if (current->infile)
-			in = current->infile;
-		current->infile = ft_strdup(in);
-		if (!current->infile)
-			return (1);
-		current = current->next;
+		(*cmd)->redir_out = redir;
 	}
 	return (0);
 }
 
-int	set_out(t_data *data)
-{
-	t_cmd	*current;
-	char	*out;
 
-	out = NULL;
-	current = cmdlast(data->cmd);
-	while (current)
+char	**append_list_to_list(char **list, char **list2)
+{
+	size_t	i;
+	size_t	size;
+
+	if (!list || !list2)
+		return (NULL);
+	size = size_of_list(list);
+	list = expand_alloc(list, size, size + size_of_list(list2) + 1);
+	if (!list)
+		return (NULL);
+	i = 0;
+	while (list2[i])
 	{
-		if (current->outfile)
-			out = current->outfile;
-		current->outfile = ft_strdup(out);
-		if (!current->outfile)
+		list[(size - 1) + i] = ft_strdup(list2[i]);
+		if (!list[(size - 1) + i])
+		{
+			free_all(list);
+			list = NULL;
+			return (NULL);
+		}
+		i++;
+	}
+	list[(size - 1) + i] = NULL;
+	return (list);
+}
+
+int	arg_after_redir(t_cmd **cmd, t_token **current)
+{
+	char	**new_args;
+	
+	new_args = NULL;
+	if (current && *current && (*current)->type == ARG)
+	{
+		new_args = get_list_of_args(current);
+		if (!new_args)
+		{
+			cmd_clear(cmd);
 			return (1);
-		current = current->prev;
+		}
+		(*cmd)->flags = append_list_to_list((*cmd)->flags, new_args);
+		if (!(*cmd)->flags)
+		{
+			free_all(new_args);
+			cmd_clear(cmd);
+			return (1);
+		}
 	}
 	return (0);
 }

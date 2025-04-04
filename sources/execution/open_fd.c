@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:42:06 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/03 15:42:17 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/04 16:07:57 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,33 +57,4 @@ int	here_doc(char *lim)
 		return (-1);
 	unlink(file);
 	return (fd[1]);
-}
-
-int	open_fd(int fd[2], t_cmd *cmd)
-{
-	int		ret;
-
-	if (cmd->here_doc)
-		ret = here_doc(cmd->limiter);
-	else
-	{
-		if (cmd->infile)
-			ret = open(cmd->infile, O_RDONLY, 0777);
-		else
-			ret = 0;
-	}
-	fd[0] = ret;
-	if (cmd->outfile)
-	{
-		if (cmd->append)
-			ret = open(cmd->outfile, O_WRONLY | O_CREAT | O_APPEND, 0777);
-		else
-			ret = open(cmd->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0777);
-	}
-	else
-	{
-		ret = 1;
-		fd[1] = ret;
-	}
-	return (0);
 }
