@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:10:48 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/04 18:40:37 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/07 16:03:54 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ void	handle_operator(char *input, size_t *i, t_token **tokens);
 void	redirection_file_handling(char *input , t_token *tokens, size_t *i);
 
 /* COMMAND */
-t_redir	*create_redir(t_token **tokens);
 t_redir	*new_redir(char *content, t_token_type type);
 t_redir	*redirlast(t_redir *lst);
 t_cmd	*new_cmd(char **args);
@@ -110,8 +109,11 @@ void	redir_add_front(t_redir **lst, t_redir *new);
 void	redir_add_back(t_redir **lst, t_redir *new);
 void	cmd_add_back(t_cmd **lst, t_cmd *new);
 void	cmd_add_front(t_cmd **lst, t_cmd *new);
-char	**get_list_of_args(t_token **tokens);
 int		get_command(t_token *tokens, t_data *data);
+int		add_redir(t_token **tokens, t_redir **redir);
+int		add_cmd(t_cmd **cmd, t_data *data);
+int		add_out(t_cmd **cmd, t_token **current);
+int		add_in(t_cmd **cmd, t_token **current);
 
 /* EXEC */
 pid_t	pipex(int fd[2], t_data *data, t_cmd **cmd);
@@ -122,8 +124,6 @@ void	error_msg(int err, char *error);
 int		arg_after_redir(t_cmd **cmd, t_token **current);
 int		ft_exec(t_data *data);
 int		check_all_access(t_cmd **cmd, t_data *data, int here_doc);
-int		get_out(t_cmd **cmd, t_token **current);
-int		get_in(t_cmd **cmd, t_token **current);
 int		ft_pipe(t_data *data);
 int		pipe_in_pipe(t_data *data, t_cmd **cmd);
 int		here_doc(char *lim);

@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:15:05 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/04 18:29:15 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/07 16:20:52 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,24 +44,41 @@ int main(int ac, char **av, char **envp)
 		get_command(tokens, &data);
 		
 		// debug : show cmd content
-		t_cmd	*current = data.cmd;
-		size_t	i;
-		while (current)
-		{
-			i = 0;
-			ft_printf("Command : ");
-			ft_printf("%s\n", current->cmd);
-			ft_printf("Flags : ");
-			while (current->flags && current->flags[i])
-			{
-				ft_printf("%s, ", current->flags[i]);
-				i++;
-			}
-			ft_printf("\n\n");
-			current = current->next;
-		}
+		// t_cmd	*current = data.cmd;
+		// t_redir	*current_redir;
+		// size_t	i;
+		// while (current)
+		// {
+		// 	i = 0;
+		// 	ft_printf_fd("Command : ", 2);
+		// 	ft_printf_fd("%s\n", 2, current->cmd);
+		// 	ft_printf_fd("Infiles : ", 2);
+		// 	current_redir = current->redir_in;
+		// 	while (current_redir)
+		// 	{
+		// 		ft_printf_fd("[%s, %d, %d], ", 2, current_redir->file, current_redir->type, current_redir->fd);
+		// 		current_redir = current_redir->next;
+		// 	}
+		// 	ft_printf_fd("\n", 2);
+		// 	current_redir = current->redir_out;
+		// 	ft_printf_fd("Outfiles : ", 2);
+		// 	while (current_redir)
+		// 	{
+		// 		ft_printf_fd("[%s, %d, %d], ", 2, current_redir->file, current_redir->type, current_redir->fd);
+		// 		current_redir = current_redir->next;
+		// 	}
+		// 	ft_printf_fd("\n", 2);
+		// 	ft_printf_fd("Flags : ", 2);
+		// 	while (current->flags && current->flags[i])
+		// 	{
+		// 		ft_printf_fd("%s, ", 2, current->flags[i]);
+		// 		i++;
+		// 	}
+		// 	ft_printf_fd("\n\n", 2);
+		// 	current = current->next;
+		// }
 		// ------------------------------------------------------------
-		//ft_pipe(&data);
+		ft_pipe(&data);
 		add_to_history(history, input);
 		cmd_clear(&data.cmd);
 		clear_tokens(&tokens);

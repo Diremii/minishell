@@ -6,83 +6,78 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 15:15:53 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/04 18:51:08 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/07 15:56:21 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_redir	*create_redir(t_token **tokens)
+int	add_redir(t_token **tokens, t_redir **redir)
 {
-	t_redir	*redir;
 	t_redir	*new;
 
 	new = NULL;
-	redir = NULL;
-	while ((*tokens) && (*tokens)->next && (*tokens)->type != ARG && (*tokens)->type != CMD
-		&& (*tokens)->type != PIPE)
+	if ((*tokens) && (*tokens)->next)
 	{
 		new = new_redir((*tokens)->next->str, (*tokens)->type);
 		if (!new)
 		{
-			redir_clear(&redir);
-			return (NULL);
+			redir_clear(redir);
+			return (1);
 		}
-		redir_add_back(&redir, new);
+		redir_add_back(redir, new);
 		if ((*tokens)->next)
 			*tokens = (*tokens)->next->next;
 	}
-	return (redir);
+	return (0);
 }
 
-char	**get_list_of_args(t_token **tokens)
+int	add_arg(t_token **tokens, t_cmd **cmd)
 {
-	char	**args;
 	size_t	i;
 
-	args = (char **)ft_calloc(2, sizeof(char *));
-	if (!args)
-		return (NULL);
-	i = 0;
-	while ((*tokens) && ((*tokens)->type == ARG || (*tokens)->type == CMD))
+	if ((*tokens) && ((*tokens)->type == ARG || (*tokens)->type == CMD))
 	{
-		args[i] = ft_strdup((*tokens)->str);
-		if (!args[i])
+		i = size_of_list((*cmd)->flags);
+		if (!(*cmd)->flags)
+			(*cmd)->flags = (char **)ft_calloc(2, sizeof(char *));
+		if (!(*cmd)->flags)
+			return (1);
+		(*cmd)->flags[i] = ft_strdup((*tokens)->str);
+		if (!(*cmd)->flags[i])
 		{
-			free_all(args);
-			return (NULL);
+			free_all((*cmd)->flags);
+			return (1);
 		}
-		args = expand_alloc(args, i + 1, i + 2);
-		if (!args)
-			return (NULL);
+		(*cmd)->flags = expand_alloc((*cmd)->flags, i + 1, i + 2);
+		if (!(*cmd)->flags)
+			return (1);
 		*tokens = (*tokens)->next;
 		i++;
 	}
-	return (args);
+	return (0);
 }
 
-int	sort_cmd(t_token **current, t_cmd **cmd)
+int	sort_cmd(t_token **current, t_cmd **cmd, t_data *data)
 {
 	t_redir	*redir;
 	
 	while (*current && (*current)->type != PIPE)
 	{
-		if (get_in(cmd, current))
+		if (add_in(cmd, current))
 			return (1);
-		(*cmd)->cmd = ft_strdup((*current)->str);
-		(*cmd)->flags = get_list_of_args(current);
-		if (!(*cmd)->flags || !(*cmd)->cmd)
+		if (add_arg(current, cmd))
 		{
 			free_all((*cmd)->flags);
 			free((*cmd)->cmd);
 			redir_clear(&redir);
 			return (1);
 		}
-		if (get_out(cmd, current))
-			return (1);
-		if (arg_after_redir(cmd, current))
+		if (add_out(cmd, current))
 			return (1);
 	}
+	if (add_cmd(cmd, data))
+		return (1);
 	if (*current && (*current)->type == PIPE)
 		*current = (*current)->next;
 	return (0);
@@ -100,7 +95,7 @@ int	get_command(t_token *tokens, t_data *data)
 		cmd = new_cmd(NULL);
 		if (!cmd)
 			return (1);
-		if (sort_cmd(&current, &cmd))
+		if (sort_cmd(&current, &cmd, data))
 			return (1);
 		cmd_add_back(&data->cmd, cmd);
 	}
