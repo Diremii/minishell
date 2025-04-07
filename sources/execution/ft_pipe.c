@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 13:28:42 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/07 16:56:41 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/07 17:41:04 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@ int	ft_exec(t_data *data)
 	g_signal_pid = fork();
 	if (g_signal_pid < 0)
 		return (1);
+	if (data->cmd->redir_in)
+	{
+		dup2(data->cmd->redir_in->fd, STDIN_FILENO);
+		close(data->cmd->redir_in->fd);
+	}
 	if (g_signal_pid == 0)
 	{
 		if (data->cmd->redir_out)
@@ -28,18 +33,11 @@ int	ft_exec(t_data *data)
 			dup2(data->cmd->redir_out->fd, STDOUT_FILENO);
 			close(data->cmd->redir_out->fd);
 		}
-		if (data->cmd->redir_in)
-			close(data->cmd->redir_in->fd);
 		execve(data->cmd->cmd, data->cmd->flags, NULL);
 		exit(0);
 	}
 	else
 	{
-		if (data->cmd->redir_in)
-		{
-			dup2(data->cmd->redir_in->fd, STDIN_FILENO);
-			close(data->cmd->redir_in->fd);
-		}
 		if (data->cmd->redir_out)
 			close(data->cmd->redir_out->fd);
 		waitpid(g_signal_pid, NULL, 0);
