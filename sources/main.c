@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:15:05 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/08 11:48:19 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/08 11:51:42 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,15 @@ int	main(int ac, char **av, char **envp)
 			break ;
 		data.tokens = init_token(input, &data);
 		init_parsing(input, data.tokens);
-		t_token *tmp = data.tokens;
-		while (tmp)
-		{
-			printf("Type: %d, Str: %s\n", tmp->type, tmp->str);
-			tmp = tmp->next;
-		}
-		//get_command(tokens, &data);
+		// t_token *tmp = data.tokens;
+		// while (tmp)
+		// {
+		// 	printf("Type: %d, Str: %s\n", tmp->type, tmp->str);
+		// 	tmp = tmp->next;
+		// }
+		get_command(data.tokens, &data);
 		add_to_history(&data.history, input);
+		ft_pipe(&data);
 		clear_tokens(&data.tokens);
 		free(input);
 	}
