@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:10:48 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/08 11:45:45 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/08 16:18:53 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@
 
 extern pid_t g_signal_pid;
 
-extern pid_t g_signal_pid;
 typedef enum e_token_type
 {
 	IN = 1, // <
@@ -118,19 +117,30 @@ int		add_cmd(t_cmd **cmd, t_data *data);
 int		add_out(t_cmd **cmd, t_token **current);
 int		add_in(t_cmd **cmd, t_token **current);
 
+/* BUILT-INS */
+void	ft_cd(t_data *data, char **args);
+void	ft_export(t_data *data, char **args);
+void	ft_unset(t_data *data, char **args);
+void	ft_env(t_data *data);
+void	ft_echo(char **args);
+void	ft_pwd(void);
+
 /* EXEC */
 pid_t	pipex(int fd[2], t_data *data, t_cmd **cmd);
 void	close_fd(int fd[2]);
 void	close_n_exit(int fd[2], t_cmd **cmds);
-void	close_all(int p_fd[2], int fd[2], t_cmd **cmds);
+void	close_all(t_redir **redir);
 void	error_msg(int err, char *error);
 int		arg_after_redir(t_cmd **cmd, t_token **current);
 int		ft_exec(t_data *data);
+int		single_cmd(t_data *data);
 int		check_all_access(t_cmd **cmd, t_data *data, int here_doc);
 int		ft_pipe(t_data *data);
 int		pipe_in_pipe(t_data *data, t_cmd **cmd);
 int		here_doc(char *lim);
 int		wait_all_pid(pid_t pid, size_t size);
+int		redir_out(t_cmd **cmd);
+int		redir_in(t_cmd **cmd);
 
 /* PARSING */
 int		is_empty_string(char *str);

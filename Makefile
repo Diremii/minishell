@@ -23,6 +23,14 @@ MY_SOURCES+=sources/execution/error.c \
 			sources/execution/ft_pipe.c \
 			sources/execution/ft_wait.c \
 			sources/execution/open_fd.c \
+			sources/execution/redirect.c \
+
+MY_SOURCES+=sources/built-ins/ft_cd.c \
+			sources/built-ins/ft_echo.c \
+			sources/built-ins/ft_env.c \
+			sources/built-ins/ft_export.c \
+			sources/built-ins/ft_pwd.c \
+			sources/built-ins/ft_unset.c \
 
 MY_SOURCES+=utils/utils.c \
 			utils/history.c \

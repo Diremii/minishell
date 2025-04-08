@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 13:21:08 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/03 14:37:29 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/08 14:50:23 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,15 @@ void	close_n_exit(int fd[2], t_cmd **cmds)
 	exit(EXIT_FAILURE);
 }
 
-void	close_all(int p_fd[2], int fd[2], t_cmd **cmds)
+void	close_all(t_redir **redir)
 {
-	close_fd(p_fd);
-	close_n_exit(fd, cmds);
+	t_redir	*current;
+
+	current = *redir;
+	while (current)
+	{
+		if (current->fd != -1)
+			close(current->fd);
+		current = current->next;
+	}
 }
