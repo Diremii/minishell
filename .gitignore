@@ -1,5 +1,6 @@
 # tmp
 *.o
+.nfs*
 
 # lib
 *.a
@@ -18,3 +19,6 @@ bruh
 Hola
 infile
 outfile
+out
+file
+out

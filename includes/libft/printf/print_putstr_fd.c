@@ -1,20 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exec.c                                          :+:      :+:    :+:   */
+/*   print_putstr_fd.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/10 13:58:29 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/03 17:31:52 by ttremel          ###   ########.fr       */
+/*   Created: 2024/10/15 13:53:13 by ttremel           #+#    #+#             */
+/*   Updated: 2025/03/31 14:28:03 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "ft_printf.h"
 
-// int	ft_exec(int fd[2], t_data *data)
-// {
-// 	(void)fd;
-// 	(void)data;
-// 	return (0);
-// }
+void	print_putstr_fd(char *s, int fd)
+{
+	int		i;
+
+	i = 0;
+	if (!s)
+		write(fd, "(null)", 6);
+	else
+		write(fd, s, ft_strlenf(s));
+}

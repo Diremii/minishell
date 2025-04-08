@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 18:02:41 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/04 12:19:05 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/08 11:48:37 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,22 @@ void	free_all(char **list)
 		free(list[i++]);
 	free(list);
 }
+void	redir_clear(t_redir **lst)
+{
+	t_redir	*to_free;
+
+	if (!lst)
+		return ;
+	while (*lst != NULL)
+	{
+		to_free = *lst;
+		*lst = lst[0]->next;
+		free(to_free->file);
+		free(to_free->limiter);
+		free(to_free);
+	}
+	*lst = NULL;
+}
 
 void	cmd_clear(t_cmd **lst)
 {
@@ -34,10 +50,12 @@ void	cmd_clear(t_cmd **lst)
 	{
 		to_free = *lst;
 		*lst = lst[0]->next;
-		free_all(to_free->cmd_param);
-		free(to_free->infile);
-		free(to_free->outfile);
-		free(to_free->limiter);
+		if (to_free->redir_in)
+			redir_clear(&to_free->redir_in);
+		if (to_free->redir_out)
+			redir_clear(&to_free->redir_out);
+		free(to_free->cmd);
+		free_all(to_free->flags);
 		free(to_free);
 	}
 	*lst = NULL;

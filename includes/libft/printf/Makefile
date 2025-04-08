@@ -6,7 +6,7 @@
 #    By: ttremel <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/18 09:59:39 by ttremel           #+#    #+#              #
-#    Updated: 2025/03/24 13:54:58 by ttremel          ###   ########.fr        #
+#    Updated: 2025/03/31 14:28:25 by ttremel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,8 @@ SRCS		=	ft_printf.c			\
 				ft_putbaseuint_fd.c	\
 				ft_ubase_count.c	\
 				ft_sizeaddress.c	\
-				ft_putaddress_fd.c	
+				ft_putaddress_fd.c	\
+				print_putstr_fd.c
 
 ifeq ($(DEBUG), yes)
 	CFLAGS	=	-Wall -Wextra -Werror -g

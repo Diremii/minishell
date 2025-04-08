@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_command.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 15:29:10 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/03 14:59:39 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/08 11:44:33 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,10 @@ t_cmd	*new_cmd(char **args)
 	cmd = (t_cmd *)malloc(sizeof(t_cmd));
 	if (!cmd)
 		return (NULL);
-	cmd->cmd_param = args;
-	cmd->here_doc = 0;
-	cmd->append = 0;
-	cmd->limiter = NULL;
-	cmd->infile = NULL;
-	cmd->outfile = NULL;
+	cmd->cmd = NULL;
+	cmd->flags = args;
+	cmd->redir_in = NULL;
+	cmd->redir_out = NULL;
 	cmd->prev = NULL;
 	cmd->next = NULL;
 	return (cmd);
@@ -53,4 +51,14 @@ void	cmd_add_back(t_cmd **lst, t_cmd *new)
 		new->prev = *lst;
 		(*lst)->next = new;
 	}
+}
+
+t_cmd	*cmdlast(t_cmd *lst)
+{
+	if (lst == NULL)
+		return (lst);
+	if (lst->next != NULL)
+		return (cmdlast(lst->next));
+	else
+		return (lst);
 }

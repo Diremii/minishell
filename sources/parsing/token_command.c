@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 16:10:39 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/03 14:55:48 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/08 11:47:27 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void	handle_args(char *input, size_t *i, t_token **tokens)
 	flag = NULL;
 	while (input[*i] || !is_opperator(input[*i]))
 	{
-		free(flag);
 		while (input[*i] && input[*i] == ' ' && !is_opperator(input[*i]))
 			(*i)++;
 		if (!input[*i] || is_opperator(input[*i]))
@@ -67,25 +66,21 @@ void	handle_args(char *input, size_t *i, t_token **tokens)
 		if (!flag)
 			return ;
 		add_token_to_list(tokens, flag, ARG);
+		free(flag);
 	}
 }
 
 void	handle_command(char *input, size_t *i, t_token **tokens, t_data **data)
 {
 	char	*flag;
-	char	*path;
-
+	
+	(void)data;
+	if (is_opperator(input[*i]))
+		return ;
 	flag = get_flag(input, i);
 	if (!flag)
 		return ;
-	path = path_of(flag, (**data).envp);
-	if (!path)
-	{
-		free(flag);
-		return ;
-	}
-	add_token_to_list(tokens, path, CMD);
-	free(path);
+	add_token_to_list(tokens, flag, CMD);
 	free(flag);
 	if (!input[*i - 1])
 		return ;

@@ -6,20 +6,20 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 14:45:26 by ttremel           #+#    #+#             */
-/*   Updated: 2025/03/06 14:12:29 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/03 14:46:08 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/pipex.h"
+#include "../../includes/minishell.h"
 
-void	wait_all_pid(pid_t pid, int ac)
+int	wait_all_pid(pid_t pid, size_t size)
 {
-	size_t			i;
-	int				status;
-	int				exit_status;
+	size_t	i;
+	int		status;
+	int		exit_status;
 
 	i = 0;
-	while (i < (size_t)ac)
+	while (i < size)
 	{
 		if (pid == waitpid(-1, &status, 0))
 		{

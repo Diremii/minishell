@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 12:54:33 by ttremel           #+#    #+#             */
-/*   Updated: 2025/03/03 14:05:20 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/03/31 14:30:30 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	put_arg(char format, void *value, int fd)
 	if (format == 'c')
 		ft_putchar_fd((char)(intptr_t)value, fd);
 	if (format == 's')
-		ft_putstr_fd((char *)value, fd);
+		print_putstr_fd((char *)value, fd);
 	if (format == 'p')
 		ft_putaddress_fd((size_t)(intptr_t)value, fd);
 	if (format == 'd' || format == 'i')
