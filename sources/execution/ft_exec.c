@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 13:58:29 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/09 18:21:19 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/09 18:44:39 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ void	ft_execve(t_cmd *cmd, t_data *data, int p_fd[2])
 
 int	single_cmd(t_data *data)
 {
-	if (ft_strcmp(data->cmd->flags[0], "cd\0") == 0
-		|| ft_strcmp(data->cmd->flags[0], "export\0") == 0)
+	if (data->cmd->cmd && (ft_strcmp(data->cmd->flags[0], "cd\0") == 0
+		|| ft_strcmp(data->cmd->flags[0], "export\0") == 0))
 		return (ft_execve(data->cmd, data, NULL), 0);
 	g_signal_pid = fork();
 	if (g_signal_pid < 0)

@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 13:28:42 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/09 18:23:15 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/09 18:45:05 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ static int	exec_pipe(t_cmd **cmd, t_data *data)
 
 static int	last_pipe(t_cmd **cmd, t_data *data)
 {
-	if (data->cmd->cmd && (ft_strcmp(data->cmd->flags[0], "cd") == 0
-		|| ft_strcmp(data->cmd->flags[0], "export") == 0))
+	if (data->cmd->cmd && (ft_strcmp(data->cmd->flags[0], "cd\0") == 0
+		|| ft_strcmp(data->cmd->flags[0], "export\0") == 0))
 		return (ft_execve(data->cmd, data, NULL), 0);
 	g_signal_pid = fork();
 	if (g_signal_pid < 0)
