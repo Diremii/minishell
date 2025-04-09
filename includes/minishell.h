@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:10:48 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/09 14:22:20 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/09 16:45:45 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,10 @@
 # include "libft/libft.h"
 # include "libft/printf/ft_printf.h"
 
-# define RED		"\1\033[31m\2"
-# define GREEN		"\1\033[32m\2"
-# define YELLOW		"\1\033[33m\2"
-# define BLUE		"\1\033[34m\2"
-# define MAGENTA	"\1\033[35m\2"
-# define CYAN		"\1\033[36m\2"
-# define WHITE		"\1\033[37m\2"
+# define ERR_NO_FILE "\1\033[36m\2[Minishell]\1\033[37m\2 No such file or directory\n"
+# define ERR_TOO_ARGS "\1\033[36m\2[Minishell]\1\033[37m\2 Too many arguments\n"
 
-extern pid_t g_signal_pid;
+extern pid_t	g_signal_pid;
 
 typedef enum e_token_type
 {

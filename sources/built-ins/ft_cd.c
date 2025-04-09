@@ -6,85 +6,34 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 10:58:17 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/09 15:54:38 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/09 16:46:03 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	update_oldpwd(t_data *data)
-{
-	int		i;
-	char	*oldpwd;
-
-	i = 0;
-	oldpwd = getcwd(NULL, 0);
-	if (!oldpwd)
-		return ;
-	while (data->envp[i])
-	{
-		if (ft_strncmp(data->envp[i], "OLDPWD=", 7) == 0)
-		{
-			free(data->envp[i]);
-			data->envp[i] = ft_strjoin("OLDPWD=", oldpwd);
-			if (!data->envp[i])
-				return ;
-			free(oldpwd);
-			return ;
-		}
-		i++;
-	}
-	data->envp[i] = ft_strjoin("OLDPWD=", oldpwd);
-	if (!data->envp[i])
-		return ;
-	free(oldpwd);
-}
-
-void	update_pwd(t_data *data)
-{
-	int		i;
-	char	*pwd;
-
-	i = 0;
-	pwd = getcwd(NULL, 0);
-	if (!pwd)
-		return ;
-	while (data->envp[i])
-	{
-		if (ft_strncmp(data->envp[i], "PWD=", 4) == 0)
-		{
-			free(data->envp[i]);
-			data->envp[i] = ft_strjoin("PWD=", pwd);
-			if (!data->envp[i])
-				return ;
-			free(pwd);
-			return ;
-		}
-		i++;
-	}
-	data->envp[i] = ft_strjoin("PWD=", pwd);
-	if (!data->envp[i])
-		return ;
-	free(pwd);
-}
-
 void	ft_cd(t_data *data, char **args)
 {
-	int		i;
 	char	*home;
 
-	i = 0;
 	(void)data;
 	home = getenv("HOME");
-	while (args[i])
-		i++;
-	if (i > 2)
+	if (size_of_list(args) > 2)
 	{
-		ft_printf_fd("minishell: cd: too many arguments\n", 2);
+		ft_printf_fd(ERR_TOO_ARGS, 2);
 		return ;
 	}
-	else if (i == 1 && home)
-		chdir(home);
-	else if (i == 2)
-		chdir(args[1]);
+	else if (size_of_list(args) == 1)
+	{
+		if (home == NULL || chdir(home))
+			return ;
+	}
+	else if (size_of_list(args) == 2)
+	{
+		if (chdir(args[1]))
+		{
+			ft_printf_fd(ERR_NO_FILE, 2);
+			return ;
+		}
+	}
 }
