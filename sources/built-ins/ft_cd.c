@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 10:58:17 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/09 16:46:03 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/09 17:15:30 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_cd(t_data *data, char **args)
 	home = getenv("HOME");
 	if (size_of_list(args) > 2)
 	{
-		ft_printf_fd(ERR_TOO_ARGS, 2);
+		ft_printf_fd(ERR_ARGS, 2);
 		return ;
 	}
 	else if (size_of_list(args) == 1)
@@ -32,7 +32,7 @@ void	ft_cd(t_data *data, char **args)
 	{
 		if (chdir(args[1]))
 		{
-			ft_printf_fd(ERR_NO_FILE, 2);
+			ft_printf_fd(ERR_FILE, 2);
 			return ;
 		}
 	}

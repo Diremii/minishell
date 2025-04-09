@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:10:48 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/09 16:50:49 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/09 17:16:01 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,13 @@
 # include "libft/libft.h"
 # include "libft/printf/ft_printf.h"
 
-# define ERR_NO_FILE "\1\033[36m\2[Minishell]\1\033[37m\2 No such file or directory\n"
-# define ERR_TOO_ARGS "\1\033[36m\2[Minishell]\1\033[37m\2 Too many arguments\n"
+# define ERR_FILE "\033[36m[Minishell]\033[37m No such file or directory\n"
+# define ERR_ARGS "\033[36m[Minishell]\033[37m Too many arguments\n"
+# define ERR_SYNTAX "\033[36m[Minishell]\033[37m\
+ Syntax error near unexpected token `newline'\n"
+# define ERR_TOKEN "\033[36m[Minishell]\033[37m\
+ Syntax error near unexpected token `%s'\n"
+# define ERR_UNKNOWN "\033[36m[Minishell]\033[37m Command not found\n"
 
 extern pid_t	g_signal_pid;
 

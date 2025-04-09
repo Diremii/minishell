@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 15:21:16 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/04 12:23:50 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/09 17:15:15 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ static int	parenthesis_checker(char *str)
 int	print_syntax_error(int error, char *type)
 {
 	if (error == 1)
-		ft_printf_fd("minishell: syntax error near unexpected token `%s'\n", 2, type);
+		ft_printf_fd(ERR_TOKEN, 2, type);
 	else if (error == 2)
-		ft_printf_fd("minishell: syntax error near unexpected token `newline'\n", 2);
+		ft_printf_fd(ERR_SYNTAX, 2);
 	return (1);
 }
 
