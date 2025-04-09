@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 13:28:42 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/08 15:44:01 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/09 15:46:08 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int	ft_pipe(t_data *data)
 	if (cmdsize(data->cmd) == 1)
 	{
 		single_cmd(data);
+		dup2(STDOUT_FILENO, 0);
+		dup2(STDIN_FILENO, 1);
 		return (0);
 	}
 	//ft_exec(data);

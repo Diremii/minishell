@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:10:48 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/08 16:18:53 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/09 14:22:20 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,26 @@
 # include "libft/libft.h"
 # include "libft/printf/ft_printf.h"
 
+# define RED		"\1\033[31m\2"
+# define GREEN		"\1\033[32m\2"
+# define YELLOW		"\1\033[33m\2"
+# define BLUE		"\1\033[34m\2"
+# define MAGENTA	"\1\033[35m\2"
+# define CYAN		"\1\033[36m\2"
+# define WHITE		"\1\033[37m\2"
+
 extern pid_t g_signal_pid;
 
 typedef enum e_token_type
 {
-	IN = 1, // <
-	HEREDOC = 2, // <<
-	OUT = 3, // >
-	APPEND = 4, // >>
-	PIPE = 5, // |
-	CMD = 6, // cmd
-	ARG = 7, // arg
-	REDIR = 8 // redirection
+	IN = 1,
+	HEREDOC = 2,
+	OUT = 3,
+	APPEND = 4,
+	PIPE = 5,
+	CMD = 6,
+	ARG = 7,
+	REDIR = 8
 }	t_token_type;
 
 typedef struct s_redir
@@ -144,7 +152,7 @@ int		redir_in(t_cmd **cmd);
 
 /* PARSING */
 int		is_empty_string(char *str);
-int	init_parsing(char *str, t_token *tokens);
+int		init_parsing(char *str, t_token *tokens);
 int		check_syntax_error(t_token *tokens);
 
 /* UTILS */

@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 13:08:26 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/01 13:56:56 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/09 11:53:12 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_env(t_data *data)
 	int	i;
 
 	i = 0;
-	if (data->envp && data->envp[i])
+	if (!data->envp && !data->envp[i])
 		return ;
 	while (data->envp[i])
 	{

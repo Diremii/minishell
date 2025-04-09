@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 10:58:17 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/08 15:43:28 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/09 15:54:38 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,11 @@ void	ft_cd(t_data *data, char **args)
 		i++;
 	if (i > 2)
 	{
-		ft_printf_fd("cd : too many arguments", 2);
+		ft_printf_fd("minishell: cd: too many arguments\n", 2);
 		return ;
 	}
-	if (i == 1 && home)
+	else if (i == 1 && home)
 		chdir(home);
-	if (chdir(args[1]) == -1)
-	{
-		ft_printf_fd("cd : no such file or directory", 2);
-		return ;
-	}
+	else if (i == 2)
+		chdir(args[1]);
 }

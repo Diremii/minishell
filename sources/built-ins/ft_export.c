@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 14:23:05 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/08 15:14:51 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/09 11:59:50 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static void	print_envp(char **envp)
 	i = 0;
 	while (envp[i])
 	{
-		printf("%s\n", envp[i]);
+		if (ft_strncmp(envp[i], "_=", 2))
+			printf("%s\n", envp[i]);
 		i++;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 13:58:29 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/08 16:21:40 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/09 15:56:33 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ft_execve(t_cmd *cmd, t_data *data, int p_fd[2])
 		return ;
 	if (is_built_ins(cmd, data))
 		return ;
-	if (execve(cmd->cmd, cmd->flags, NULL) == -1)
+	if (execve(cmd->cmd, cmd->flags, data->envp) == -1)
 	{
 		if (p_fd)
 			close_fd(p_fd);
@@ -55,6 +55,13 @@ void	ft_execve(t_cmd *cmd, t_data *data, int p_fd[2])
 
 int	single_cmd(t_data *data)
 {
+
+	if (ft_strcmp(data->cmd->flags[0], "cd\0") == 0
+		|| ft_strcmp(data->cmd->flags[0], "export\0") == 0)
+	{
+		ft_execve(data->cmd, data, NULL);
+		return (0);
+	}
 	g_signal_pid = fork();
 	if (g_signal_pid < 0)
 		return (1);
@@ -76,6 +83,10 @@ int	single_cmd(t_data *data)
 			close_all(&data->cmd->redir_in);
 		if (data->cmd->redir_out)
 			close_all(&data->cmd->redir_out);
+		// if (ft_strcmp(data->cmd->flags[0], "cd\0") == 0)
+		// {
+		// 	ft_execve(data->cmd, data, NULL);
+		// }
 		waitpid(g_signal_pid, NULL, 0);
 	}
 	return (g_signal_pid);
