@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 13:28:42 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/09 16:51:14 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/09 18:23:15 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ static int	exec_pipe(t_cmd **cmd, t_data *data)
 
 static int	last_pipe(t_cmd **cmd, t_data *data)
 {
-	if (ft_strcmp(data->cmd->flags[0], "cd") == 0
-		|| ft_strcmp(data->cmd->flags[0], "export") == 0)
+	if (data->cmd->cmd && (ft_strcmp(data->cmd->flags[0], "cd") == 0
+		|| ft_strcmp(data->cmd->flags[0], "export") == 0))
 		return (ft_execve(data->cmd, data, NULL), 0);
 	g_signal_pid = fork();
 	if (g_signal_pid < 0)
@@ -100,7 +100,8 @@ int	ft_pipe(t_data *data)
 	t_cmd	*cmd;
 
 	cmd = data->cmd;
-	if (cmdsize(data->cmd) == 1)
+	check_all_access(cmd);
+	if (cmdsize(data->cmd) <= 1)
 	{
 		single_cmd(data);
 		dup2(STDOUT_FILENO, 0);

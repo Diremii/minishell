@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:10:48 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/09 17:16:01 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/09 18:22:14 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,18 @@
 # include "libft/libft.h"
 # include "libft/printf/ft_printf.h"
 
-# define ERR_FILE "\033[36m[Minishell]\033[37m No such file or directory\n"
-# define ERR_ARGS "\033[36m[Minishell]\033[37m Too many arguments\n"
-# define ERR_SYNTAX "\033[36m[Minishell]\033[37m\
+# define ERR_FILE "\033[31m[Minishell]\033[37m\
+ %s: No such file or directory\n"
+# define ERR_ARGS "\033[31m[Minishell]\033[37m\
+ Too many arguments\n"
+# define ERR_SYNTAX "\033[31m[Minishell]\033[37m\
  Syntax error near unexpected token `newline'\n"
-# define ERR_TOKEN "\033[36m[Minishell]\033[37m\
+# define ERR_TOKEN "\033[31m[Minishell]\033[37m\
  Syntax error near unexpected token `%s'\n"
-# define ERR_UNKNOWN "\033[36m[Minishell]\033[37m Command not found\n"
+# define ERR_UNKNOWN "\033[31m[Minishell]\033[37m\
+ %s: Command not found\n"
+# define ERR_ACCESS "\033[31m[Minishell]\033[37m\
+ %s: Permission denied\n"
 
 extern pid_t	g_signal_pid;
 
@@ -140,11 +145,11 @@ void	ft_execve(t_cmd *cmd, t_data *data, int p_fd[2]);
 void	close_fd(int fd[2]);
 void	close_n_exit(int fd[2], t_cmd **cmds);
 void	close_all(t_redir **redir);
-void	error_msg(int err, char *error);
+int		error_msg(char *msg, char *error);
+int		check_all_access(t_cmd *cmd);
 int		arg_after_redir(t_cmd **cmd, t_token **current);
 int		ft_exec(t_data *data);
 int		single_cmd(t_data *data);
-int		check_all_access(t_cmd **cmd, t_data *data, int here_doc);
 int		ft_pipe(t_data *data);
 int		pipe_in_pipe(t_data *data, t_cmd **cmd);
 int		here_doc(char *lim);

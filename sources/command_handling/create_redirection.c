@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 15:56:06 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/04 18:48:49 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/09 18:36:11 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ t_redir	*new_redir(char *content, t_token_type type)
 	if (!dup)
 		return (free(redir), NULL);
 	redir->fd = open_fd(content, type);
-	if (redir->fd == -1) // TODO : error check with stat
-		return (NULL);
 	redir->type = type;
 	redir->limiter = NULL;
 	redir->here_doc = 0;

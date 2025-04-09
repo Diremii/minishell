@@ -6,33 +6,83 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 01:07:00 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/09 15:24:04 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/09 18:22:05 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	error_handler(int err, char *error)
+static int	access_to_cmd(t_cmd *cmd)
 {
-	error_msg(err, error);
-	exit(EXIT_FAILURE);
+	if (access(cmd->cmd, F_OK) == -1)
+	{
+		error_msg(ERR_UNKNOWN, cmd->flags[0]);
+		return (1);
+	}
+	if (access(cmd->cmd, X_OK) == -1)
+	{
+		error_msg(ERR_ACCESS, cmd->flags[0]);
+		return (1);
+	}
+	return (0);
 }
 
-void	error_msg(int err, char *error)
+static int	access_to_file(t_cmd *cmd)
 {
-	if (err == 0)
-		ft_printf_fd(
-			"minishell : error : there's too few arguments, 4 needed\n", 2);
-	else if (err == 1)
-		ft_printf_fd(
-			"minishell : error : there's too many arguments, 4 needed\n", 2);
-	else if (err == 2)
-		ft_printf_fd(
-			"minishell : error : command \"%s\" doesn't exist\n", 2, error);
-	if (err == 3)
-		ft_printf_fd(
-			"minishell : error : can't access to file : %s\n", 2, error);
-	if (err == 4)
-		ft_printf_fd(
-			"minishell : error : permission denied : %s\n", 2, error);
+	t_redir	*current_redir;
+	int		ret;
+
+	current_redir = cmd->redir_in;
+	ret = 0;
+	while (current_redir && !ret)
+	{
+		if (!current_redir->here_doc)
+		{
+			if (access(current_redir->file, F_OK) == -1)
+				ret = error_msg(ERR_FILE, current_redir->file);
+			if (access(current_redir->file, R_OK) == -1)
+				ret = error_msg(ERR_ACCESS, current_redir->file);
+		}
+		current_redir = current_redir->next;
+	}
+	current_redir = cmd->redir_out;
+	while (current_redir && !ret)
+	{
+		if (access(current_redir->file, W_OK) == -1)
+			ret = error_msg(ERR_ACCESS, current_redir->file);
+		current_redir = current_redir->next;
+	}
+	return (ret);
+}
+
+int	check_all_access(t_cmd *cmd)
+{
+	t_cmd	*current;
+	
+	current = cmd;
+	while (current)
+	{
+		if (current->cmd)
+		{
+			if (access_to_cmd(current))
+			{
+				current = current->next;
+				continue ;
+			}
+		}
+		access_to_file(current);
+		current = current->next;
+	}
+	return (0);
+}
+
+int	error_msg(char *msg, char *error)
+{
+	if (!error)
+	{
+		ft_printf_fd(msg, 2);
+		return (1);
+	}
+	ft_printf_fd(msg, 2, error);
+	return (1);
 }
