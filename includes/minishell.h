@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:10:48 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/08 16:18:53 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/09 16:16:25 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ typedef struct s_history
 
 typedef struct s_data
 {
+	int			exit_status;
 	char		**envp;
 	char		**paths;
 	t_token		*tokens;
@@ -127,6 +128,7 @@ void	ft_pwd(void);
 
 /* EXEC */
 pid_t	pipex(int fd[2], t_data *data, t_cmd **cmd);
+void	ft_execve(t_cmd *cmd, t_data *data, int p_fd[2]);
 void	close_fd(int fd[2]);
 void	close_n_exit(int fd[2], t_cmd **cmds);
 void	close_all(t_redir **redir);
@@ -138,9 +140,10 @@ int		check_all_access(t_cmd **cmd, t_data *data, int here_doc);
 int		ft_pipe(t_data *data);
 int		pipe_in_pipe(t_data *data, t_cmd **cmd);
 int		here_doc(char *lim);
-int		wait_all_pid(pid_t pid, size_t size);
+int		wait_all_pid(void);
 int		redir_out(t_cmd **cmd);
 int		redir_in(t_cmd **cmd);
+int		wait_pid(void);
 
 /* PARSING */
 int		is_empty_string(char *str);

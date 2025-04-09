@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:15:05 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/08 14:26:07 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/09 16:12:49 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,11 @@ int	main(int ac, char **av, char **envp)
 		// 	printf("Type: %d, Str: %s\n", tmp->type, tmp->str);
 		// 	tmp = tmp->next;
 		// }
-		get_command(data.tokens, &data);
 		add_to_history(&data.history, input);
+		get_command(data.tokens, &data);
 		ft_pipe(&data);
 		clear_tokens(&data.tokens);
+		cmd_clear(&data.cmd);
 		free(input);
 	}
 	clear_history_data(&data);

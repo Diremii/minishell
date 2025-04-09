@@ -6,13 +6,13 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 13:58:29 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/08 16:21:40 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/09 16:17:06 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	is_built_ins(t_cmd *cmd, t_data *data)
+static int	is_built_ins(t_cmd *cmd, t_data *data)
 {
 	static const char	*built_ins[] = {"echo", "cd", "pwd", "export", \
 										"unset", "env", NULL};
@@ -45,7 +45,7 @@ void	ft_execve(t_cmd *cmd, t_data *data, int p_fd[2])
 		return ;
 	if (is_built_ins(cmd, data))
 		return ;
-	if (execve(cmd->cmd, cmd->flags, NULL) == -1)
+	if (execve(cmd->cmd, cmd->flags, data->envp) == -1)
 	{
 		if (p_fd)
 			close_fd(p_fd);
@@ -55,16 +55,16 @@ void	ft_execve(t_cmd *cmd, t_data *data, int p_fd[2])
 
 int	single_cmd(t_data *data)
 {
+	if (ft_strcmp(data->cmd->flags[0], "cd\0") == 0
+		|| ft_strcmp(data->cmd->flags[0], "export\0") == 0)
+		return (ft_execve(data->cmd, data, NULL), 0);
 	g_signal_pid = fork();
 	if (g_signal_pid < 0)
 		return (1);
 	if (g_signal_pid == 0)
 	{
 		if (redir_in(&data->cmd))
-		{
-			close_all(&data->cmd->redir_out);
 			exit(1);
-		}
 		if (redir_out(&data->cmd))
 			exit(1);
 		ft_execve(data->cmd, data, NULL);
@@ -76,7 +76,7 @@ int	single_cmd(t_data *data)
 			close_all(&data->cmd->redir_in);
 		if (data->cmd->redir_out)
 			close_all(&data->cmd->redir_out);
-		waitpid(g_signal_pid, NULL, 0);
+		data->exit_status = wait_pid();
 	}
-	return (g_signal_pid);
+	return (0);
 }
