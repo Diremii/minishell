@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:10:48 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/09 18:22:14 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/09 18:38:55 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # include "libft/printf/ft_printf.h"
 
 # define ERR_FILE "\033[31m[Minishell]\033[37m\
- %s: No such file or directory\n"
+ No such file or directory\n"
 # define ERR_ARGS "\033[31m[Minishell]\033[37m\
  Too many arguments\n"
 # define ERR_SYNTAX "\033[31m[Minishell]\033[37m\
@@ -41,6 +41,8 @@
  %s: Command not found\n"
 # define ERR_ACCESS "\033[31m[Minishell]\033[37m\
  %s: Permission denied\n"
+# define ERR_NO_FILE "\033[31m[Minishell]\033[37m\
+ %s: No such file or directory\n"
 
 extern pid_t	g_signal_pid;
 

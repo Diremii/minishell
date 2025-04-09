@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 01:07:00 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/09 18:22:05 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/09 18:41:27 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@ static int	access_to_cmd(t_cmd *cmd)
 {
 	if (access(cmd->cmd, F_OK) == -1)
 	{
+		if (ft_strcmp(cmd->flags[0], "cd") == 0
+			|| ft_strcmp(cmd->flags[0], "export") == 0)
+			return (0);
 		error_msg(ERR_UNKNOWN, cmd->flags[0]);
 		return (1);
 	}
@@ -39,7 +42,7 @@ static int	access_to_file(t_cmd *cmd)
 		if (!current_redir->here_doc)
 		{
 			if (access(current_redir->file, F_OK) == -1)
-				ret = error_msg(ERR_FILE, current_redir->file);
+				ret = error_msg(ERR_NO_FILE, current_redir->file);
 			if (access(current_redir->file, R_OK) == -1)
 				ret = error_msg(ERR_ACCESS, current_redir->file);
 		}
