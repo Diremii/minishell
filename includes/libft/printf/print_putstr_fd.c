@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 13:53:13 by ttremel           #+#    #+#             */
-/*   Updated: 2025/03/31 14:28:03 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/10 12:30:18 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 void	print_putstr_fd(char *s, int fd)
 {
-	int		i;
-
-	i = 0;
 	if (!s)
 		write(fd, "(null)", 6);
 	else

@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 14:45:26 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/09 14:54:23 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/10 13:13:48 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,11 @@ int	wait_pid(void)
 {
 	int		status;
 	int		exit_status;
-	pid_t	pid;
 
 	exit_status = 0;
 	if (g_signal_pid == -1)
 		return (0);
-	pid = waitpid(g_signal_pid, &status, 0);
+	g_signal_pid = waitpid(g_signal_pid, &status, 0);
 	if (WIFEXITED(status))
 		exit_status = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))

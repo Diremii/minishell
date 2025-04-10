@@ -48,9 +48,9 @@ MY_OBJECTS = $(MY_SOURCES:%.c=$(MY_OBJECTS_PATH)/%.o)
 #      COMMANDS
 # ====================
 
-RM					=	rm -f
-CC					=	cc -g
-export DEBUG		=	yes
+RM = rm -f
+export CC = cc
+export DEBUG = yes
 
 ifeq ($(DEBUG), yes)
 	STANDARD_FLAGS	=	-Wall -Wextra -Werror -g
@@ -109,7 +109,7 @@ $(MY_OBJECTS_PATH)/%.o: %.c
 	@clear
 	@echo "$(CYAN)Compiling $<...$(RESET)"
 	@mkdir -p $(dir $@)
-	@$(CC) -o $@ -c $< $(STANDARD_FLAGS) $(READLINE_INCLUDES)
+	@$(CC) $(STANDARD_FLAGS) -o $@ -c $< $(READLINE_INCLUDES)
 	@$(eval COMPILED_FILES += "$< $(GREEN)🗹\n$(RESET)")
 	@clear
 	@echo "\n$$HEADER"

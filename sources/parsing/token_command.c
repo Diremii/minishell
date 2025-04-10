@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 16:10:39 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/10 11:23:49 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/10 13:13:02 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ static void	skip_quote(char *input, size_t *i)
 char	*get_flag(char *input, size_t *i)
 {
 	size_t	j;
-	size_t	size;
 	char	*str;
 
 	j = *i;
@@ -43,11 +42,9 @@ char	*get_flag(char *input, size_t *i)
 	str = ft_strndup(input + j, *i - j);
 	if (!str)
 		return (NULL);
-	size = ft_strlen(str);
 	str = cut_quote(str);
 	if (!str)
 		return (NULL);
-	size = ft_strlen(str);
 	return (str);
 }
 
