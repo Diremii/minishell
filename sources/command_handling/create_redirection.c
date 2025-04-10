@@ -6,11 +6,21 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 15:56:06 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/10 11:21:33 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/10 11:37:05 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static void	redir_add_front(t_redir **lst, t_redir *new)
+{
+	if (lst == NULL || new == NULL)
+		return ;
+	new->next = *lst;
+	*lst = new;
+	if ((*lst)->next)
+		(*lst)->next->prev = *lst;
+}
 
 static int	open_fd(char *content, t_token_type type)
 {
@@ -57,16 +67,6 @@ t_redir	*new_redir(char *content, t_token_type type)
 	redir->prev = NULL;
 	redir->next = NULL;
 	return (redir);
-}
-
-void	redir_add_front(t_redir **lst, t_redir *new)
-{
-	if (lst == NULL || new == NULL)
-		return ;
-	new->next = *lst;
-	*lst = new;
-	if ((*lst)->next)
-		(*lst)->next->prev = *lst;
 }
 
 void	redir_add_back(t_redir **lst, t_redir *new)

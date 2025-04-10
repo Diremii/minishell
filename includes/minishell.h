@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:10:48 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/10 11:25:14 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/10 11:40:12 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,12 +123,9 @@ t_redir	*new_redir(char *content, t_token_type type);
 t_redir	*redirlast(t_redir *lst);
 t_cmd	*new_cmd(char **args);
 t_cmd	*cmdlast(t_cmd *lst);
-void	redir_add_front(t_redir **lst, t_redir *new);
 void	redir_add_back(t_redir **lst, t_redir *new);
 void	cmd_add_back(t_cmd **lst, t_cmd *new);
-void	cmd_add_front(t_cmd **lst, t_cmd *new);
 int		get_command(t_token *tokens, t_data *data);
-int		add_redir(t_token **tokens, t_redir **redir);
 int		add_cmd(t_cmd **cmd, t_data *data);
 int		add_out(t_cmd **cmd, t_token **current);
 int		add_in(t_cmd **cmd, t_token **current);
@@ -142,18 +139,14 @@ void	ft_echo(char **args);
 void	ft_pwd(void);
 
 /* EXEC */
-pid_t	pipex(int fd[2], t_data *data, t_cmd **cmd);
 void	ft_execve(t_cmd *cmd, t_data *data, int p_fd[2]);
 void	close_fd(int fd[2]);
-void	close_n_exit(int fd[2], t_cmd **cmds);
 void	close_all(t_redir **redir);
 int		error_msg(char *msg, char *error);
 int		check_all_access(t_cmd *cmd);
-int		arg_after_redir(t_cmd **cmd, t_token **current);
 int		ft_exec(t_data *data);
 int		single_cmd(t_data *data);
 int		ft_pipe(t_data *data);
-int		pipe_in_pipe(t_data *data, t_cmd **cmd);
 int		here_doc(char *lim);
 int		wait_all_pid(void);
 int		redir_out(t_cmd **cmd);
@@ -168,10 +161,10 @@ int		check_syntax_error(t_token *tokens);
 /* UTILS */
 size_t	size_of_list(char **list);
 size_t	cmdsize(t_cmd *cmds);
-char	**expand_alloc(char **list, size_t old_size, size_t new_size);
 void	exit_error(char *str, int exit_code);
-int		is_opperator(char c);
 void	setup_signals(void);
+char	**expand_alloc(char **list, size_t old_size, size_t new_size);
+int		is_opperator(char c);
 int		print_syntax_error(int error, char *type);
 
 /* FREE */

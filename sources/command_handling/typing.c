@@ -6,11 +6,31 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 17:18:29 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/07 16:38:08 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/10 11:38:34 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static int	add_redir(t_token **tokens, t_redir **redir)
+{
+	t_redir	*new;
+
+	new = NULL;
+	if ((*tokens) && (*tokens)->next)
+	{
+		new = new_redir((*tokens)->next->str, (*tokens)->type);
+		if (!new)
+		{
+			redir_clear(redir);
+			return (1);
+		}
+		redir_add_back(redir, new);
+		if ((*tokens)->next)
+			*tokens = (*tokens)->next->next;
+	}
+	return (0);
+}
 
 int	add_in(t_cmd **cmd, t_token **current)
 {

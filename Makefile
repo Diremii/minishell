@@ -18,7 +18,7 @@ MY_SOURCES+=sources/command_handling/create_command.c \
 			sources/command_handling/typing.c \
 
 MY_SOURCES+=sources/execution/error.c \
-			sources/execution/free.c \
+			sources/execution/close.c \
 			sources/execution/ft_exec.c \
 			sources/execution/ft_pipe.c \
 			sources/execution/ft_wait.c \
