@@ -6,13 +6,13 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 15:21:16 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/10 12:08:49 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/10 16:37:26 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	quote_checker(char *str)
+static int	quote_checker(char *str, t_data *data)
 {
 	int	i;
 	int	double_quote;
@@ -31,13 +31,13 @@ static int	quote_checker(char *str)
 	}
 	if (double_quote % 2 != 0 || single_quote % 2 != 0)
 	{
-		print_syntax_error(4, NULL);
+		print_syntax_error(4, NULL, data);
 		return (1);
 	}
 	return (0);
 }
 
-static int	parenthesis_checker(char *str)
+static int	parenthesis_checker(char *str, t_data *data)
 {
 	int	i;
 	int	first_parenthesis;
@@ -56,13 +56,13 @@ static int	parenthesis_checker(char *str)
 	}
 	if (first_parenthesis != second_parenthesis)
 	{
-		print_syntax_error(3, NULL);
+		print_syntax_error(3, NULL, data);
 		return (1);
 	}
 	return (0);
 }
 
-int	check_syntax_error(t_token *tokens)
+int	check_syntax_error(t_token *tokens, t_data *data)
 {
 	t_token	*curr;
 
@@ -70,27 +70,27 @@ int	check_syntax_error(t_token *tokens)
 	while (curr)
 	{
 		if (curr->type == PIPE && (!curr->next || curr->next->type == PIPE))
-			return (print_syntax_error(1, "|"));
+			return (print_syntax_error(1, "|", data));
 		if (curr->type == IN || curr->type == OUT
 			|| curr->type == APPEND || curr->type == HEREDOC)
 		{
 			if (!curr->next)
-				return (print_syntax_error(2, NULL));
+				return (print_syntax_error(2, NULL, data));
 			if (curr->next->type != REDIR)
-				return (print_syntax_error(1, curr->next->str));
+				return (print_syntax_error(1, curr->next->str, data));
 		}
 		curr = curr->next;
 	}
 	return (0);
 }
 
-int	init_parsing(char *str, t_token *tokens)
+int	init_parsing(char *str, t_token *tokens, t_data *data)
 {
-	if (quote_checker(str))
+	if (quote_checker(str, data))
 		return (1);
-	if (parenthesis_checker(str))
+	if (parenthesis_checker(str, data))
 		return (1);
-	if (check_syntax_error(tokens))
+	if (check_syntax_error(tokens, data))
 		return (1);
 	return (0);
 }

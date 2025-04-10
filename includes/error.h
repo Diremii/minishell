@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 11:45:51 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/10 12:13:29 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/10 16:40:04 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@
 
 int		error_msg(char *msg, char *error);
 int		check_all_access(t_cmd *cmd);
-int		print_syntax_error(int error, char *type);
+int		print_syntax_error(int error, char *type, t_data *data);
 
 #endif

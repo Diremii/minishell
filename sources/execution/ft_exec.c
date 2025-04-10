@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 13:58:29 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/10 16:14:41 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/10 17:06:39 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	is_built_ins(t_cmd *cmd, t_data *data)
 void	ft_execve(t_cmd *cmd, t_data *data, int p_fd[2])
 {
 	if (!cmd || !cmd->flags)
-		return ;
+		exit(1);
 	if (is_built_ins(cmd, data))
 		return ;
 	if (execve(cmd->cmd, cmd->flags, data->envp) == -1)
