@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 15:21:16 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/09 17:15:15 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/10 11:18:12 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ static int	quote_checker(char *str)
 	}
 	if (double_quote % 2 != 0 || single_quote % 2 != 0)
 	{
-		ft_printf_fd("minishell: unexpected EOF while looking for matching `\"'.\n", 2);
+		ft_printf_fd("minishell:\
+ unexpected EOF while looking for matching `\"'.\n", 2);
 		return (1);
 	}
 	return (0);
@@ -56,7 +57,8 @@ static int	parenthesis_checker(char *str)
 	}
 	if (first_parenthesis != second_parenthesis)
 	{
-		ft_printf_fd("minishell: unexpected EOF while looking for matching `('.\n", 2);
+		ft_printf_fd("minishell:\
+ unexpected EOF while looking for matching `('.\n", 2);
 		return (1);
 	}
 	return (0);
@@ -80,7 +82,8 @@ int	check_syntax_error(t_token *tokens)
 	{
 		if (curr->type == PIPE && (!curr->next || curr->next->type == PIPE))
 			return (print_syntax_error(1, "|"));
-		if (curr->type == IN || curr->type == OUT || curr->type == APPEND || curr->type == HEREDOC)
+		if (curr->type == IN || curr->type == OUT
+			|| curr->type == APPEND || curr->type == HEREDOC)
 		{
 			if (!curr->next)
 				return (print_syntax_error(2, NULL));

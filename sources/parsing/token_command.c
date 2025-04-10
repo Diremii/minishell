@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 16:10:39 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/08 11:47:27 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/10 11:23:49 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,10 @@ void	handle_args(char *input, size_t *i, t_token **tokens)
 	}
 }
 
-void	handle_command(char *input, size_t *i, t_token **tokens, t_data **data)
+void	handle_command(char *input, size_t *i, t_token **tokens)
 {
 	char	*flag;
-	
-	(void)data;
+
 	if (is_opperator(input[*i]))
 		return ;
 	flag = get_flag(input, i);

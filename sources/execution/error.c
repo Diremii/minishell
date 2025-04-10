@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 01:07:00 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/09 18:46:45 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/10 11:18:30 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static int	access_to_file(t_cmd *cmd)
 int	check_all_access(t_cmd *cmd)
 {
 	t_cmd	*current;
-	
+
 	current = cmd;
 	while (current)
 	{

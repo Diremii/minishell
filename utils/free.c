@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 18:02:41 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/08 11:48:37 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/10 11:22:04 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	free_all(char **list)
 		free(list[i++]);
 	free(list);
 }
+
 void	redir_clear(t_redir **lst)
 {
 	t_redir	*to_free;

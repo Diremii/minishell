@@ -6,13 +6,13 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 15:56:06 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/09 18:36:11 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/10 11:21:33 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int open_fd(char *content, t_token_type type) // TODO : check type error to print
+static int	open_fd(char *content, t_token_type type)
 {
 	if (type == HEREDOC)
 	{
@@ -36,7 +36,7 @@ t_redir	*new_redir(char *content, t_token_type type)
 {
 	t_redir	*redir;
 	char	*dup;
-	
+
 	redir = (t_redir *)ft_calloc(1, sizeof(t_redir));
 	if (!redir)
 		return (NULL);
