@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 11:55:00 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/10 11:25:07 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/10 18:17:09 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,14 @@ t_token	*add_token_to_list(t_token **head, char *str, t_token_type type)
 	return (*head);
 }
 
-t_token	*init_token(char *input)
+t_token	*init_token(char *input, t_data *data)
 {
 	size_t	i;
 	t_token	*tokens;
 
 	i = 0;
 	tokens = NULL;
+	(void)data;
 	while (input && input[i])
 	{
 		while (input[i] == ' ' || input[i] == '\t')

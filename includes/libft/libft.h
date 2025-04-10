@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 13:54:17 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/10 15:16:40 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/10 18:49:57 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 char	*ft_strcat(char *dest, const char *src);
+char	*ft_strncat(char *dest, const char *src, size_t n);
 char	**ft_split(char const *s, char c);
 char	*ft_strnstr(const char *big, const char *little, size_t len);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));

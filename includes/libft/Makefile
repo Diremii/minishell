@@ -6,7 +6,7 @@
 #    By: ttremel <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/09 11:52:19 by ttremel           #+#    #+#              #
-#    Updated: 2025/04/10 15:20:53 by ttremel          ###   ########.fr        #
+#    Updated: 2025/04/10 18:50:17 by ttremel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,6 +55,7 @@ SRCS		=	ft_atoi.c						\
 				ft_substr.c						\
 				ft_join.c						\
 				ft_strcat.c						\
+				ft_strncat.c					\
 				ft_strndup.c					\
 				ft_memdup.c						\
 				ft_abs.c						\

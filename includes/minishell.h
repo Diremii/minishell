@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:10:48 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/10 16:14:13 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/10 17:50:42 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <sys/stat.h>
 # include <fcntl.h>
 # include <dirent.h>
 # include <signal.h>
@@ -38,7 +39,7 @@ void	init_history(t_history *history);
 void	add_to_history(t_history *history, const char *command);
 
 /* TOKENS */
-t_token	*init_token(char *input);
+t_token	*init_token(char *input, t_data *data);
 t_token	*add_token_to_list(t_token **head, char *str, t_token_type type);
 char	*path_of(char *cmd, char **env);
 char	*cut_quote(char *str);
@@ -83,8 +84,8 @@ int		wait_pid(void);
 
 /* PARSING */
 int		is_empty_string(char *str);
-int		init_parsing(char *str, t_token *tokens);
-int		check_syntax_error(t_token *tokens);
+int		init_parsing(char *str, t_token *tokens, t_data *data);
+int		check_syntax_error(t_token *tokens, t_data *data);
 
 /* UTILS */
 size_t	size_of_list(char **list);
@@ -93,7 +94,6 @@ void	exit_error(char *str, int exit_code);
 void	setup_signals(void);
 char	**expand_alloc(char **list, size_t old_size, size_t new_size);
 int		is_opperator(char c);
-int		print_syntax_error(int error, char *type);
 
 /* FREE */
 void	free_all(char **list);
