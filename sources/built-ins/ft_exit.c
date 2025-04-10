@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 15:05:05 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/10 15:55:32 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/10 16:02:43 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void ft_exit(char **args)
 	if (size_of_list(args) > 2)
 	{
 		ft_printf_fd("%sexit: too many arguments\n", 2, MINISHELL);
-		return ;
+		exit(1);
 	}
 	err = !is_valid(args[1]);
 	very_big = ft_ato128(args[1]);
