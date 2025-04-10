@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 16:10:39 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/10 11:23:49 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/10 18:28:04 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ char	*get_flag(char *input, size_t *i)
 	while (input[*i] && input[*i] != ' ' && !is_opperator(input[*i]))
 	{
 		skip_quote(input, i);
+		if (input[*i] == '\0')
+			return (ft_strndup(input + j, *i - j));
 		(*i)++;
 	}
 	str = ft_strndup(input + j, *i - j);

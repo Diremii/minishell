@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_parsing.c                                    :+:      :+:    :+:   */
+/*   ft_strncat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/10 11:54:27 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/10 17:45:25 by ttremel          ###   ########.fr       */
+/*   Created: 2025/04/10 18:48:50 by ttremel           #+#    #+#             */
+/*   Updated: 2025/04/10 18:53:19 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "libft.h"
 
-int	print_syntax_error(int error, char *type, t_data *data)
+char	*ft_strncat(char *dest, const char *src, size_t n)
 {
-	data->exit_status = 2;
-	if (error == 1)
-		ft_printf_fd(ERR_TOKEN, 2, MINISHELL, type);
-	else if (error == 2)
-		ft_printf_fd(ERR_SYNTAX, 2, MINISHELL);
-	else if (error == 3)
-		ft_printf_fd(ERR_EOF1, 2, MINISHELL);
-	else if (error == 4)
-		ft_printf_fd(ERR_EOF2, 2, MINISHELL, type);
-	return (1);
+	size_t	i;
+	size_t	size_dest;
+
+	i = 0;
+	if (!dest || !src || n == 0)
+		return (0);
+	size_dest = ft_strlen(dest);
+	while (src[i] != '\0' && i < n)
+	{
+		dest[size_dest + i] = src[i];
+		i++;
+	}
+	dest[size_dest + i] = '\0';
+	return (dest);
 }

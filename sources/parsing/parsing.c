@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 15:21:16 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/10 16:37:26 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/10 18:16:25 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,26 @@
 
 static int	quote_checker(char *str, t_data *data)
 {
-	int	i;
-	int	double_quote;
-	int	single_quote;
+	size_t	i;
 
 	i = 0;
-	double_quote = 0;
-	single_quote = 0;
-	while (str && str[i])
+	while (str[i])
 	{
-		if (str[i] == '"')
-			double_quote++;
+		if (str[i] == '\"')
+		{
+			while (str[i] && str[++i] != '\"')
+				;
+			if (!str[i])
+				return (print_syntax_error(4, "\"", data));
+		}
 		else if (str[i] == '\'')
-			single_quote++;
+		{
+			while (str[i] && str[++i] != '\'')
+				;
+			if (!str[i])
+				return (print_syntax_error(4, "\'", data));
+		}
 		i++;
-	}
-	if (double_quote % 2 != 0 || single_quote % 2 != 0)
-	{
-		print_syntax_error(4, NULL, data);
-		return (1);
 	}
 	return (0);
 }
