@@ -6,7 +6,7 @@
 #    By: ttremel <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/09 11:52:19 by ttremel           #+#    #+#              #
-#    Updated: 2025/03/31 14:33:53 by ttremel          ###   ########.fr        #
+#    Updated: 2025/04/10 15:20:53 by ttremel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ OBJ_PATH	=	./obj
 SRCS		=	ft_atoi.c						\
 				ft_atol.c						\
 				ft_atoll.c						\
+				ft_ato128.c						\
 				ft_calloc.c						\
 				ft_isalnum.c					\
 				ft_isalpha.c					\

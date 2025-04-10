@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 13:54:17 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/03 14:53:30 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/10 15:16:40 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,6 @@ int		ft_abs(int x);
 int		ft_random(int c, int m);
 t_lint	ft_atol(const char *str);
 t_llint	ft_atoll(const char *str);
+__int128_t	ft_ato128(const char *str);
 
 #endif

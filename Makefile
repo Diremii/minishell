@@ -30,6 +30,7 @@ MY_SOURCES+=sources/built-ins/ft_cd.c \
 			sources/built-ins/ft_export.c \
 			sources/built-ins/ft_pwd.c \
 			sources/built-ins/ft_unset.c \
+			sources/built-ins/ft_exit.c \
 
 MY_SOURCES+=sources/error_handling/error_command.c \
 			sources/error_handling/error_parsing.c \

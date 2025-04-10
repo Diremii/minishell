@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:10:48 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/10 11:53:18 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/10 15:39:13 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	ft_cd(t_data *data, char **args);
 void	ft_export(t_data *data, char **args);
 void	ft_unset(t_data *data, char **args);
 void	ft_env(t_data *data);
+void 	ft_exit(char **args);
 void	ft_echo(char **args);
 void	ft_pwd(void);
 

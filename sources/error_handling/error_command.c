@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 11:55:39 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/10 11:57:27 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/10 15:42:24 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ static int	access_to_cmd(t_cmd *cmd)
 	if (access(cmd->cmd, F_OK) == -1)
 	{
 		if (ft_strcmp(cmd->flags[0], "cd") == 0
-			|| ft_strcmp(cmd->flags[0], "export") == 0)
+			|| ft_strcmp(cmd->flags[0], "export") == 0
+			|| ft_strcmp(cmd->flags[0], "exit") == 0)
 			return (0);
 		error_msg(ERR_UNKNOWN, cmd->flags[0]);
 		return (1);

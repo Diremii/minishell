@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 13:58:29 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/10 11:18:52 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/10 15:36:29 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	is_built_ins(t_cmd *cmd, t_data *data)
 {
 	static const char	*built_ins[] = {"echo", "cd", "pwd", "export", \
-										"unset", "env", NULL};
+										"unset", "env", "exit", NULL};
 	int					res;
 	int					i;
 
@@ -32,6 +32,8 @@ static int	is_built_ins(t_cmd *cmd, t_data *data)
 		ft_unset(data, cmd->flags);
 	else if (ft_strcmp(cmd->flags[0], "echo") == 0)
 		ft_echo(cmd->flags);
+	else if (ft_strcmp(cmd->flags[0], "exit") == 0)
+		ft_exit(cmd->flags);
 	else if (ft_strcmp(cmd->flags[0], "env") == 0)
 		ft_env(data);
 	else if (ft_strcmp(cmd->flags[0], "pwd") == 0)
@@ -56,7 +58,8 @@ void	ft_execve(t_cmd *cmd, t_data *data, int p_fd[2])
 int	single_cmd(t_data *data)
 {
 	if (data->cmd->cmd && (ft_strcmp(data->cmd->flags[0], "cd\0") == 0
-			|| ft_strcmp(data->cmd->flags[0], "export\0") == 0))
+			|| ft_strcmp(data->cmd->flags[0], "export\0") == 0
+			|| ft_strcmp(data->cmd->flags[0], "exit\0") == 0))
 		return (ft_execve(data->cmd, data, NULL), 0);
 	g_signal_pid = fork();
 	if (g_signal_pid < 0)
