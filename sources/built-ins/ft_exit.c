@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 15:05:05 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/10 16:02:43 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/10 16:13:39 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,14 @@ static int	is_valid(char *num)
 	return (1);
 }
 
-void ft_exit(char **args)
+void ft_exit(t_data *data, char **args)
 {
 	unsigned char	exit_code;
 	__int128_t		very_big;
 	int				err;
 
 	exit_code = 0;
-	if (!g_signal_pid)
+	if (!data->cmd->prev && !data->cmd->next)
 		ft_printf_fd("exit\n", 1);
 	if (size_of_list(args) == 1)
 		exit(0);

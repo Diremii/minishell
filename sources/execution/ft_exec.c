@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 13:58:29 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/10 15:36:29 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/10 16:14:41 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ static int	is_built_ins(t_cmd *cmd, t_data *data)
 		ft_export(data, cmd->flags);
 	else if (ft_strcmp(cmd->flags[0], "unset") == 0)
 		ft_unset(data, cmd->flags);
+	else if (ft_strcmp(cmd->flags[0], "exit") == 0)
+		ft_exit(data, cmd->flags);
 	else if (ft_strcmp(cmd->flags[0], "echo") == 0)
 		ft_echo(cmd->flags);
-	else if (ft_strcmp(cmd->flags[0], "exit") == 0)
-		ft_exit(cmd->flags);
 	else if (ft_strcmp(cmd->flags[0], "env") == 0)
 		ft_env(data);
 	else if (ft_strcmp(cmd->flags[0], "pwd") == 0)
