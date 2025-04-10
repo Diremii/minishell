@@ -17,8 +17,7 @@ MY_SOURCES+=sources/command_handling/create_command.c \
 			sources/command_handling/get_command.c \
 			sources/command_handling/typing.c \
 
-MY_SOURCES+=sources/execution/error.c \
-			sources/execution/close.c \
+MY_SOURCES+=sources/execution/close.c \
 			sources/execution/ft_exec.c \
 			sources/execution/ft_pipe.c \
 			sources/execution/ft_wait.c \
@@ -31,6 +30,10 @@ MY_SOURCES+=sources/built-ins/ft_cd.c \
 			sources/built-ins/ft_export.c \
 			sources/built-ins/ft_pwd.c \
 			sources/built-ins/ft_unset.c \
+
+MY_SOURCES+=sources/error_handling/error_command.c \
+			sources/error_handling/error_parsing.c \
+			sources/error_handling/error.c \
 
 MY_SOURCES+=utils/utils.c \
 			utils/history.c \

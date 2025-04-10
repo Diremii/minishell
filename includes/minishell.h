@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:10:48 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/10 11:40:12 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/10 11:53:18 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,81 +28,10 @@
 # include <curses.h>
 # include "libft/libft.h"
 # include "libft/printf/ft_printf.h"
-
-# define ERR_FILE "\033[31m[Minishell]\033[37m\
- No such file or directory\n"
-# define ERR_ARGS "\033[31m[Minishell]\033[37m\
- Too many arguments\n"
-# define ERR_SYNTAX "\033[31m[Minishell]\033[37m\
- Syntax error near unexpected token `newline'\n"
-# define ERR_TOKEN "\033[31m[Minishell]\033[37m\
- Syntax error near unexpected token `%s'\n"
-# define ERR_UNKNOWN "\033[31m[Minishell]\033[37m\
- %s: Command not found\n"
-# define ERR_ACCESS "\033[31m[Minishell]\033[37m\
- %s: Permission denied\n"
-# define ERR_NO_FILE "\033[31m[Minishell]\033[37m\
- %s: No such file or directory\n"
+# include "error.h"
+# include "struct.h"
 
 extern pid_t	g_signal_pid;
-
-typedef enum e_token_type
-{
-	IN = 1,
-	HEREDOC = 2,
-	OUT = 3,
-	APPEND = 4,
-	PIPE = 5,
-	CMD = 6,
-	ARG = 7,
-	REDIR = 8
-}	t_token_type;
-
-typedef struct s_redir
-{
-	t_token_type	type;
-	struct s_redir	*next;
-	struct s_redir	*prev;
-	char			*file;
-	char			*limiter;
-	int				fd;
-	int				here_doc;
-}			t_redir;
-
-typedef struct s_cmd
-{
-	struct s_cmd	*prev;
-	struct s_cmd	*next;
-	t_redir			*redir_in;
-	t_redir			*redir_out;
-	char			*cmd;
-	char			**flags;
-}	t_cmd;
-
-typedef struct s_token
-{
-	char			*str;
-	t_token_type	type;
-	struct s_token	*next;
-	struct s_token	*prev;
-}	t_token;
-
-typedef struct s_history
-{
-	char	*path;
-	char	*last_command;
-	int		fd;
-}	t_history;
-
-typedef struct s_data
-{
-	int			exit_status;
-	char		**envp;
-	char		**paths;
-	t_token		*tokens;
-	t_cmd		*cmd;
-	t_history	history;
-}	t_data;
 
 /* HISTORY */
 void	init_history(t_history *history);
@@ -142,8 +71,6 @@ void	ft_pwd(void);
 void	ft_execve(t_cmd *cmd, t_data *data, int p_fd[2]);
 void	close_fd(int fd[2]);
 void	close_all(t_redir **redir);
-int		error_msg(char *msg, char *error);
-int		check_all_access(t_cmd *cmd);
 int		ft_exec(t_data *data);
 int		single_cmd(t_data *data);
 int		ft_pipe(t_data *data);

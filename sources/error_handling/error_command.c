@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   error_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/13 01:07:00 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/10 11:18:30 by ttremel          ###   ########.fr       */
+/*   Created: 2025/04/10 11:55:39 by ttremel           #+#    #+#             */
+/*   Updated: 2025/04/10 11:57:27 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,15 +77,4 @@ int	check_all_access(t_cmd *cmd)
 		current = current->next;
 	}
 	return (0);
-}
-
-int	error_msg(char *msg, char *error)
-{
-	if (!error)
-	{
-		ft_printf_fd(msg, 2);
-		return (1);
-	}
-	ft_printf_fd(msg, 2, error);
-	return (1);
 }

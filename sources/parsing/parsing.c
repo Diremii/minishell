@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 15:21:16 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/10 11:18:12 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/10 12:08:49 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ static int	quote_checker(char *str)
 	}
 	if (double_quote % 2 != 0 || single_quote % 2 != 0)
 	{
-		ft_printf_fd("minishell:\
- unexpected EOF while looking for matching `\"'.\n", 2);
+		print_syntax_error(4, NULL);
 		return (1);
 	}
 	return (0);
@@ -57,20 +56,10 @@ static int	parenthesis_checker(char *str)
 	}
 	if (first_parenthesis != second_parenthesis)
 	{
-		ft_printf_fd("minishell:\
- unexpected EOF while looking for matching `('.\n", 2);
+		print_syntax_error(3, NULL);
 		return (1);
 	}
 	return (0);
-}
-
-int	print_syntax_error(int error, char *type)
-{
-	if (error == 1)
-		ft_printf_fd(ERR_TOKEN, 2, type);
-	else if (error == 2)
-		ft_printf_fd(ERR_SYNTAX, 2);
-	return (1);
 }
 
 int	check_syntax_error(t_token *tokens)
