@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ttremel <marvin@42.fr>                     +#+  +:+       +#+         #
+#    By: humontas <humontas@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/18 09:59:39 by ttremel           #+#    #+#              #
-#    Updated: 2025/03/31 14:28:25 by ttremel          ###   ########.fr        #
+#    Updated: 2025/04/11 12:45:10 by humontas         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	libftprintf.a
 CC			=	cc
 LIB			=	../libft.a
-OBJ_PATH	=	./obj
+OBJ_PATH	=	./.obj
 
 SRCS		=	ft_printf.c			\
 				ft_strlenf.c		\

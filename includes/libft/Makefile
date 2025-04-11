@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ttremel <marvin@42.fr>                     +#+  +:+       +#+         #
+#    By: humontas <humontas@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/09 11:52:19 by ttremel           #+#    #+#              #
-#    Updated: 2025/04/10 18:50:17 by ttremel          ###   ########.fr        #
+#    Updated: 2025/04/11 12:44:32 by humontas         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME		=	libft.a
 CC			=	cc
 GNL			=	./get_next_line
 PRINTF		=	./printf
-OBJ_PATH	=	./obj
+OBJ_PATH	=	./.obj
 
 SRCS		=	ft_atoi.c						\
 				ft_atol.c						\

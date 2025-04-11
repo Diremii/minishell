@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ttremel <marvin@42.fr>                     +#+  +:+       +#+         #
+#    By: humontas <humontas@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/10 13:35:36 by ttremel           #+#    #+#              #
-#    Updated: 2025/03/24 13:54:48 by ttremel          ###   ########.fr        #
+#    Updated: 2025/04/11 12:45:05 by humontas         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	get_next_line.a
 CC			=	cc
 LIB			=	../libft.a
-OBJ_PATH	=	./obj
+OBJ_PATH	=	./.obj
 
 SRCS		=	get_next_line.c			\
 				get_next_line_utils.c
