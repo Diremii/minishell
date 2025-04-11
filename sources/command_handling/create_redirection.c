@@ -6,13 +6,23 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 15:56:06 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/04 18:48:49 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/10 11:37:05 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int open_fd(char *content, t_token_type type) // TODO : check type error to print
+static void	redir_add_front(t_redir **lst, t_redir *new)
+{
+	if (lst == NULL || new == NULL)
+		return ;
+	new->next = *lst;
+	*lst = new;
+	if ((*lst)->next)
+		(*lst)->next->prev = *lst;
+}
+
+static int	open_fd(char *content, t_token_type type)
 {
 	if (type == HEREDOC)
 	{
@@ -36,7 +46,7 @@ t_redir	*new_redir(char *content, t_token_type type)
 {
 	t_redir	*redir;
 	char	*dup;
-	
+
 	redir = (t_redir *)ft_calloc(1, sizeof(t_redir));
 	if (!redir)
 		return (NULL);
@@ -44,8 +54,6 @@ t_redir	*new_redir(char *content, t_token_type type)
 	if (!dup)
 		return (free(redir), NULL);
 	redir->fd = open_fd(content, type);
-	if (redir->fd == -1) // TODO : error check with stat
-		return (NULL);
 	redir->type = type;
 	redir->limiter = NULL;
 	redir->here_doc = 0;
@@ -59,16 +67,6 @@ t_redir	*new_redir(char *content, t_token_type type)
 	redir->prev = NULL;
 	redir->next = NULL;
 	return (redir);
-}
-
-void	redir_add_front(t_redir **lst, t_redir *new)
-{
-	if (lst == NULL || new == NULL)
-		return ;
-	new->next = *lst;
-	*lst = new;
-	if ((*lst)->next)
-		(*lst)->next->prev = *lst;
 }
 
 void	redir_add_back(t_redir **lst, t_redir *new)

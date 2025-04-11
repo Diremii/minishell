@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:15:05 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/09 17:32:07 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/10 17:51:03 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	main(int ac, char **av, char **envp)
 			break ;
 		data.tokens = init_token(input, &data);
 		add_to_history(&data.history, input);
-		if (init_parsing(input, data.tokens))
+		if (!data.tokens || init_parsing(input, data.tokens, &data))
 			continue ;
 		get_command(data.tokens, &data);
 		ft_pipe(&data);

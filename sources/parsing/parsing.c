@@ -3,41 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 15:21:16 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/09 17:18:11 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/10 18:16:25 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	quote_checker(char *str)
+static int	quote_checker(char *str, t_data *data)
 {
-	int	i;
-	int	double_quote;
-	int	single_quote;
+	size_t	i;
 
 	i = 0;
-	double_quote = 0;
-	single_quote = 0;
-	while (str && str[i])
+	while (str[i])
 	{
-		if (str[i] == '"')
-			double_quote++;
+		if (str[i] == '\"')
+		{
+			while (str[i] && str[++i] != '\"')
+				;
+			if (!str[i])
+				return (print_syntax_error(4, "\"", data));
+		}
 		else if (str[i] == '\'')
-			single_quote++;
+		{
+			while (str[i] && str[++i] != '\'')
+				;
+			if (!str[i])
+				return (print_syntax_error(4, "\'", data));
+		}
 		i++;
-	}
-	if (double_quote % 2 != 0 || single_quote % 2 != 0)
-	{
-		ft_printf_fd("minishell: unexpected EOF while looking for matching `\"'.\n", 2);
-		return (1);
 	}
 	return (0);
 }
 
-static int	parenthesis_checker(char *str)
+static int	parenthesis_checker(char *str, t_data *data)
 {
 	int	i;
 	int	first_parenthesis;
@@ -56,22 +57,13 @@ static int	parenthesis_checker(char *str)
 	}
 	if (first_parenthesis != second_parenthesis)
 	{
-		ft_printf_fd("minishell: unexpected EOF while looking for matching `('.\n", 2);
+		print_syntax_error(3, NULL, data);
 		return (1);
 	}
 	return (0);
 }
 
-int	print_syntax_error(int error, char *type)
-{
-	if (error == 1)
-		ft_printf_fd(ERR_TOKEN, 2, type);
-	else if (error == 2)
-		ft_printf_fd(ERR_SYNTAX, 2);
-	return (1);
-}
-
-int	check_syntax_error(t_token *tokens)
+int	check_syntax_error(t_token *tokens, t_data *data)
 {
 	t_token	*curr;
 
@@ -79,26 +71,27 @@ int	check_syntax_error(t_token *tokens)
 	while (curr)
 	{
 		if (curr->type == PIPE && (!curr->next || curr->next->type == PIPE))
-			return (print_syntax_error(1, "||"));
-		if (curr->type == IN || curr->type == OUT || curr->type == APPEND || curr->type == HEREDOC)
+			return (print_syntax_error(1, "|", data));
+		if (curr->type == IN || curr->type == OUT
+			|| curr->type == APPEND || curr->type == HEREDOC)
 		{
 			if (!curr->next)
-				return (print_syntax_error(2, NULL));
+				return (print_syntax_error(2, NULL, data));
 			if (curr->next->type != REDIR)
-				return (print_syntax_error(1, curr->next->str));
+				return (print_syntax_error(1, curr->next->str, data));
 		}
 		curr = curr->next;
 	}
 	return (0);
 }
 
-int	init_parsing(char *str, t_token *tokens)
+int	init_parsing(char *str, t_token *tokens, t_data *data)
 {
-	if (quote_checker(str))
+	if (quote_checker(str, data))
 		return (1);
-	if (parenthesis_checker(str))
+	if (parenthesis_checker(str, data))
 		return (1);
-	if (check_syntax_error(tokens))
+	if (check_syntax_error(tokens, data))
 		return (1);
 	return (0);
 }
