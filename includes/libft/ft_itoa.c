@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 13:48:39 by ttremel           #+#    #+#             */
-/*   Updated: 2024/10/17 17:13:31 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/11 17:07:14 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,9 @@ char	*ft_itoa(int n)
 	size_str = num_count(n);
 	issigned = (n < 0);
 	n = (n * -1 * (n < 0) + n * (n >= 0));
-	str = (char *)malloc((size_str + 1) * sizeof(char));
+	str = (char *)ft_calloc(size_str, sizeof(char));
 	if (!str)
 		return (0);
-	ft_bzero(str, size_str + 1);
 	while (size_str--)
 	{
 		str[size_str] = '0' + (n % 10);

@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 16:10:39 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/10 18:28:04 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/11 16:25:22 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,9 @@ static void	skip_quote(char *input, size_t *i)
 	}
 }
 
-char	*get_flag(char *input, size_t *i)
+char	*get_flag(char *input, size_t *i, t_data *data)
 {
 	size_t	j;
-	size_t	size;
 	char	*str;
 
 	j = *i;
@@ -45,15 +44,14 @@ char	*get_flag(char *input, size_t *i)
 	str = ft_strndup(input + j, *i - j);
 	if (!str)
 		return (NULL);
-	size = ft_strlen(str);
+	str = replace_dolar_in_str(str, data);
 	str = cut_quote(str);
 	if (!str)
 		return (NULL);
-	size = ft_strlen(str);
 	return (str);
 }
 
-void	handle_args(char *input, size_t *i, t_token **tokens)
+void	handle_args(char *input, size_t *i, t_token **tokens, t_data *data)
 {
 	char	*flag;
 
@@ -64,7 +62,7 @@ void	handle_args(char *input, size_t *i, t_token **tokens)
 			(*i)++;
 		if (!input[*i] || is_opperator(input[*i]))
 			return ;
-		flag = get_flag(input, i);
+		flag = get_flag(input, i, data);
 		if (!flag)
 			return ;
 		add_token_to_list(tokens, flag, ARG);
@@ -72,18 +70,18 @@ void	handle_args(char *input, size_t *i, t_token **tokens)
 	}
 }
 
-void	handle_command(char *input, size_t *i, t_token **tokens)
+void	handle_command(char *input, size_t *i, t_token **tokens, t_data *data)
 {
 	char	*flag;
 
 	if (is_opperator(input[*i]))
 		return ;
-	flag = get_flag(input, i);
+	flag = get_flag(input, i, data);
 	if (!flag)
 		return ;
 	add_token_to_list(tokens, flag, CMD);
 	free(flag);
 	if (!input[*i - 1])
 		return ;
-	handle_args(input, i, tokens);
+	handle_args(input, i, tokens, data);
 }

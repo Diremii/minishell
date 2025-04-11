@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:10:48 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/11 13:06:31 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/11 13:58:59 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,15 @@ void	add_to_history(t_history *history, const char *command);
 /* TOKENS */
 t_token	*init_token(char *input, t_data *data);
 t_token	*add_token_to_list(t_token **head, char *str, t_token_type type);
+void	handle_command(char *input, size_t *i, t_token **tokens, t_data *data);
+void	handle_operator(char *input, size_t *i,
+			t_token **tokens, t_data *data);
+void	redirection_file_handling(char *input, t_token *tokens,
+			size_t *i, t_data *data);
+char	*replace_dolar_in_str(char *str, t_data *data);
 char	*path_of(char *cmd, char **env);
 char	*cut_quote(char *str);
-char	*get_flag(char *input, size_t *i);
-void	handle_command(char *input, size_t *i, t_token **tokens);
-void	handle_operator(char *input, size_t *i, t_token **tokens);
-void	redirection_file_handling(char *input, t_token *tokens, size_t *i);
+char	*get_flag(char *input, size_t *i, t_data *data);
 
 /* COMMAND */
 t_redir	*new_redir(char *content, t_token_type type);
@@ -102,5 +105,6 @@ void	cmd_clear(t_cmd **lst);
 void	redir_clear(t_redir **lst);
 void	clear_tokens(t_token **tokens);
 void	clear_history_data(t_data *data);
+void	clear_all(t_data *data, char *input);
 
 #endif
