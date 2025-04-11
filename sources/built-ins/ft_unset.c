@@ -3,26 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 13:51:29 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/11 13:08:10 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/11 13:41:52 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_unset(t_data *data, char **args)
+void ft_unset(t_data *data, char **args)
 {
-	int	i;
+	int i;
+	int j;
 
 	i = 0;
-	while (data->envp[i])
+	while (args[i])
 	{
-		if (!ft_strncmp(args[1], data->envp[i], ft_strlen(args[1])) && data->envp[i][ft_strlen(args[1])])
+		j = 0;
+		while (data->envp[j])
 		{
-			free(data->envp[i]);
-			data->envp[i] = NULL;
+			if (!ft_strncmp(args[i], data->envp[j], ft_strlen(args[i])) && data->envp[j][ft_strlen(args[i])] == '=')
+			{
+				free(data->envp[j]);
+				while (data->envp[j])
+				{
+					data->envp[j] = data->envp[j + 1];
+					j++;
+				}
+				break;
+			}
+			j++;
 		}
 		i++;
 	}
