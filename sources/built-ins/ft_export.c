@@ -6,26 +6,50 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 14:23:05 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/09 11:59:50 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/11 10:53:59 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+static char	**add_str_to_tab(char **envp, const char *new_var)
+{
+	int		i;
+	char	**new_envp;
+
+	i = 0;
+	while (envp && envp[i])
+		i++;
+	new_envp = malloc(sizeof(char *) * (i + 2));
+	if (!new_envp)
+		return (NULL);
+	i = 0;
+	while (envp && envp[i])
+	{
+		new_envp[i] = envp[i];
+		i++;
+	}
+	new_envp[i] = ft_strdup((char *)new_var);
+	new_envp[i + 1] = NULL;
+	return (new_envp);
+}
+
 static void	print_envp(char **envp)
 {
 	int	i;
+	char	*sub;
 
 	i = 0;
 	while (envp[i])
 	{
+		sub = ft_strndup(envp[i], ft_strlen(envp[i]) - ft_strlen(ft_strchr(envp[i], '=')) + 1);
 		if (ft_strncmp(envp[i], "_=", 2))
-			printf("%s\n", envp[i]);
+			printf("%s%s\"%s\"\n", "declare -x ", sub, ft_strchr(envp[i], '=') + 1);
 		i++;
 	}
 }
 
-static void sort_envp(char **envp)
+static void	sort_envp(char **envp)
 {
 	char *tmp;
 	int i = 0;
@@ -48,14 +72,36 @@ static void sort_envp(char **envp)
 	}
 }
 
+static void	set_env_var(t_data *data, const char *new_var)
+{
+	int		 i;
+	size_t	len;
+	char	*sign;
+
+	sign = ft_strchr(new_var, '=');
+	if (!sign)
+		return ;
+	len = sign - new_var;
+	i = 0;
+	while (data->envp[i])
+	{
+		if (!ft_strncmp(data->envp[i], new_var, len) &&
+			data->envp[i][len] == '=')
+		{
+			free(data->envp[i]);
+			data->envp[i] = ft_strdup((char *)new_var);
+			return ;
+		}
+		i++;
+	}
+	data->envp = add_str_to_tab(data->envp, new_var);
+}
+
 void	ft_export(t_data *data, char **args)
 {
-	int	i;
-	
-	i = 0;
-	while (args[i])
-		i++;
+	if (size_of_list(args) == 2)
+		set_env_var(data, args[1]);
 	sort_envp(data->envp);
-	if (i == 1)
+	if (size_of_list(args) == 1)
 		print_envp(data->envp);
 }
