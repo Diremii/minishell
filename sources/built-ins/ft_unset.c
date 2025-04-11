@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 13:51:29 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/11 13:07:48 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/11 13:08:10 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	ft_unset(t_data *data, char **args)
 	i = 0;
 	while (data->envp[i])
 	{
-		if (!ft_strncmp(args[1], data->envp[i], ft_strlen(args[1])) && data->envp[i][ft_strlen(args[1])])
 		if (!ft_strncmp(args[1], data->envp[i], ft_strlen(args[1])) && data->envp[i][ft_strlen(args[1])])
 		{
 			free(data->envp[i]);
