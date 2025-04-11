@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:10:48 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/10 17:50:42 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/11 12:47:27 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ int		add_in(t_cmd **cmd, t_token **current);
 /* BUILT-INS */
 void	ft_cd(t_data *data, char **args);
 void	ft_export(t_data *data, char **args);
-void	ft_unset(t_data *data, char **args);
 void	ft_exit(t_data *data, char **args);
+void	ft_unset(t_data *data, char **args);
 void	ft_env(t_data *data);
 void	ft_echo(char **args);
 void	ft_pwd(void);
