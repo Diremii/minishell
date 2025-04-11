@@ -6,11 +6,29 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 13:58:29 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/10 17:06:39 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/11 13:06:15 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static void exec_built_ins(t_cmd *cmd, t_data *data)
+{
+	if (ft_strcmp(cmd->flags[0], "cd") == 0)
+		ft_cd(data, cmd->flags);
+	else if (ft_strcmp(cmd->flags[0], "export") == 0)
+		ft_export(data, cmd->flags);
+	else if (ft_strcmp(cmd->flags[0], "exit") == 0)
+		ft_exit(data, cmd->flags);
+	else if (ft_strcmp(cmd->flags[0], "unset") == 0)
+		ft_unset(data, cmd->flags);
+	else if (ft_strcmp(cmd->flags[0], "echo") == 0)
+		ft_echo(cmd->flags);
+	else if (ft_strcmp(cmd->flags[0], "env") == 0)
+		ft_env(data);
+	else if (ft_strcmp(cmd->flags[0], "pwd") == 0)
+		ft_pwd();
+}
 
 static int	is_built_ins(t_cmd *cmd, t_data *data)
 {
@@ -21,24 +39,27 @@ static int	is_built_ins(t_cmd *cmd, t_data *data)
 
 	res = 0;
 	i = 0;
-	while (i < 6 && !res)
-		if (ft_strcmp(cmd->flags[0], built_ins[i++]) == 0)
+	while (i < 7 && !res)
+	{
+		if (ft_strcmp(cmd->flags[0], built_ins[i]) == 0)
 			res = 1;
-	if (ft_strcmp(cmd->flags[0], "cd") == 0)
-		ft_cd(data, cmd->flags);
-	else if (ft_strcmp(cmd->flags[0], "export") == 0)
-		ft_export(data, cmd->flags);
-	else if (ft_strcmp(cmd->flags[0], "unset") == 0)
-		ft_unset(data, cmd->flags);
-	else if (ft_strcmp(cmd->flags[0], "exit") == 0)
-		ft_exit(data, cmd->flags);
-	else if (ft_strcmp(cmd->flags[0], "echo") == 0)
-		ft_echo(cmd->flags);
-	else if (ft_strcmp(cmd->flags[0], "env") == 0)
-		ft_env(data);
-	else if (ft_strcmp(cmd->flags[0], "pwd") == 0)
-		ft_pwd();
+		i++;
+	}
+	exec_built_ins(cmd, data);
 	return (res);
+}
+
+int	skip_built_ins(t_data *data)
+{
+	if (data->cmd->cmd && (ft_strcmp(data->cmd->flags[0], "cd\0") == 0
+			|| ft_strcmp(data->cmd->flags[0], "export\0") == 0
+			|| ft_strcmp(data->cmd->flags[0], "exit\0") == 0
+			|| ft_strcmp(data->cmd->flags[0], "unset\0") == 0))
+	{
+		ft_execve(data->cmd, data, NULL);
+		return (1);
+	}
+	return (0);
 }
 
 void	ft_execve(t_cmd *cmd, t_data *data, int p_fd[2])
@@ -57,10 +78,8 @@ void	ft_execve(t_cmd *cmd, t_data *data, int p_fd[2])
 
 int	single_cmd(t_data *data)
 {
-	if (data->cmd->cmd && (ft_strcmp(data->cmd->flags[0], "cd\0") == 0
-			|| ft_strcmp(data->cmd->flags[0], "export\0") == 0
-			|| ft_strcmp(data->cmd->flags[0], "exit\0") == 0))
-		return (ft_execve(data->cmd, data, NULL), 0);
+	if (skip_built_ins(data))
+		return (0);
 	g_signal_pid = fork();
 	if (g_signal_pid < 0)
 		return (1);
