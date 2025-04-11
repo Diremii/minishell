@@ -6,13 +6,13 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 13:58:29 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/11 13:00:20 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/11 13:06:15 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void exec_built_ins(t_cmd *cmd, t_data *data)
+static void exec_built_ins(t_cmd *cmd, t_data *data)
 {
 	if (ft_strcmp(cmd->flags[0], "cd") == 0)
 		ft_cd(data, cmd->flags);
@@ -49,6 +49,19 @@ static int	is_built_ins(t_cmd *cmd, t_data *data)
 	return (res);
 }
 
+int	skip_built_ins(t_data *data)
+{
+	if (data->cmd->cmd && (ft_strcmp(data->cmd->flags[0], "cd\0") == 0
+			|| ft_strcmp(data->cmd->flags[0], "export\0") == 0
+			|| ft_strcmp(data->cmd->flags[0], "exit\0") == 0
+			|| ft_strcmp(data->cmd->flags[0], "unset\0") == 0))
+	{
+		ft_execve(data->cmd, data, NULL);
+		return (1);
+	}
+	return (0);
+}
+
 void	ft_execve(t_cmd *cmd, t_data *data, int p_fd[2])
 {
 	if (!cmd || !cmd->flags)
@@ -65,11 +78,8 @@ void	ft_execve(t_cmd *cmd, t_data *data, int p_fd[2])
 
 int	single_cmd(t_data *data)
 {
-	if (data->cmd->cmd && (ft_strcmp(data->cmd->flags[0], "cd\0") == 0
-			|| ft_strcmp(data->cmd->flags[0], "export\0") == 0
-			|| ft_strcmp(data->cmd->flags[0], "exit\0") == 0
-			|| ft_strcmp(data->cmd->flags[0], "unset\0") == 0))
-		return (ft_execve(data->cmd, data, NULL), 0);
+	if (skip_built_ins(data))
+		return (0);
 	g_signal_pid = fork();
 	if (g_signal_pid < 0)
 		return (1);
