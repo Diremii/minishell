@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 13:51:29 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/09 12:45:14 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/11 11:56:35 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,17 @@
 void	ft_unset(t_data *data, char **args)
 {
 	int	i;
-	int	j;
 
-	if (!args)
-		return ;
 	i = 0;
-	while (args[i])
+	while (data->envp[i])
 	{
-		j = 0;
-		while (data->envp[j])
+		printf("JE VIENT DE RENTRER DANS LA BOUCLE MDRRR\n");
+		if (!ft_strncmp(args[1], data->envp[i], ft_strlen(args[1])) && data-envp[i][ft_strlen(args[1])])
 		{
-			if (!ft_strncmp(args[i], data->envp[j], ft_strlen(args[i])))
-				free(data->envp[j]);
-			j++;
+			printf("COUCOU\n");
+			free(data->envp[i]);
+			data->envp[i] = NULL;
+			printf("%s\n", data->envp[i]);
 		}
 		i++;
 	}

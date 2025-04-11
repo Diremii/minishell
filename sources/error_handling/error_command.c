@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 11:55:39 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/10 15:42:24 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/11 11:24:18 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ static int	access_to_cmd(t_cmd *cmd)
 	{
 		if (ft_strcmp(cmd->flags[0], "cd") == 0
 			|| ft_strcmp(cmd->flags[0], "export") == 0
-			|| ft_strcmp(cmd->flags[0], "exit") == 0)
+			|| ft_strcmp(cmd->flags[0], "exit") == 0
+			|| ft_strcmp(cmd->flags[0], "unset") == 0)
 			return (0);
 		error_msg(ERR_UNKNOWN, cmd->flags[0]);
 		return (1);
