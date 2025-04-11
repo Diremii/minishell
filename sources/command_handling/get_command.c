@@ -6,11 +6,31 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 15:15:53 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/10 11:38:22 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/07 15:56:21 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int	add_redir(t_token **tokens, t_redir **redir)
+{
+	t_redir	*new;
+
+	new = NULL;
+	if ((*tokens) && (*tokens)->next)
+	{
+		new = new_redir((*tokens)->next->str, (*tokens)->type);
+		if (!new)
+		{
+			redir_clear(redir);
+			return (1);
+		}
+		redir_add_back(redir, new);
+		if ((*tokens)->next)
+			*tokens = (*tokens)->next->next;
+	}
+	return (0);
+}
 
 int	add_arg(t_token **tokens, t_cmd **cmd)
 {
@@ -41,7 +61,7 @@ int	add_arg(t_token **tokens, t_cmd **cmd)
 int	sort_cmd(t_token **current, t_cmd **cmd, t_data *data)
 {
 	t_redir	*redir;
-
+	
 	while (*current && (*current)->type != PIPE)
 	{
 		if (add_in(cmd, current))

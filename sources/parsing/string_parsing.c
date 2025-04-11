@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   string_parsing.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 13:22:56 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/10 19:00:32 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/03 14:55:11 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	get_string(t_list **list, size_t *i, size_t *j, char *str)
 	*j = *i;
 	while (str[*i] && str[*i] != quote)
 		(*i)++;
-	sub = ft_strndup(str + *j, *i - *j);
+	sub = ft_substr(str, *j, *i - *j);
 	if (!sub)
 	{
 		ft_lstclear(list, free);
@@ -47,7 +47,7 @@ void	no_quote_str(t_list **list, size_t *i, size_t *j, char *str)
 	*j = *i;
 	while (str[*i] && str[*i] != '\'' && str[*i] != '\"')
 		(*i)++;
-	sub = ft_strndup(str + *j, *i - *j);
+	sub = ft_substr(str, *j, *i - *j);
 	if (!sub)
 	{
 		ft_lstclear(list, free);
