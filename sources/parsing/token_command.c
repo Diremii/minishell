@@ -31,7 +31,6 @@ static void	skip_quote(char *input, size_t *i)
 char	*get_flag(char *input, size_t *i)
 {
 	size_t	j;
-	size_t	size;
 	char	*str;
 
 	j = *i;
@@ -45,11 +44,9 @@ char	*get_flag(char *input, size_t *i)
 	str = ft_strndup(input + j, *i - j);
 	if (!str)
 		return (NULL);
-	size = ft_strlen(str);
 	str = cut_quote(str);
 	if (!str)
 		return (NULL);
-	size = ft_strlen(str);
 	return (str);
 }
 

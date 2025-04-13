@@ -14,9 +14,6 @@
 
 void	print_putstr_fd(char *s, int fd)
 {
-	int		i;
-
-	i = 0;
 	if (!s)
 		write(fd, "(null)", 6);
 	else

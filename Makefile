@@ -119,7 +119,7 @@ $(LIBFT):
 	@make --directory $(LIBFT_DIR)
 
 $(NAME): $(LIBFT) $(MY_OBJECTS)
-	@$(CC) $(STANDARD_FLAGS) $(READLINE_FLAGS) -o $(NAME) $(MY_OBJECTS) $(LIBFT)
+	@$(CC) $(STANDARD_FLAGS) -o $(NAME) $(MY_OBJECTS) $(LIBFT) $(READLINE_FLAGS)
 	@echo "\n$(GREEN)All files have been successfully compiled!$(RESET)"
 	@echo "$(CYAN)Compiled files:$(RESET)"
 	@echo " "$(COMPILED_FILES)

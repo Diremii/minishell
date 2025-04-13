@@ -28,12 +28,10 @@ int	wait_pid(void)
 {
 	int		status;
 	int		exit_status;
-	pid_t	pid;
 
 	exit_status = 0;
 	if (g_signal_pid == -1)
 		return (0);
-	pid = waitpid(g_signal_pid, &status, 0);
 	if (WIFEXITED(status))
 		exit_status = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
