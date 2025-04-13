@@ -17,11 +17,12 @@ void	ft_env(t_data *data)
 	int	i;
 
 	i = 0;
-	if (!data->envp && !data->envp[i])
+	if (!data->envp)
 		return ;
 	while (data->envp[i])
 	{
-		printf("%s\n", data->envp[i]);
+		if (ft_strchr(data->envp[i], '='))
+			printf("%s\n", data->envp[i]);
 		i++;
 	}
 }
