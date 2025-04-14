@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 11:45:51 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/14 14:30:02 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/14 17:56:57 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,10 @@
 # define ERR_UNKNOWN "%s%s: Command not found\n"
 # define ERR_ACCESS "%s%s: Permission denied\n"
 # define ERR_NO_FILE "%s%s: No such file or directory\n"
-# define ERR_EOF1 "%sunexpected EOF while looking for matching `('.\n"
-# define ERR_EOF2 "%sunexpected EOF while looking for matching `%s'.\n"
+# define ERR_EOF1 "%sunexpected EOF while looking for matching `('\n"
+# define ERR_EOF2 "%sunexpected EOF while looking for matching `%s'\n"
 # define ERR_ID "%s`%s': not a not a valid identifier\n"
+# define ERR_HOME "%sHOME no set\n"
 
 int		error_msg(char *msg, char *error);
 int		check_all_access(t_cmd *cmd);

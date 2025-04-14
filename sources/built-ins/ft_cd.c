@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 10:58:17 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/11 15:24:50 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/14 17:57:11 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	ft_cd(t_data *data, char **args)
 	if (size_of_list(args) == 1)
 		if (home == NULL || chdir(home))
 		{
+			ft_printf_fd(ERR_HOME, 2, MINISHELL);
 			data->exit_status = 1;
 			return ;
 		}
