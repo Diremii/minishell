@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 14:23:05 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/11 12:13:00 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/14 09:37:49 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,14 @@ static void	print_envp(char **envp)
 	i = 0;
 	while (envp[i])
 	{
-		sub = ft_strndup(envp[i], ft_strlen(envp[i]) - ft_strlen(ft_strchr(envp[i], '=')) + 1);
-		if (ft_strncmp(envp[i], "_=", 2))
-			printf("%s%s\"%s\"\n", "declare -x ", sub, ft_strchr(envp[i], '=') + 1);
+		if (ft_strchr(envp[i], '='))
+		{
+			sub = ft_strndup(envp[i], ft_strlen(envp[i]) - ft_strlen(ft_strchr(envp[i], '=')) + 1);
+			if (ft_strncmp(envp[i], "_=", 2))
+				printf("%s%s\"%s\"\n", "declare -x ", sub, ft_strchr(envp[i], '=') + 1);
+		}
+		else
+			printf("declare -x %s\n", envp[i]);
 		i++;
 	}
 }
@@ -76,12 +81,8 @@ static void	set_env_var(t_data *data, const char *new_var)
 {
 	int		 i;
 	size_t	len;
-	char	*sign;
 
-	sign = ft_strchr(new_var, '=');
-	if (!sign)
-		return ;
-	len = sign - new_var;
+	len = ft_strlen(new_var);
 	i = 0;
 	while (data->envp[i])
 	{
