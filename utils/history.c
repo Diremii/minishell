@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:17:38 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/04 12:14:26 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/14 15:52:33 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ void	add_to_history(t_history *history, const char *command)
 	add_history(command);
 	write(history->fd, command, ft_strlen(command));
 	write(history->fd, "\n", 1);
-	free(history->last_command);
+	if (history->last_command)
+		free(history->last_command);
 	history->last_command = strdup(command);
 }
 

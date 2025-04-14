@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:15:05 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/14 12:41:53 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/14 15:54:42 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ int	main(int ac, char **av, char **envp)
 
 	(void)ac;
 	(void)av;
-	// data.envp = envp;
 	data.envp = envp_dup(envp);
 	if (!data.envp)
 		return (1);
