@@ -6,33 +6,11 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 14:23:05 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/14 09:37:49 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/14 12:51:39 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-static char	**add_str_to_tab(char **envp, const char *new_var)
-{
-	int		i;
-	char	**new_envp;
-
-	i = 0;
-	while (envp && envp[i])
-		i++;
-	new_envp = malloc(sizeof(char *) * (i + 2));
-	if (!new_envp)
-		return (NULL);
-	i = 0;
-	while (envp && envp[i])
-	{
-		new_envp[i] = envp[i];
-		i++;
-	}
-	new_envp[i] = ft_strdup((char *)new_var);
-	new_envp[i + 1] = NULL;
-	return (new_envp);
-}
 
 static void	print_envp(char **envp)
 {
@@ -95,7 +73,7 @@ static void	set_env_var(t_data *data, const char *new_var)
 		}
 		i++;
 	}
-	data->envp = add_str_to_tab(data->envp, new_var);
+	data->envp[i] = ft_strdup((char *)new_var);
 }
 
 void	ft_export(t_data *data, char **args)

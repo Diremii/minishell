@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 10:58:17 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/11 14:16:25 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/11 15:24:50 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	ft_cd(t_data *data, char **args)
 		ft_printf_fd(ERR_ARGS, 2, MINISHELL);
 		return ;
 	}
+	update_oldpwd(data);
 	if (size_of_list(args) == 1)
 		if (home == NULL || chdir(home))
 		{
@@ -80,6 +81,5 @@ void	ft_cd(t_data *data, char **args)
 			data->exit_status = 1; 
 			return ;
 		}
-	update_oldpwd(data);
 	update_pwd(data);
 }

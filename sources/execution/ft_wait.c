@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_wait.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 14:45:26 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/09 14:54:23 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/14 12:50:04 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,9 @@ int	wait_pid(void)
 	int		status;
 	int		exit_status;
 
+	status = 0;
 	exit_status = 0;
+	waitpid(g_signal_pid, &status, 0);
 	if (g_signal_pid == -1)
 		return (0);
 	if (WIFEXITED(status))
