@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:17:38 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/14 15:52:33 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/14 17:58:37 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,13 @@ static int	check_history_file(t_history *history)
 
 	home = getenv("HOME");
 	if (!home)
-	{
-		ft_printf_fd("minishell: Warning: HOME not set\n", 2);
 		return (1);
-	}
 	history->path = ft_strjoin(home, "/.minishell_history");
 	if (!history->path)
-	{
-		ft_printf_fd("minishell: Warning: History path allocation failed\n", 2);
 		return (1);
-	}
 	history->fd = open(history->path, O_CREAT | O_RDWR | O_APPEND, 0644);
 	if (history->fd == -1)
 	{
-		ft_printf_fd("minishell: Warning: Failed to open history file\n", 2);
 		free(history->path);
 		return (1);
 	}
