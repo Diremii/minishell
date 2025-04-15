@@ -11,6 +11,8 @@ MY_SOURCES+=sources/parsing/parsing.c \
 			sources/parsing/string_parsing.c \
 			sources/parsing/token_operator.c \
 			sources/parsing/token_redirection.c \
+			sources/parsing/dollar_handle.c \
+			sources/parsing/dollar_parsing.c \
 
 MY_SOURCES+=sources/command_handling/create_command.c \
 			sources/command_handling/create_redirection.c \
@@ -40,6 +42,7 @@ MY_SOURCES+=utils/utils.c \
 			utils/history.c \
 			utils/free.c \
 			utils/signals.c \
+			utils/clear.c \
 			
 
 MY_OBJECTS_PATH	= ./.obj

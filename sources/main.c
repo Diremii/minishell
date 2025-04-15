@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:15:05 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/15 09:53:33 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/15 18:43:13 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	main(int ac, char **av, char **envp)
 	data.envp = envp_dup(envp);
 	if (!data.envp)
 		return (1);
+	data.exit_status = 0;
 	setup_signals();
 	init_history(&data.history);
 	while (1)
@@ -67,9 +68,7 @@ int	main(int ac, char **av, char **envp)
 		get_command(data.tokens, &data);
 		g_signal_pid = 0;
 		ft_pipe(&data);
-		clear_tokens(&data.tokens);
-		cmd_clear(&data.cmd);
-		free(input);
+		clear_all(&data, input);
 	}
 	free_all(data.envp);
 	clear_history_data(&data);
