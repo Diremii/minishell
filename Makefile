@@ -11,7 +11,8 @@ MY_SOURCES+=sources/parsing/parsing.c \
 			sources/parsing/string_parsing.c \
 			sources/parsing/token_operator.c \
 			sources/parsing/token_redirection.c \
-			sources/parsing/dolar.c \
+			sources/parsing/dollar_handle.c \
+			sources/parsing/dollar_parsing.c \
 
 MY_SOURCES+=sources/command_handling/create_command.c \
 			sources/command_handling/create_redirection.c \

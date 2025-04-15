@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 11:55:00 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/11 14:00:45 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/15 17:43:25 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ t_token	*init_token(char *input, t_data *data)
 
 	i = 0;
 	tokens = NULL;
+	input = replace_dolar_in_str(input, data);
 	while (input && input[i])
 	{
 		while (input[i] == ' ' || input[i] == '\t')
@@ -68,5 +69,6 @@ t_token	*init_token(char *input, t_data *data)
 		handle_operator(input, &i, &tokens, data);
 		handle_command(input, &i, &tokens, data);
 	}
+	free(input);
 	return (tokens);
 }

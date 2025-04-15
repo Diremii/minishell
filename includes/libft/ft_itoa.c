@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 13:48:39 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/11 17:07:14 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/15 18:34:46 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*ft_itoa(int n)
 	size_str = num_count(n);
 	issigned = (n < 0);
 	n = (n * -1 * (n < 0) + n * (n >= 0));
-	str = (char *)ft_calloc(size_str, sizeof(char));
+	str = (char *)ft_calloc(size_str + 1, sizeof(char));
 	if (!str)
 		return (0);
 	while (size_str--)
