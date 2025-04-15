@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:15:05 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/14 15:54:42 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/15 09:53:33 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int	main(int ac, char **av, char **envp)
 		if (!data.tokens || init_parsing(input, data.tokens, &data))
 			continue ;
 		get_command(data.tokens, &data);
+		g_signal_pid = 0;
 		ft_pipe(&data);
 		clear_tokens(&data.tokens);
 		cmd_clear(&data.cmd);

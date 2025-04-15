@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 11:17:07 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/03 14:57:25 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/15 10:02:27 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	handle_signal(int sig)
 {
-	if (sig == SIGINT)
+	if (sig == SIGINT && g_signal_pid == 0)
 	{
 		printf("\n");
 		rl_replace_line("", 0);
@@ -26,4 +26,5 @@ void	handle_signal(int sig)
 void	setup_signals(void)
 {
 	signal(SIGINT, handle_signal);
+	signal(SIGQUIT, SIG_IGN);
 }
