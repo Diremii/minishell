@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 16:10:39 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/15 18:42:43 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/15 18:44:06 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,11 @@ static void	skip_quote(char *input, size_t *i)
 	}
 }
 
-char	*get_flag(char *input, size_t *i, t_data *data)
+char	*get_flag(char *input, size_t *i)
 {
 	size_t	j;
 	char	*str;
 
-	(void)data;
 	j = *i;
 	while (input[*i] && input[*i] != ' ' && !is_opperator(input[*i]))
 	{
@@ -51,7 +50,7 @@ char	*get_flag(char *input, size_t *i, t_data *data)
 	return (str);
 }
 
-void	handle_args(char *input, size_t *i, t_token **tokens, t_data *data)
+void	handle_args(char *input, size_t *i, t_token **tokens)
 {
 	char	*flag;
 
@@ -62,7 +61,7 @@ void	handle_args(char *input, size_t *i, t_token **tokens, t_data *data)
 			(*i)++;
 		if (!input[*i] || is_opperator(input[*i]))
 			return ;
-		flag = get_flag(input, i, data);
+		flag = get_flag(input, i);
 		if (!flag)
 			return ;
 		add_token_to_list(tokens, flag, ARG);
@@ -76,12 +75,12 @@ void	handle_command(char *input, size_t *i, t_token **tokens, t_data *data)
 
 	if (is_opperator(input[*i]))
 		return ;
-	flag = get_flag(input, i, data);
+	flag = get_flag(input, i);
 	if (!flag)
 		return ;
 	add_token_to_list(tokens, flag, CMD);
 	free(flag);
 	if (!input[*i - 1])
 		return ;
-	handle_args(input, i, tokens, data);
+	handle_args(input, i, tokens);
 }
