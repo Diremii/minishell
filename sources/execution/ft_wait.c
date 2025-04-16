@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_wait.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 14:45:26 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/16 14:13:14 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/16 17:57:06 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int	wait_pid(void)
 
 	status = 0;
 	exit_status = 0;
-	waitpid(g_signal_pid, &status, 0);
 	if (g_signal_pid == -1)
 		return (0);
 	waitpid(g_signal_pid, &status, 0);

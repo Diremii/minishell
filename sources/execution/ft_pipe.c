@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 13:28:42 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/16 16:14:53 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/16 18:00:56 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ static void	child_process(t_cmd **cmd, t_data *data, int p_fd[2])
 {
 	if (redir_in(cmd))
 		exit(1);
-	if (redir_out(cmd))
-		exit(1);
 	close(p_fd[0]);
 	if (dup2(p_fd[1], STDOUT_FILENO) == -1)
 	{
@@ -26,6 +24,8 @@ static void	child_process(t_cmd **cmd, t_data *data, int p_fd[2])
 		exit(1);
 	}
 	close(p_fd[1]);
+	if (redir_out(cmd))
+		exit(1);
 	clear_history_data(data);
 	ft_execve((*cmd), data, p_fd);
 	cmd_clear(&data->cmd);
@@ -88,8 +88,6 @@ static int	last_pipe(t_cmd **cmd, t_data *data)
 		if (redir_out(cmd))
 			exit(1);
 		ft_execve((*cmd), data, NULL);
-		free_all(data->envp);
-		exit(0);
 	}
 	else
 	{
@@ -98,7 +96,6 @@ static int	last_pipe(t_cmd **cmd, t_data *data)
 		if ((*cmd)->redir_in)
 			close_all(&(*cmd)->redir_in);
 		close(0);
-		data->exit_status = wait_all_pid();
 	}
 	return (0);
 }
@@ -122,6 +119,7 @@ int	ft_pipe(t_data *data)
 		cmd = cmd->next;
 	}
 	last_pipe(&cmd, data);
+	data->exit_status = wait_all_pid();
 	dup2(STDOUT_FILENO, 0);
 	dup2(STDIN_FILENO, 1);
 	return (0);

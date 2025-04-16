@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 13:58:29 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/16 16:03:06 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/16 17:51:04 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ void	ft_execve(t_cmd *cmd, t_data *data, int p_fd[2])
 	if (!cmd || !cmd->flags)
 		exit(1);
 	if (is_built_ins(cmd, data))
-		return ;
-	if (execve(cmd->cmd, cmd->flags, data->envp) == -1)
+		;
+	else if (execve(cmd->cmd, cmd->flags, data->envp) == -1)
 	{
 		if (p_fd)
 			close_fd(p_fd);
@@ -76,6 +76,8 @@ void	ft_execve(t_cmd *cmd, t_data *data, int p_fd[2])
 		clear_all(data, NULL);
 		exit(EXIT_FAILURE + 126);
 	}
+	free_all(data->envp);
+	exit(0);
 }
 
 int	single_cmd(t_data *data)
@@ -95,7 +97,6 @@ int	single_cmd(t_data *data)
 			exit(1);
 		clear_history_data(data);
 		ft_execve(data->cmd, data, NULL);
-		free_all(data->envp);
 	}
 	else
 	{
