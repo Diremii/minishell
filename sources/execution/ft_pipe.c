@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 13:28:42 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/15 10:03:23 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/16 10:55:29 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,11 @@ static int	exec_pipe(t_cmd **cmd, t_data *data)
 	if (g_signal_pid < 0)
 		return (1);
 	if (g_signal_pid == 0)
+	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		child_process(cmd, data, p_fd);
+	}
 	else
 		parent_process(cmd, p_fd);
 	return (0);
@@ -76,6 +80,8 @@ static int	last_pipe(t_cmd **cmd, t_data *data)
 		return (1);
 	if (g_signal_pid == 0)
 	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		if (redir_in(cmd))
 			exit(1);
 		if (redir_out(cmd))

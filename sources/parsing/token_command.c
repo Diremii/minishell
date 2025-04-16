@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 16:10:39 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/15 18:44:06 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/16 10:05:32 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	handle_args(char *input, size_t *i, t_token **tokens)
 	}
 }
 
-void	handle_command(char *input, size_t *i, t_token **tokens, t_data *data)
+void	handle_command(char *input, size_t *i, t_token **tokens)
 {
 	char	*flag;
 

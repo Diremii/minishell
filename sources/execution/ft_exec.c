@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 13:58:29 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/11 13:06:15 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/16 10:54:39 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ int	single_cmd(t_data *data)
 		return (1);
 	if (g_signal_pid == 0)
 	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		if (redir_in(&data->cmd))
 			exit(1);
 		if (redir_out(&data->cmd))
