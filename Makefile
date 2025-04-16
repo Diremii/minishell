@@ -43,7 +43,6 @@ MY_SOURCES+=utils/utils.c \
 			utils/free.c \
 			utils/signals.c \
 			utils/clear.c \
-			
 
 MY_OBJECTS_PATH	= ./.obj
 MY_OBJECTS = $(MY_SOURCES:%.c=$(MY_OBJECTS_PATH)/%.o)
