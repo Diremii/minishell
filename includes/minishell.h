@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:10:48 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/16 12:21:58 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/16 17:05:32 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ size_t	cmdsize(t_cmd *cmds);
 void	exit_error(char *str, int exit_code);
 void	setup_signals(void);
 char	**expand_alloc(char **list, size_t old_size, size_t new_size);
-int		is_opperator(char c);
+int		ft_strccmp(char *s1, char *s2, char c);
 
 /* FREE */
 void	free_all(char **list);

@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 11:45:51 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/14 17:56:57 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/16 14:50:51 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "struct.h"
 
-# define MINISHELL "\033[31m[Minishell]\033[37m "
+# define MINISHELL "\033[31m[Minishell]\033[0m "
 # define ERR_FILE "%sNo such file or directory\n"
 # define ERR_ARGS "%sToo many arguments\n"
 # define ERR_SYNTAX "%sSyntax error near unexpected token `newline'\n"

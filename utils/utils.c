@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:51:04 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/08 11:48:55 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/16 17:06:36 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,33 @@ void	exit_error(char *str, int exit_code)
 	exit(exit_code);
 }
 
-int	is_opperator(char c)
+int	ft_strccmp(char *s1, char *s2, char c)
 {
-	if (c == '|' || c == '<' || c == '>')
-		return (1);
-	return (0);
+	char	*str1;
+	char	*str2;
+	size_t			i;
+
+	i = 0;
+	if (!s1 || !s2)
+		return (0);
+	str1 = ft_strndup(s1, strclen(s1, c) - 1);
+	str2 = ft_strndup(s2, strclen(s2, c) - 1);
+	if (!str1 || !str2)
+	{
+		free(str1);
+		free(str2);
+		return (-1);
+	}
+	while ((str1[i] != '\0' && str2[i] != '\0'))
+	{
+		if (str1[i] != str2[i])
+			break ;
+		i++;
+	}
+	i = str1[i] - str2[i];
+	free(str1);
+	free(str2);
+	return (i);
 }
 
 char	**expand_alloc(char **list, size_t old_size, size_t new_size)

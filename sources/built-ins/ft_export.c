@@ -6,11 +6,27 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 14:23:05 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/14 17:58:28 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/16 16:53:35 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static int parse_arg(char *str)
+{
+	int	i;
+	
+	i = 0;
+	if (!ft_isalpha(str[0]))
+		return (1);
+	while (str[i] && str[i] != '=')
+	{
+		if (!ft_isalnum(str[i]))
+			return (1);
+		i++;
+	}
+	return (0);
+}
 
 static void	print_envp(char **envp)
 {
@@ -45,7 +61,7 @@ static void	sort_envp(char **envp)
 		j = 0;
 		while (envp[j] && envp[j + 1])
 		{
-			if (ft_strcmp(envp[j], envp[j + 1]) > 0)
+			if (ft_strccmp(envp[j], envp[j + 1], '=') > 0)
 			{
 				tmp = envp[j];
 				envp[j] = envp[j + 1];
@@ -90,7 +106,7 @@ void	ft_export(t_data *data, char **args)
 {
 	if (size_of_list(args) == 2)
 	{
-		if (ft_isdigit(args[1][0]))
+		if (parse_arg(args[1]))
 		{
 			ft_printf_fd(ERR_ID, 2, MINISHELL, args[1]);
 			return ;

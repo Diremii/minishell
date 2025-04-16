@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 13:28:42 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/16 10:55:29 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/16 16:14:53 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ static void	child_process(t_cmd **cmd, t_data *data, int p_fd[2])
 		exit(1);
 	}
 	close(p_fd[1]);
+	clear_history_data(data);
 	ft_execve((*cmd), data, p_fd);
 	cmd_clear(&data->cmd);
-	exit(0);
 }
 
 static void	parent_process(t_cmd **cmd, int p_fd[2])
@@ -64,6 +64,7 @@ static int	exec_pipe(t_cmd **cmd, t_data *data)
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
 		child_process(cmd, data, p_fd);
+		free_all(data->envp);
 	}
 	else
 		parent_process(cmd, p_fd);
@@ -87,6 +88,7 @@ static int	last_pipe(t_cmd **cmd, t_data *data)
 		if (redir_out(cmd))
 			exit(1);
 		ft_execve((*cmd), data, NULL);
+		free_all(data->envp);
 		exit(0);
 	}
 	else

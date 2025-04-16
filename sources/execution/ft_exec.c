@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 13:58:29 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/16 10:54:39 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/16 16:03:06 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ void	ft_execve(t_cmd *cmd, t_data *data, int p_fd[2])
 	{
 		if (p_fd)
 			close_fd(p_fd);
+		free_all(data->envp);
+		clear_all(data, NULL);
 		exit(EXIT_FAILURE + 126);
 	}
 }
@@ -91,8 +93,9 @@ int	single_cmd(t_data *data)
 			exit(1);
 		if (redir_out(&data->cmd))
 			exit(1);
+		clear_history_data(data);
 		ft_execve(data->cmd, data, NULL);
-		exit(0);
+		free_all(data->envp);
 	}
 	else
 	{

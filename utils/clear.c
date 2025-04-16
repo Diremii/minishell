@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clear.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 13:16:32 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/11 13:19:33 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/16 15:24:27 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,13 @@ void	clear_tokens(t_token **tokens)
 
 void	clear_history_data(t_data *data)
 {
-	close(data->history.fd);
-	free(data->history.last_command);
-	free(data->history.path);
-	clear_history();
+	if (data->history.fd > 2)
+		close(data->history.fd);
+	if (data->history.last_command)
+		free(data->history.last_command);
+	if (data->history.path)
+		free(data->history.path);
+	rl_clear_history();
 }
 
 void	clear_all(t_data *data, char *input)

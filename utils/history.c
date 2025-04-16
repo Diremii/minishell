@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:17:38 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/14 17:58:37 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/16 15:16:03 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,15 +72,20 @@ void	add_to_history(t_history *history, const char *command)
 	if (is_empty_string((char *)command))
 		return ;
 	add_history(command);
-	write(history->fd, command, ft_strlen(command));
-	write(history->fd, "\n", 1);
-	if (history->last_command)
-		free(history->last_command);
-	history->last_command = strdup(command);
+	if (history->fd != -1)
+	{
+		write(history->fd, command, ft_strlen(command));
+		write(history->fd, "\n", 1);
+	}
+	free(history->last_command);
+	history->last_command = ft_strdup((char *)command);
 }
 
 void	init_history(t_history *history)
 {
+	history->fd = -1;
+	history->last_command = NULL;
+	history->path = NULL;
 	if (!check_history_file(history))
 		load_history_file(history);
 }
