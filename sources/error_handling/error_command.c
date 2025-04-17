@@ -3,24 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   error_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 11:55:39 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/11 11:24:18 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/17 15:05:30 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+static int	check_is_dir(char *path)
+{
+	struct stat	buf;
+
+	if (stat(path, &buf) == -1)
+		return (0);
+	if (S_ISDIR(buf.st_mode))
+	{
+		error_msg(ERR_IS_DIR, path);
+		return (1);
+	}
+	error_msg(ERR_NO_FILE, path);
+	return (1);
+}
+
 static int	access_to_cmd(t_cmd *cmd)
 {
+	if (ft_strcmp(cmd->flags[0], "cd") == 0
+		|| ft_strcmp(cmd->flags[0], "export") == 0
+		|| ft_strcmp(cmd->flags[0], "exit") == 0
+		|| ft_strcmp(cmd->flags[0], "unset") == 0)
+		return (0);
 	if (access(cmd->cmd, F_OK) == -1)
 	{
-		if (ft_strcmp(cmd->flags[0], "cd") == 0
-			|| ft_strcmp(cmd->flags[0], "export") == 0
-			|| ft_strcmp(cmd->flags[0], "exit") == 0
-			|| ft_strcmp(cmd->flags[0], "unset") == 0)
-			return (0);
 		error_msg(ERR_UNKNOWN, cmd->flags[0]);
 		return (1);
 	}
@@ -44,7 +59,7 @@ static int	access_to_file(t_cmd *cmd)
 		if (!current_redir->here_doc)
 		{
 			if (access(current_redir->file, F_OK) == -1)
-				ret = error_msg(ERR_NO_FILE, current_redir->file);
+				ret = check_is_dir(current_redir->file);
 			if (!ret && access(current_redir->file, R_OK) == -1)
 				ret = error_msg(ERR_ACCESS, current_redir->file);
 		}
