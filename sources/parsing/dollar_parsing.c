@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 18:20:39 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/17 13:27:36 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/17 17:02:12 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static char	*cut_space(char *str)
 	free(str);
 	return (new_str);
 }
+
 static char	*get_var(char *str, bool del_space, t_data *data)
 {
 	size_t	i;
@@ -75,7 +76,7 @@ t_list	*handle_dollars(char *str, size_t *i, char quote, t_data *data)
 	t_list	*new;
 	char	*tmp;
 	char	*var;
-	
+
 	(*i)++;
 	tmp = cut_name(str + *i);
 	(*i) += ft_strlen(tmp);

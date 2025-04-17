@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 14:23:05 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/17 15:48:02 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/17 17:11:36 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,17 @@ static int	parse_arg(char *str)
 
 static void	print_envp(char **envp)
 {
-	int		i;
+	int	i;
 	char	*sub;
-	char	*equal_sign;
-	size_t	name_len;
 
 	i = 0;
 	while (envp[i])
 	{
-		equal_sign = ft_strchr(envp[i], '=');
-		if (equal_sign)
+		if (ft_strchr(envp[i], '='))
 		{
-			name_len = equal_sign - envp[i];
-			sub = ft_strndup(envp[i], name_len);
+			sub = ft_strndup(envp[i], ft_strlen(envp[i]) - ft_strlen(ft_strchr(envp[i], '=')) + 1);
 			if (ft_strncmp(envp[i], "_=", 2))
-				printf("%s%s\"%s\"\n", "declare -x ", sub, equal_sign + 1);
+				printf("%s%s\"%s\"\n", "declare -x ", sub, ft_strchr(envp[i], '=') + 1);
 			free(sub);
 		}
 		else
@@ -55,9 +51,9 @@ static void	print_envp(char **envp)
 
 static void	sort_envp(char **envp)
 {
-	char	*tmp;
-	int		i;
-	int		j;
+	char *tmp;
+	int i;
+	int j;
 
 	i = 0;
 	while (envp[i])

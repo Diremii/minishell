@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 13:32:38 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/17 13:34:05 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/17 16:57:07 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	ft_strccmp(char *s1, char *s2, char c)
 {
 	char	*str1;
 	char	*str2;
-	size_t			i;
+	size_t	i;
 
 	i = 0;
 	if (!s1 || !s2)

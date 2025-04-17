@@ -6,13 +6,13 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 13:58:29 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/17 16:37:52 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/17 17:00:25 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void exec_built_ins(t_cmd *cmd, t_data *data)
+static void	exec_built_ins(t_cmd *cmd, t_data *data)
 {
 	if (ft_strcmp(cmd->flags[0], "cd") == 0)
 		ft_cd(data, cmd->flags);
@@ -96,7 +96,6 @@ int	execute_fork(t_cmd *cmd, t_data *data)
 
 int	single_process(t_data *data)
 {
-
 	if (data->cmd->cmd && (ft_strcmp(data->cmd->flags[0], "cd\0") == 0
 			|| ft_strcmp(data->cmd->flags[0], "export\0") == 0
 			|| ft_strcmp(data->cmd->flags[0], "exit\0") == 0

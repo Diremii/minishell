@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar_handle.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 13:34:39 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/15 18:31:23 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/17 17:02:03 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	add_char_to_lst(t_list **head, char *str, size_t *i)
 {
 	t_list	*new;
 	char	*tmp;
-	
+
 	tmp = ft_strndup(str + *i, 1);
 	if (!tmp)
 	{
@@ -92,7 +92,7 @@ char	*replace_dolar_in_str(char *str, t_data *data)
 {
 	t_list	*head;
 	char	*new_str;
-	
+
 	if (!str || is_empty_string(str))
 		return (NULL);
 	head = NULL;

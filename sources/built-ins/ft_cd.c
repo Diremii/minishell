@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 10:58:17 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/17 15:45:48 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/17 17:04:19 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,26 @@ static void	update_pwd(t_data *data)
 	free(cwd);
 }
 
+static int	change_directory_to_home(char *home)
+{
+	if (home == NULL || chdir(home))
+	{
+		ft_printf_fd(ERR_HOME, 2, MINISHELL);
+		return (1);
+	}
+	return (0);
+}
+
+static int	change_directory(char *path)
+{
+	if (chdir(path))
+	{
+		ft_printf_fd(ERR_FILE, 2, MINISHELL);
+		return (1);
+	}
+	return (0);
+}
+
 void	ft_cd(t_data *data, char **args)
 {
 	char	*home;
@@ -69,18 +89,14 @@ void	ft_cd(t_data *data, char **args)
 	}
 	update_oldpwd(data);
 	if (size_of_list(args) == 1)
-		if (home == NULL || chdir(home))
-		{
-			ft_printf_fd(ERR_HOME, 2, MINISHELL);
+	{
+		if (change_directory_to_home(home))
 			data->exit_status = 1;
-			return ;
-		}
-	if (size_of_list(args) == 2)
-		if (chdir(args[1]))
-		{
-			ft_printf_fd(ERR_FILE, 2, MINISHELL);
-			data->exit_status = 1; 
-			return ;
-		}
+	}
+	else if (size_of_list(args) == 2)
+	{
+		if (change_directory(args[1]))
+			data->exit_status = 1;
+	}
 	update_pwd(data);
 }
