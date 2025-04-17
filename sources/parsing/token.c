@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 11:55:00 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/15 18:43:33 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/17 16:47:29 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,10 @@ t_token	*add_token_to_list(t_token **head, char *str, t_token_type type)
 	t_token	*new_token;
 	t_token	*current;
 
-	if (!str || *str == '\0')
-		return (*head);
+	if (!str)
+		return (NULL);
 	new_token = create_token(str, type);
+	//printf("%s\n", str);
 	if (!new_token)
 		return (NULL);
 	if (!*head)
