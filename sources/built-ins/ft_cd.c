@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 10:58:17 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/14 17:58:29 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/17 15:45:48 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	update_oldpwd(t_data *data)
 {
 	int		i;
 	char	*cwd;
-	
+
 	i = 0;
 	cwd = getcwd(NULL, 0);
 	if (!cwd)
@@ -38,7 +38,7 @@ static void	update_pwd(t_data *data)
 {
 	int		i;
 	char	*cwd;
-	
+
 	i = 0;
 	cwd = getcwd(NULL, 0);
 	if (!cwd)

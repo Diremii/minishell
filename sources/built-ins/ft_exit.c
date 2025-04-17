@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 15:05:05 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/11 12:20:24 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/17 15:47:52 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int	is_valid(char *num)
 	return (1);
 }
 
-void ft_exit(t_data *data, char **args)
+void	ft_exit(t_data *data, char **args)
 {
 	unsigned char	exit_code;
 	__int128_t		very_big;
