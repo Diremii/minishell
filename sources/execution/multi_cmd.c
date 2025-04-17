@@ -14,6 +14,8 @@
 
 static void	child_process(t_cmd **cmd, t_data *data, int p_fd[2])
 {
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 	if (redir_in(cmd))
 		exit(1);
 	close(p_fd[0]);
@@ -53,6 +55,7 @@ static int	do_pipe(t_cmd **cmd, t_data *data)
 {
 	int		p_fd[2];
 
+	g_signal_pid = 1;
 	if (pipe(p_fd) == -1)
 	{
 		perror("pipe");
@@ -65,6 +68,7 @@ static int	do_pipe(t_cmd **cmd, t_data *data)
 		child_process(cmd, data, p_fd);
 	else
 		parent_process(cmd, p_fd);
+	g_signal_pid = 0;
 	return (0);
 }
 
