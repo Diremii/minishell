@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 13:58:29 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/17 15:56:43 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/17 15:58:22 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	execute_fork(t_cmd *cmd, t_data *data)
 	return (0);
 }
 
-int	single_cmd(t_data *data)
+int	single_process(t_data *data)
 {
 
 	if (data->cmd->cmd && (ft_strcmp(data->cmd->flags[0], "cd\0") == 0

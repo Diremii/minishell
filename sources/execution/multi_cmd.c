@@ -68,7 +68,7 @@ static int	do_pipe(t_cmd **cmd, t_data *data)
 	return (0);
 }
 
-static int	last_pipe(t_cmd **cmd, t_data *data)
+static int	last_process(t_cmd **cmd, t_data *data)
 {
 	if (data->cmd->cmd && (ft_strcmp(data->cmd->flags[0], "cd\0") == 0
 			|| ft_strcmp(data->cmd->flags[0], "export\0") == 0))
@@ -88,7 +88,7 @@ int	multi_cmd(t_data *data)
 	check_all_access(cmd);
 	if (cmdsize(data->cmd) <= 1)
 	{
-		single_cmd(data);
+		single_process(data);
 		dup2(STDOUT_FILENO, 0);
 		dup2(STDIN_FILENO, 1);
 		return (0);
@@ -98,7 +98,7 @@ int	multi_cmd(t_data *data)
 		do_pipe(&cmd, data);
 		cmd = cmd->next;
 	}
-	last_pipe(&cmd, data);
+	last_process(&cmd, data);
 	dup2(STDOUT_FILENO, 0);
 	dup2(STDIN_FILENO, 1);
 	return (0);

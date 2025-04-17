@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:10:48 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/17 15:34:47 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/17 15:58:22 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	wait_all_pid(t_data *data);
 void	wait_pid(t_data *data);
 int		execute_fork(t_cmd *cmd, t_data *data);
 int		ft_exec(t_data *data);
-int		single_cmd(t_data *data);
+int		single_process(t_data *data);
 int		multi_cmd(t_data *data);
 int		here_doc(char *lim);
 int		redir_out(t_cmd **cmd);
