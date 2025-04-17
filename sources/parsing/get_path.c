@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 17:47:12 by ttremel           #+#    #+#             */
-/*   Updated: 2025/03/28 11:53:36 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/17 13:27:36 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*get_path(char *all_path, char *cmd)
 	if (!paths)
 		return (NULL);
 	path = create_path(cmd, paths);
-	free_all(paths);
+	free_tab(paths);
 	return (path);
 }
 

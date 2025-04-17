@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 15:15:53 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/10 11:38:22 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/17 13:27:36 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	add_arg(t_token **tokens, t_cmd **cmd)
 		(*cmd)->flags[i] = ft_strdup((*tokens)->str);
 		if (!(*cmd)->flags[i])
 		{
-			free_all((*cmd)->flags);
+			free_tab((*cmd)->flags);
 			return (1);
 		}
 		(*cmd)->flags = expand_alloc((*cmd)->flags, i + 1, i + 2);
@@ -48,7 +48,7 @@ int	sort_cmd(t_token **current, t_cmd **cmd, t_data *data)
 			return (1);
 		if (add_arg(current, cmd))
 		{
-			free_all((*cmd)->flags);
+			free_tab((*cmd)->flags);
 			free((*cmd)->cmd);
 			redir_clear(&redir);
 			return (1);

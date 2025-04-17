@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 13:16:32 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/16 15:24:27 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/17 13:27:36 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	cmd_clear(t_cmd **lst)
 		if (to_free->redir_out)
 			redir_clear(&to_free->redir_out);
 		free(to_free->cmd);
-		free_all(to_free->flags);
+		free_tab(to_free->flags);
 		free(to_free);
 	}
 	*lst = NULL;

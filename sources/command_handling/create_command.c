@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_command.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 15:29:10 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/10 11:35:56 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/17 14:01:33 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,4 @@ void	cmd_add_back(t_cmd **lst, t_cmd *new)
 		new->prev = *lst;
 		(*lst)->next = new;
 	}
-}
-
-t_cmd	*cmdlast(t_cmd *lst)
-{
-	if (lst == NULL)
-		return (lst);
-	if (lst->next != NULL)
-		return (cmdlast(lst->next));
-	else
-		return (lst);
 }

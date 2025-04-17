@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_redirection.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 15:56:06 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/10 11:37:05 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/17 14:01:49 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,14 +82,4 @@ void	redir_add_back(t_redir **lst, t_redir *new)
 		new->prev = *lst;
 		(*lst)->next = new;
 	}
-}
-
-t_redir	*redirlast(t_redir *lst)
-{
-	if (lst == NULL)
-		return (lst);
-	if (lst->next != NULL)
-		return (redirlast(lst->next));
-	else
-		return (lst);
 }

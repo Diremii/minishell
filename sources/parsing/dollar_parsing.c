@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_dollar.c                                     :+:      :+:    :+:   */
+/*   dollar_parsing.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 18:20:39 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/15 18:22:01 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/17 13:27:36 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static char	*cut_space(char *str)
 		return (NULL);
 	size = size_of_list(lst);
 	new_str = ft_join(lst, " ", size);
-	free_all(lst);
+	free_tab(lst);
 	free(str);
 	return (new_str);
 }

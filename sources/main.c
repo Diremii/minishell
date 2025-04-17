@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:15:05 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/17 12:47:54 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/17 14:06:23 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	g_signal_pid;
 
-char	**envp_dup(char **envp)
+static char	**envp_dup(char **envp)
 {
 	int		i;
 	int		j;
@@ -32,7 +32,7 @@ char	**envp_dup(char **envp)
 			new_envp[j] = ft_strdup(envp[i]);
 			if (!new_envp[j])
 			{
-				free_all(new_envp);
+				free_tab(new_envp);
 				return (NULL);
 			}
 			j++;
@@ -43,6 +43,29 @@ char	**envp_dup(char **envp)
 	return (new_envp);
 }
 
+static int	init_program(t_data **data, t_history *history, char **envp)
+{
+	*data = get_data(history);
+	if (!*data)
+		return (0);
+	(*data)->envp = envp_dup(envp);
+	if (!(*data)->envp)
+		return (0);
+	(*data)->exit_status = 0;
+	setup_signals();
+	return (1);
+}
+
+static int	handle_input(t_data *data, char **input)
+{
+	*input = readline("minishell$ ");
+	if (!*input)
+		return (0);
+	data->tokens = init_token(*input, data);
+	add_to_history(&data->history, *input);
+	return (1);
+}
+
 int	main(int ac, char **av, char **envp)
 {
 	t_data		*data;
@@ -51,35 +74,20 @@ int	main(int ac, char **av, char **envp)
 
 	(void)ac;
 	(void)av;
-	
-	
+
 	init_history(&history);
-	data = get_data(&history);
-	if (!data)
+	if (!init_program(&data, &history, envp))
 		return (1);
-	data->envp = envp_dup(envp);
-	if (!data->envp)
-		return (1);
-	data->exit_status = 0;
-	setup_signals();
 	while (1)
 	{
 		g_signal_pid = 0;
-		input = readline("minishell$ ");
-		if (!input)
-		{
-			printf("exit\n");
+		if (!handle_input(data, &input))
 			break ;
-		}
-		data->tokens = init_token(input, data);
-		add_to_history(&data->history, input);
 		if (!data->tokens || init_parsing(input, data->tokens, data))
 			continue ;
 		get_command(data->tokens, data);
 		ft_pipe(data);
 		clear_all(data, input);
 	}
-	free_all(data->envp);
-	clear_history_data(data);
-	free(data);
+	free_all(data);
 }

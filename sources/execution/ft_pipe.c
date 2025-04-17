@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 13:28:42 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/17 12:33:55 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/17 14:06:43 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,8 @@ static int	exec_pipe(t_cmd **cmd, t_data *data)
 		return (1);
 	if (data->last_pid == 0)
 	{
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
 		child_process(cmd, data, p_fd);
-		free_all(data->envp);
+		free_tab(data->envp);
 	}
 	else
 		parent_process(cmd, p_fd);
@@ -81,13 +79,12 @@ static int	last_pipe(t_cmd **cmd, t_data *data)
 		return (1);
 	if (data->last_pid == 0)
 	{
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
 		if (redir_in(cmd))
 			exit(1);
 		if (redir_out(cmd))
 			exit(1);
 		ft_execve((*cmd), data, NULL);
+		free_tab(data->envp);
 	}
 	else
 	{

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 18:02:41 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/11 13:17:20 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/17 13:28:26 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	free_all(char **list)
+void	free_tab(char **list)
 {
 	int	i;
 
@@ -22,4 +22,11 @@ void	free_all(char **list)
 	while (list[i])
 		free(list[i++]);
 	free(list);
+}
+
+void	free_all(t_data *data)
+{
+	free_tab(data->envp);
+	clear_history_data(data);
+	free(data);
 }

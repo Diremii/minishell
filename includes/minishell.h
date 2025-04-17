@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:10:48 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/17 12:31:17 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/17 14:00:46 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,7 @@ char	*get_flag(char *input, size_t *i);
 
 /* COMMAND */
 t_redir	*new_redir(char *content, t_token_type type);
-t_redir	*redirlast(t_redir *lst);
 t_cmd	*new_cmd(char **args);
-t_cmd	*cmdlast(t_cmd *lst);
 void	redir_add_back(t_redir **lst, t_redir *new);
 void	cmd_add_back(t_cmd **lst, t_cmd *new);
 int		get_command(t_token *tokens, t_data *data);
@@ -77,7 +75,6 @@ void	close_fd(int fd[2]);
 void	close_all(t_redir **redir);
 void	wait_all_pid(t_data *data);
 void	wait_pid(t_data *data);
-int		skip_built_ins(t_data *data);
 int		ft_exec(t_data *data);
 int		single_cmd(t_data *data);
 int		ft_pipe(t_data *data);
@@ -88,7 +85,6 @@ int		redir_in(t_cmd **cmd);
 /* PARSING */
 int		is_empty_string(char *str);
 int		init_parsing(char *str, t_token *tokens, t_data *data);
-int		check_syntax_error(t_token *tokens, t_data *data);
 
 /* UTILS */
 t_data	*get_data(t_history *history);
@@ -100,11 +96,12 @@ char	**expand_alloc(char **list, size_t old_size, size_t new_size);
 int		ft_strccmp(char *s1, char *s2, char c);
 
 /* FREE */
-void	free_all(char **list);
+void	free_tab(char **list);
 void	cmd_clear(t_cmd **lst);
 void	redir_clear(t_redir **lst);
 void	clear_tokens(t_token **tokens);
 void	clear_history_data(t_data *data);
 void	clear_all(t_data *data, char *input);
+void	free_all(t_data *data);
 
 #endif

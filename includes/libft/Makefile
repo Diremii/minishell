@@ -6,7 +6,7 @@
 #    By: humontas <humontas@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/09 11:52:19 by ttremel           #+#    #+#              #
-#    Updated: 2025/04/11 12:44:32 by humontas         ###   ########.fr        #
+#    Updated: 2025/04/17 13:33:30 by humontas         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,6 +70,7 @@ SRCS		=	ft_atoi.c						\
 				ft_lstnew.c						\
 				ft_lstsize.c					\
 				ft_random.c						\
+				ft_strccmp.c					\
 				$(PRINTF)/ft_args.c				\
 				$(PRINTF)/ft_printf.c			\
 				$(PRINTF)/ft_num_count.c		\

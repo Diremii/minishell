@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   typing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 17:18:29 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/10 11:38:34 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/17 13:27:36 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	add_cmd(t_cmd **cmd, t_data *data)
 		(*cmd)->cmd = path_of((*cmd)->flags[0], data->envp);
 		if (!(*cmd)->cmd)
 		{
-			free_all((*cmd)->flags);
+			free_tab((*cmd)->flags);
 			redir_clear(&(*cmd)->redir_in);
 			redir_clear(&(*cmd)->redir_out);
 			return (1);

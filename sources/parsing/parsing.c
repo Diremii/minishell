@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 15:21:16 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/15 09:41:27 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/17 13:58:18 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static int	parenthesis_checker(char *str, t_data *data)
 	return (0);
 }
 
-int	check_syntax_error(t_token *tokens, t_data *data)
+static int	check_syntax_error(t_token *tokens, t_data *data)
 {
 	t_token	*curr;
 
