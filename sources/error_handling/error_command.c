@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 11:55:39 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/17 16:50:32 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/17 19:01:41 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,18 @@ static int	check_is_dir(char *path)
 {
 	struct stat	buf;
 
+	buf.st_mode = 0;
 	stat(path, &buf);
 	if (S_ISDIR(buf.st_mode))
 	{
 		error_msg(ERR_IS_DIR, path);
 		return (1);
 	}
+	if (ft_strrchr(path, '/') && ft_strrchr(path, '/')[1] == '\0')
+	{
+		error_msg(ERR_NO_FILE, path);
+		return (1);
+	}	
 	return (0);
 }
 
@@ -32,6 +38,13 @@ static int	access_to_cmd(t_cmd *cmd)
 		|| ft_strcmp(cmd->flags[0], "exit") == 0
 		|| ft_strcmp(cmd->flags[0], "unset") == 0)
 		return (0);
+	if (cmd->flags[0][0] == '\0')
+	{
+		error_msg(ERR_UNKNOWN, cmd->flags[0]);
+		return (1);
+	}
+	if (check_is_dir(cmd->flags[0]))
+		return (1);
 	if (access(cmd->cmd, F_OK) == -1)
 	{
 		error_msg(ERR_UNKNOWN, cmd->flags[0]);
@@ -42,8 +55,6 @@ static int	access_to_cmd(t_cmd *cmd)
 		error_msg(ERR_ACCESS, cmd->flags[0]);
 		return (1);
 	}
-	if (check_is_dir(cmd->cmd))
-		return (1);
 	return (0);
 }
 
