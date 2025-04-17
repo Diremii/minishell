@@ -6,7 +6,7 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 13:58:29 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/17 13:56:43 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/17 14:53:58 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,14 @@ int	single_cmd(t_data *data)
 {
 	if (skip_built_ins(data))
 		return (0);
+	g_signal_pid = 1;
 	data->last_pid = fork();
 	if (data->last_pid < 0)
 		return (1);
 	if (data->last_pid == 0)
 	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		if (redir_in(&data->cmd))
 			exit(1);
 		if (redir_out(&data->cmd))
@@ -102,6 +105,7 @@ int	single_cmd(t_data *data)
 		if (data->cmd->redir_out)
 			close_all(&data->cmd->redir_out);
 		wait_pid(data);
+		g_signal_pid = 0;
 	}
 	return (0);
 }

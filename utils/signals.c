@@ -6,17 +6,17 @@
 /*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 11:17:07 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/16 17:09:47 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/17 14:51:00 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	handle_signal(int sig)
+static void	handle_signal(int sig)
 {
 	if (sig == SIGINT && g_signal_pid == 0)
 	{
-		write(STDOUT_FILENO, "\n", 1);
+		printf("\n");
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
