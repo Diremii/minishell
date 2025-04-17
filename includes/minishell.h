@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:10:48 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/16 17:05:32 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/17 12:31:17 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # include "error.h"
 # include "struct.h"
 
-extern pid_t	g_signal_pid;
+extern int	g_signal_pid;
 
 /* HISTORY */
 void	init_history(t_history *history);
@@ -75,15 +75,15 @@ void	ft_pwd(void);
 void	ft_execve(t_cmd *cmd, t_data *data, int p_fd[2]);
 void	close_fd(int fd[2]);
 void	close_all(t_redir **redir);
+void	wait_all_pid(t_data *data);
+void	wait_pid(t_data *data);
 int		skip_built_ins(t_data *data);
 int		ft_exec(t_data *data);
 int		single_cmd(t_data *data);
 int		ft_pipe(t_data *data);
 int		here_doc(char *lim);
-int		wait_all_pid(void);
 int		redir_out(t_cmd **cmd);
 int		redir_in(t_cmd **cmd);
-int		wait_pid(void);
 
 /* PARSING */
 int		is_empty_string(char *str);
@@ -91,6 +91,7 @@ int		init_parsing(char *str, t_token *tokens, t_data *data);
 int		check_syntax_error(t_token *tokens, t_data *data);
 
 /* UTILS */
+t_data	*get_data(t_history *history);
 size_t	size_of_list(char **list);
 size_t	cmdsize(t_cmd *cmds);
 void	exit_error(char *str, int exit_code);

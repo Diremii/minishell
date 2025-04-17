@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 13:58:29 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/16 17:51:04 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/17 12:35:21 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,10 @@ int	single_cmd(t_data *data)
 {
 	if (skip_built_ins(data))
 		return (0);
-	g_signal_pid = fork();
-	if (g_signal_pid < 0)
+	data->last_pid = fork();
+	if (data->last_pid < 0)
 		return (1);
-	if (g_signal_pid == 0)
+	if (data->last_pid == 0)
 	{
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
@@ -104,7 +104,7 @@ int	single_cmd(t_data *data)
 			close_all(&data->cmd->redir_in);
 		if (data->cmd->redir_out)
 			close_all(&data->cmd->redir_out);
-		data->exit_status = wait_pid();
+		wait_pid(data);
 	}
 	return (0);
 }

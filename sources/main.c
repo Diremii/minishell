@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:15:05 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/16 15:42:14 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/17 12:47:54 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-pid_t	g_signal_pid;
+int	g_signal_pid;
 
 char	**envp_dup(char **envp)
 {
@@ -45,34 +45,41 @@ char	**envp_dup(char **envp)
 
 int	main(int ac, char **av, char **envp)
 {
-	t_data		data;
+	t_data		*data;
+	t_history	history;
 	char		*input;
 
 	(void)ac;
 	(void)av;
-	data.envp = envp_dup(envp);
-	if (!data.envp)
+	
+	
+	init_history(&history);
+	data = get_data(&history);
+	if (!data)
 		return (1);
-	data.exit_status = 0;
+	data->envp = envp_dup(envp);
+	if (!data->envp)
+		return (1);
+	data->exit_status = 0;
 	setup_signals();
-	init_history(&data.history);
 	while (1)
 	{
+		g_signal_pid = 0;
 		input = readline("minishell$ ");
 		if (!input)
 		{
 			printf("exit\n");
 			break ;
 		}
-		data.tokens = init_token(input, &data);
-		add_to_history(&data.history, input);
-		if (!data.tokens || init_parsing(input, data.tokens, &data))
+		data->tokens = init_token(input, data);
+		add_to_history(&data->history, input);
+		if (!data->tokens || init_parsing(input, data->tokens, data))
 			continue ;
-		get_command(data.tokens, &data);
-		g_signal_pid = 0;
-		ft_pipe(&data);
-		clear_all(&data, input);
+		get_command(data->tokens, data);
+		ft_pipe(data);
+		clear_all(data, input);
 	}
-	free_all(data.envp);
-	clear_history_data(&data);
+	free_all(data->envp);
+	clear_history_data(data);
+	free(data);
 }

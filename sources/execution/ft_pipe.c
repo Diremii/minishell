@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 13:28:42 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/16 18:00:56 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/17 12:33:55 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ static int	exec_pipe(t_cmd **cmd, t_data *data)
 		perror("pipe");
 		return (1);
 	}
-	g_signal_pid = fork();
-	if (g_signal_pid < 0)
+	data->last_pid = fork();
+	if (data->last_pid < 0)
 		return (1);
-	if (g_signal_pid == 0)
+	if (data->last_pid == 0)
 	{
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
@@ -76,10 +76,10 @@ static int	last_pipe(t_cmd **cmd, t_data *data)
 	if (data->cmd->cmd && (ft_strcmp(data->cmd->flags[0], "cd\0") == 0
 			|| ft_strcmp(data->cmd->flags[0], "export\0") == 0))
 		return (ft_execve(data->cmd, data, NULL), 0);
-	g_signal_pid = fork();
-	if (g_signal_pid < 0)
+	data->last_pid = fork();
+	if (data->last_pid < 0)
 		return (1);
-	if (g_signal_pid == 0)
+	if (data->last_pid == 0)
 	{
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
@@ -119,7 +119,7 @@ int	ft_pipe(t_data *data)
 		cmd = cmd->next;
 	}
 	last_pipe(&cmd, data);
-	data->exit_status = wait_all_pid();
+	wait_all_pid(data);
 	dup2(STDOUT_FILENO, 0);
 	dup2(STDIN_FILENO, 1);
 	return (0);

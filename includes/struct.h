@@ -6,7 +6,7 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 11:52:05 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/10 11:53:22 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/17 12:21:01 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct s_data
 	int			exit_status;
 	char		**envp;
 	char		**paths;
+	pid_t		last_pid;
 	t_token		*tokens;
 	t_cmd		*cmd;
 	t_history	history;

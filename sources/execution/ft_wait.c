@@ -6,43 +6,35 @@
 /*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 14:45:26 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/16 17:57:06 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/17 12:44:40 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	wait_all_pid(void)
+void	wait_all_pid(t_data *data)
 {
 	pid_t	pid;
-	int		exit_status;
 
-	exit_status = wait_pid();
+	wait_pid(data);
 	pid = 0;
 	while (pid >= 0)
 		pid = wait(NULL);
-	return (exit_status);
 }
 
-int	wait_pid(void)
+void	wait_pid(t_data *data)
 {
 	int		status;
-	int		exit_status;
 
 	status = 0;
-	exit_status = 0;
-	if (g_signal_pid == -1)
-		return (0);
-	waitpid(g_signal_pid, &status, 0);
-	if (WIFEXITED(status))
-		exit_status = WEXITSTATUS(status);
-	else if (WIFSIGNALED(status))
+	if (data->last_pid == -1)
 	{
-		if (status == SIGQUIT)
-			printf("Quit\n");
-		else if (status == SIGINT)
-			printf("\n");
-		exit_status = WTERMSIG(status) + 128;
+		data->exit_status = 0;
+		return ;
 	}
-	return (exit_status);
+	waitpid(data->last_pid, &status, 0);
+	if (WIFEXITED(status))
+		data->exit_status = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		data->exit_status = WTERMSIG(status) + 126;
 }
