@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_wait.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 14:45:26 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/17 12:44:40 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/17 14:57:40 by humontas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,11 @@ void	wait_all_pid(t_data *data)
 
 void	wait_pid(t_data *data)
 {
-	int		status;
+	int	status;
+	int	sig;
 
 	status = 0;
+	sig = 0;
 	if (data->last_pid == -1)
 	{
 		data->exit_status = 0;
@@ -36,5 +38,12 @@ void	wait_pid(t_data *data)
 	if (WIFEXITED(status))
 		data->exit_status = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
-		data->exit_status = WTERMSIG(status) + 126;
+	{
+		sig = WTERMSIG(status);
+		if (sig == SIGINT)
+			printf("\n");
+		else if (sig == SIGQUIT)
+			printf("Quit\n");
+		data->exit_status = 128 + sig;
+	}
 }

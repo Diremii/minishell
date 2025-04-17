@@ -21,7 +21,7 @@ MY_SOURCES+=sources/command_handling/create_command.c \
 
 MY_SOURCES+=sources/execution/close.c \
 			sources/execution/ft_exec.c \
-			sources/execution/ft_pipe.c \
+			sources/execution/multi_cmd.c \
 			sources/execution/ft_wait.c \
 			sources/execution/open_fd.c \
 			sources/execution/redirect.c \
