@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pipe.c                                          :+:      :+:    :+:   */
+/*   multi_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 13:28:42 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/17 15:03:35 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/17 15:08:35 by ttremel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ static void	child_process(t_cmd **cmd, t_data *data, int p_fd[2])
 	clear_history_data(data);
 	ft_execve((*cmd), data, p_fd);
 	cmd_clear(&data->cmd);
+	free_tab(data->envp);
+	exit(0);
 }
 
 static void	parent_process(t_cmd **cmd, int p_fd[2])
@@ -47,7 +49,7 @@ static void	parent_process(t_cmd **cmd, int p_fd[2])
 		close_all(&(*cmd)->redir_in);
 }
 
-static int	exec_pipe(t_cmd **cmd, t_data *data)
+static int	do_pipe(t_cmd **cmd, t_data *data)
 {
 	int		p_fd[2];
 
@@ -60,10 +62,7 @@ static int	exec_pipe(t_cmd **cmd, t_data *data)
 	if (data->last_pid < 0)
 		return (1);
 	if (data->last_pid == 0)
-	{
 		child_process(cmd, data, p_fd);
-		free_tab(data->envp);
-	}
 	else
 		parent_process(cmd, p_fd);
 	return (0);
@@ -74,30 +73,14 @@ static int	last_pipe(t_cmd **cmd, t_data *data)
 	if (data->cmd->cmd && (ft_strcmp(data->cmd->flags[0], "cd\0") == 0
 			|| ft_strcmp(data->cmd->flags[0], "export\0") == 0))
 		return (ft_execve(data->cmd, data, NULL), 0);
-	data->last_pid = fork();
-	if (data->last_pid < 0)
-		return (1);
-	if (data->last_pid == 0)
-	{
-		if (redir_in(cmd))
-			exit(1);
-		if (redir_out(cmd))
-			exit(1);
-		ft_execve((*cmd), data, NULL);
-		free_tab(data->envp);
-	}
-	else
-	{
-		if ((*cmd)->redir_out)
-			close_all(&(*cmd)->redir_out);
-		if ((*cmd)->redir_in)
-			close_all(&(*cmd)->redir_in);
-		close(0);
-	}
+	execute_fork(*cmd, data);
+	close(0);
+	wait_all_pid(data);
+	g_signal_pid = 0;
 	return (0);
 }
 
-int	ft_pipe(t_data *data)
+int	multi_cmd(t_data *data)
 {
 	t_cmd	*cmd;
 
@@ -112,11 +95,10 @@ int	ft_pipe(t_data *data)
 	}
 	while (cmd->next)
 	{
-		exec_pipe(&cmd, data);
+		do_pipe(&cmd, data);
 		cmd = cmd->next;
 	}
 	last_pipe(&cmd, data);
-	wait_all_pid(data);
 	dup2(STDOUT_FILENO, 0);
 	dup2(STDIN_FILENO, 1);
 	return (0);
