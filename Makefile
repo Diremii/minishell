@@ -23,7 +23,7 @@ MY_SOURCES+=sources/execution/close.c \
 			sources/execution/ft_exec.c \
 			sources/execution/multi_cmd.c \
 			sources/execution/ft_wait.c \
-			sources/execution/open_fd.c \
+			sources/execution/here_doc.c \
 			sources/execution/redirect.c \
 
 MY_SOURCES+=sources/built-ins/ft_cd.c \

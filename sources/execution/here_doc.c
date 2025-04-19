@@ -1,16 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   open_fd.c                                          :+:      :+:    :+:   */
+/*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: sovietguy <sovietguy@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:42:06 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/04 16:07:57 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/19 19:32:18 by sovietguy        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static char	*sanitize_line(char *line)
+{
+	t_data	*data;
+	char	*new_line;
+
+	if (!line)
+		return (NULL);
+	data = get_data(NULL);
+	new_line = replace_dollar_in_str(line, data);
+	free(line);
+	if (!new_line)
+		return (NULL);
+	return (new_line);
+}
 
 static int	create_here_doc(int fd, char *lim)
 {
@@ -23,6 +38,7 @@ static int	create_here_doc(int fd, char *lim)
 	{
 		ft_printf_fd("here_doc> ", 2);
 		line = get_next_line(0);
+		line = sanitize_line(line);
 		if (!line)
 		{
 			close(fd);

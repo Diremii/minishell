@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: sovietguy <sovietguy@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 11:55:00 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/17 16:47:29 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/19 19:32:49 by sovietguy        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ t_token	*init_token(char *input, t_data *data)
 
 	i = 0;
 	tokens = NULL;
-	input = replace_dolar_in_str(input, data);
+	input = replace_dollar_in_str(input, data);
 	while (input && input[i])
 	{
 		while (input[i] == ' ' || input[i] == '\t')

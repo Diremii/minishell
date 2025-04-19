@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar_parsing.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: humontas <humontas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sovietguy <sovietguy@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 18:20:39 by ttremel           #+#    #+#             */
-/*   Updated: 2025/04/17 17:02:12 by humontas         ###   ########.fr       */
+/*   Updated: 2025/04/19 19:15:50 by sovietguy        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static char	*cut_name(char *str)
 	i = 0;
 	if (str[0] == '?')
 		return (ft_strdup("?"));
-	while (str[i] && str[i] != ' ' && str[i] != '$'
+	while (str[i] && !(str[i] >= '\a' && str[i] <= '\v') && str[i] != '$'
 		&& str[i] != '\"' && str[i] != ']')
 		i++;
 	name = ft_strndup(str, i);

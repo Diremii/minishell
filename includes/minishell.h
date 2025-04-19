@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttremel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: sovietguy <sovietguy@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:10:48 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/17 15:58:22 by ttremel          ###   ########.fr       */
+/*   Updated: 2025/04/19 19:32:33 by sovietguy        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_list	*handle_dollars(char *str, size_t *i, char quote, t_data *data);
 void	handle_command(char *input, size_t *i, t_token **tokens);
 void	handle_operator(char *input, size_t *i, t_token **tokens);
 void	redirection_file_handling(char *input, t_token *tokens, size_t *i);
-char	*replace_dolar_in_str(char *str, t_data *data);
+char	*replace_dollar_in_str(char *str, t_data *data);
 char	*path_of(char *cmd, char **env);
 char	*cut_quote(char *str);
 char	*get_flag(char *input, size_t *i);
