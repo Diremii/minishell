@@ -6,7 +6,7 @@
 /*   By: sovietguy <sovietguy@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 11:15:05 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/19 18:48:21 by sovietguy        ###   ########.fr       */
+/*   Updated: 2025/04/19 19:42:03 by sovietguy        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,6 @@ int	main(int ac, char **av, char **envp)
 	init_history(&history);
 	if (!init_program(&data, &history, envp))
 		return (1);
-	//printf("ptr data : %s\n", data->envp[0]);
-	//printf("ptr data : %s\n", get_data(NULL)->envp[0]);
 	while (1)
 	{
 		g_signal_pid = 0;
