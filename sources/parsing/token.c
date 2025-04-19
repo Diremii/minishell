@@ -6,7 +6,7 @@
 /*   By: sovietguy <sovietguy@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 11:55:00 by humontas          #+#    #+#             */
-/*   Updated: 2025/04/19 19:32:49 by sovietguy        ###   ########.fr       */
+/*   Updated: 2025/04/19 19:36:27 by sovietguy        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ t_token	*add_token_to_list(t_token **head, char *str, t_token_type type)
 	if (!str)
 		return (NULL);
 	new_token = create_token(str, type);
-	//printf("%s\n", str);
 	if (!new_token)
 		return (NULL);
 	if (!*head)
